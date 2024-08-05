@@ -1,4 +1,53 @@
+/* globals.css */
 body {
     margin: 0;
     padding: 0;
-}
+    font-size: 20px;
+  }
+  
+  .exo-2-100 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 100;
+  }
+  
+  .exo-2-200 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 200;
+  }
+  
+  /* Repeat for other weights */
+  .exo-2-300 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 300;
+  }
+  
+  .exo-2-400 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 400;
+  }
+  
+  .exo-2-500 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 500;
+  }
+  
+  .exo-2-600 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 600;
+  }
+  
+  .exo-2-700 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 700;
+  }
+  
+  .exo-2-800 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 800;
+  }
+  
+  .exo-2-900 {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 900;
+  }
+  

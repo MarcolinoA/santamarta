@@ -3,15 +3,16 @@ import Image from "next/image";
 import logo from "../../public/logo.png";
 import { useState } from "react";
 import "../Styles/Navbar.css";
-import ArrowDown from "../Icons/ArrowDown"
-import ArrowUp from "../Icons/ArrowUp"
+import ArrowDown from "../Icons/ArrowDown";
+import ArrowUp from "../Icons/ArrowUp";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="navbar">
       <div className="logo-container">
-        <Image src={logo} alt="" width={150} />
+        <Image src={logo} alt="Logo" width={150} />
       </div>
       <div className="links-container">
         <ul className="horizontal-menu">
@@ -30,22 +31,24 @@ const Navbar = () => {
           <li className="item">
             <div className="dropdown">
               <summary className="summary link" onClick={() => setOpen(!open)}>
-                Altro
-                { open ? <ArrowUp /> : <ArrowDown /> }
+                <div className="other-container">
+                  Altro      
+                </div>
+                <div className={`arrow ${open ? 'arrow-rotate-up' : 'arrow-rotate-down'}`}>
+                  {open ? <ArrowUp className="arrow" /> : <ArrowDown className="arrow" />}
+                </div>
               </summary>
-              {open && (
-                <ul className="dropdown-list">
-                  <li className="dd-item">
-                    <a className="dd-link">Area Riservata</a>
-                  </li>
-                  <li className="dd-item">
-                    <a className="dd-link">Contatti</a>
-                  </li>
-                  <li className="dd-item">
-                    <a className="dd-link">Modulistica</a>
-                  </li>
-                </ul>
-              )}
+              <ul className={`dropdown-list ${open ? 'show' : ''}`}>
+                <li className="dd-item">
+                  <a className="dd-link">Area Riservata</a>
+                </li>
+                <li className="dd-item">
+                  <a className="dd-link">Contatti</a>
+                </li>
+                <li className="dd-item">
+                  <a className="dd-link">Modulistica</a>
+                </li>
+              </ul>
             </div>
           </li>
         </ul>
