@@ -1,0 +1,18 @@
+.homePageContainer {
+  position: relative;
+  width: 80%;
+  height: 80vh; /* Adjust the height as needed */
+  margin: 40px auto; /* Center the container */
+  background-color: #fff; /* Background color */
+  border-radius: 20px; /* Rounded borders */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Elevated effect */
+  overflow: hidden; /* Ensure content does not overflow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.homePageContainer img {
+  border-radius: 20px; /* Ensures the image has rounded borders as well */
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import Navbar from "@/components/Navbar";
+import HomePage from "@/components/HomePage";
+import styles from "../styles/HomePage.module.css";
 
 const Home = () => {
   return (
@@ -17,10 +18,8 @@ const Home = () => {
         />
       </Head>
 
-      <main>
-        <Navbar />
-        <h1>Ciao</h1>
-        <p>Forza roma</p>
+      <main className={styles.main}>
+        <HomePage />
       </main>
 
       <footer>

@@ -1,0 +1,47 @@
+.navbar {
+    background-color: transparent;
+    color: #000;
+    display: block;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.logoContainer {
+    margin-left: 30px;
+    justify-content: center;
+}
+
+.linksContainer {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.horizontalMenu {
+    background-color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 0;
+    border-radius: 30px;
+    height: 90px;
+}
+
+.link {
+    padding: 15px;
+}
+
+.link:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
