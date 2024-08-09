@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import HomePage from "@/components/HomePage";
 import styles from "../styles/HomePage.module.css";
+import LaboratoriPage from "@/components/LaboratoriPage";
 
 const Home = () => {
   return (
@@ -21,6 +22,10 @@ const Home = () => {
       <main className={styles.main}>
         <HomePage />
       </main>
+
+      <div>
+        <LaboratoriPage />
+      </div>
 
       <footer>
         <p>footer</p>
