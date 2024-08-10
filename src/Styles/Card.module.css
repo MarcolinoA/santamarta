@@ -1,0 +1,44 @@
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.CardContainer {
+  position: relative;
+  overflow: hidden; 
+  border-radius: 15px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  background-color: #fff; 
+  opacity: 0; /* Start hidden */
+  transform: translateX(-100%); /* Start off-screen */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.CardContainer.visible {
+  opacity: 1;
+  transform: translateX(0); /* Move to the original position */
+}
+
+.cardName {
+  position: absolute;
+  bottom: 10px;
+  left: 10px; 
+  color: #000;
+  z-index: 10;
+  font-size: 1.2rem; 
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px;
+  border-radius: 30px;
+  width: 100px;
+  height: 17px;
+  text-align: center; /* Center text horizontally */
+  display: flex; /* Use flexbox to center content vertically */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+}
