@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import HomePage from "@/components/HomePage";
+import HomePage from "../components/HomePage";
 import styles from "../styles/HomePage.module.css";
-import LaboratoriPage from "@/components/LaboratoriPage";
+import CardTable from "../components/CardTable";
 
 const Home = () => {
   return (
@@ -24,7 +24,9 @@ const Home = () => {
       </main>
 
       <div>
-        <LaboratoriPage />
+        <CardTable cardTitle="Laboratori"/>
+
+        <CardTable cardTitle="Servizi"/>
       </div>
 
       <footer>
