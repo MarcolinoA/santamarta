@@ -1,5 +1,5 @@
-import User from "../models/scheduleUsers.js"
-import express from 'express'
+import User from "../models/scheduleUsers.js";
+import express from 'express';
 
 const router = express.Router();
 
@@ -10,20 +10,24 @@ router.post("/", async (req, res) => {
   try {
     const { name, surname, username, password, email } = req.body;
 
+    // Validate input
+    if (!name || !surname || !username || !password || !email) {
+      return res.status(400).send({ message: "All fields are required" });
+    }
+
     const newUser = new User({
       name,
       surname,
-			username,
-			password,
-			email
+      username,
+      password,
+      email
     });
 
     const savedUser = await newUser.save();
-
     res.status(201).json(savedUser);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
+    console.log("Error creating user:", error.message);
+    res.status(500).send({ message: "Failed to create user", error: error.message });
   }
 });
 
@@ -36,8 +40,8 @@ router.get("/", async (req, res) => {
       data: users,
     });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
+    console.log("Error fetching users:", error.message);
+    res.status(500).send({ message: "Failed to fetch users", error: error.message });
   }
 });
 
@@ -51,48 +55,48 @@ router.get("/:id", async (req, res) => {
     }
     res.status(200).json(user);
   } catch (error) {
-    console.error('Error while retrieving image details:', error);
-    res.status(500).send({ message: 'Error while retrieving user details' });
+    console.error("Error retrieving user:", error.message);
+    res.status(500).send({ message: "Failed to retrieve user", error: error.message });
   }
 });
 
-// Update image data
-router.put("/:id", async (request, response) => {
+// Update user data
+router.put("/:id", async (req, res) => {
   try {
-    if (
-      !request.body.name ||
-      !request.body.surname ||
-			!request.body.username ||
-			!request.body.password ||
-			!request.body.email 
-    ) {
-      return response.status(400).send({
-        message: "Send all required fields: name, surname, username, password, email",
+    const { id } = req.params;
+    const { name, surname, username, password, email } = req.body;
+
+    // Validate input
+    if (!name || !surname || !username || !password || !email) {
+      return res.status(400).send({
+        message: "All fields are required: name, surname, username, password, email",
       });
     }
-    const { id } = request.params;
-    const result = await User.findByIdAndUpdate(id, request.body);
+
+    const result = await User.findByIdAndUpdate(id, req.body, { new: true });
     if (!result) {
-      return response.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
-    return response.status(200).send({ message: "User updated successfully" });
+    return res.status(200).send({ message: "User updated successfully", user: result });
   } catch (error) {
-    console.log(error.message);
-    response.status(500).send({ message: error.message });
+    console.log("Error updating user:", error.message);
+    res.status(500).send({ message: "Failed to update user", error: error.message });
   }
 });
 
 // Delete a user
-router.delete("/:id/", async (request, response) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const { id } = request.params;
+    const { id } = req.params;
     const result = await User.findByIdAndDelete(id);
     if (!result) {
-      return response.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
-
-    return response.status(201).json({ message: "User deleted successfully" });
-  } catch (error) {}
+    return res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.log("Error deleting user:", error.message);
+    res.status(500).send({ message: "Failed to delete user", error: error.message });
+  }
 });
 
 export default router;

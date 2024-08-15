@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../public/logo.png";
 import styles from '../styles/Navbar.module.css';
 
@@ -18,7 +19,7 @@ const Navbar = () => {
           <li><a className={styles.link}>Area riservata</a></li>
           <li><a className={styles.link}>Contatti</a></li>
           <li><a className={styles.link}>Modulistica</a></li>
-          <li><a className={styles.link}>Accedi</a></li>
+          <li><Link href="/login" className={styles.link}>Accedi</Link></li>
         </ul>
       </div>
     </div>
