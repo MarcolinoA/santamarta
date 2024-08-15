@@ -11,6 +11,6 @@ const homeImageSchema = new mongoose.Schema({
   }
 });
 
-const HomeImage = mongoose.model('ScheduleImageSchema', homeImageSchema);
+const HomeImage = mongoose.model('HomeImage', homeImageSchema);
 
 export default HomeImage;

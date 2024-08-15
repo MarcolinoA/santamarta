@@ -18,6 +18,7 @@ const Navbar = () => {
           <li><a className={styles.link}>Area riservata</a></li>
           <li><a className={styles.link}>Contatti</a></li>
           <li><a className={styles.link}>Modulistica</a></li>
+          <li><a className={styles.link}>Accedi</a></li>
         </ul>
       </div>
     </div>
