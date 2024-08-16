@@ -1,8 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import test from '../../public/test.jpg';
-import styles from '../styles/HomePage.module.css';
+import test from '../../../public/test.jpg';
+import styles from '../../styles/HomePage.module.css';
 import Navbar from './Navbar';
+import Header from './Header';
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
         quality={100}
         priority={true}
       />
+      <Header isLoggedIn={true} username='test'/>
     </div>
   );
 }

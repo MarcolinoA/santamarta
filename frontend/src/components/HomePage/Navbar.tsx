@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../public/logo.png";
-import styles from '../styles/Navbar.module.css';
+import logo from "../../../public/logo.png"
+import styles from '../..//styles/Navbar.module.css';
 
 const Navbar = () => {
   return (

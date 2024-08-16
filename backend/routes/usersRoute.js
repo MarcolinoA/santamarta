@@ -8,11 +8,19 @@ const router = express.Router();
 // Add a new user
 router.post("/", async (req, res) => {
   try {
-    const { name, surname, username, password, email } = req.body;
+    const { name, surname, username, password, email, priority } = req.body;
 
-    // Validate input
-    if (!name || !surname || !username || !password || !email) {
-      return res.status(400).send({ message: "All fields are required" });
+    // Check if the email or username already exists
+    const existingUser = await User.findOne({
+      $or: [{ email: email }, { username: username }]
+    });
+
+    if (existingUser) {
+      if (existingUser.email === email) {
+        return res.status(400).send({ message: 'Email already in use' });
+      } else if (existingUser.username === username) {
+        return res.status(400).send({ message: 'Username already in use' });
+      }
     }
 
     const newUser = new User({
@@ -20,14 +28,16 @@ router.post("/", async (req, res) => {
       surname,
       username,
       password,
-      email
+      email,
+      priority
     });
 
     const savedUser = await newUser.save();
+
     res.status(201).json(savedUser);
   } catch (error) {
-    console.log("Error creating user:", error.message);
-    res.status(500).send({ message: "Failed to create user", error: error.message });
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
   }
 });
 
@@ -64,7 +74,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, surname, username, password, email } = req.body;
+    const { name, surname, username, password, email, priority } = req.body;
 
     // Validate input
     if (!name || !surname || !username || !password || !email) {

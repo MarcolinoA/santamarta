@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import HomePage from "../components/HomePage";
+import HomePage from "../components/HomePage/HomePage";
 import styles from "../styles/HomePage.module.css";
 import CardTable from "../components/CardTable";
 

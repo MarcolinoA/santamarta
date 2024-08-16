@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css"
+import style from "../../Styles/Login.module.css";
+import { useRouter } from 'next/navigation';
 
 interface FormData {
   name: string;
@@ -21,6 +22,9 @@ const SignUp: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [username, setUsername] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,12 +46,15 @@ const SignUp: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create user');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create user');
       }
 
       const result = await response.json();
       console.log('User created successfully:', result);
-      // Optionally, redirect or show success message
+      setIsLoggedIn(true);
+      setUsername(formData.username);
+      router.push('/')
     } catch (error: any) {
       setError(error.message);
       console.error('Error creating user:', error);
@@ -95,7 +102,7 @@ const SignUp: React.FC = () => {
             className={style.formInput}
           />
         </div>
-        <div  className={style.formGroup}>
+        <div className={style.formGroup}>
           <label htmlFor="password" className={style.formLabel}>Password</label>
           <input
             type="password"
