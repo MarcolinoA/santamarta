@@ -19,7 +19,7 @@ const Navbar = () => {
           <li><a className={styles.link}>Area riservata</a></li>
           <li><a className={styles.link}>Contatti</a></li>
           <li><a className={styles.link}>Modulistica</a></li>
-          <li><Link href="/login" className={styles.link}>Accedi</Link></li>
+          <li><Link href="/signup" className={styles.link}>Accedi</Link></li>
         </ul>
       </div>
     </div>

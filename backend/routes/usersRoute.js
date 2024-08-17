@@ -1,5 +1,6 @@
-import User from "../models/scheduleUsers.js";
 import express from 'express';
+import User from '../models/scheduleUsers.js';
+import { resolveMx } from 'dns/promises'; // Usa il modulo `dns/promises` per `resolveMx`
 
 const router = express.Router();
 
@@ -10,17 +11,52 @@ router.post("/", async (req, res) => {
   try {
     const { name, surname, username, password, email, priority } = req.body;
 
-    // Check if the email or username already exists
+    // Controllo del formato dell'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).send({ message: "Il formato dell'email non è valido" });
+    }
+
+    // Controllo della lunghezza dell'email
+    if (email.length > 254) {
+      return res.status(400).send({ message: "L'email è troppo lunga" });
+    }
+
+    // Controllo della presenza del dominio
+    const domain = email.split('@')[1];
+    if (!domain) {
+      return res.status(400).send({ message: "Il dominio dell'email non è valido" });
+    }
+
+    // Controllo della presenza di DNS MX
+    try {
+      const addresses = await resolveMx(domain);
+      if (addresses.length === 0) {
+        return res.status(400).send({ message: "Il dominio dell'email non è registrato" });
+      }
+    } catch (err) {
+      return res.status(400).send({ message: 'Error checking MX records' });
+    }
+
+    // Controllo dell'unicità dell'email e dell'username
     const existingUser = await User.findOne({
       $or: [{ email: email }, { username: username }]
     });
 
     if (existingUser) {
       if (existingUser.email === email) {
-        return res.status(400).send({ message: 'Email already in use' });
+        return res.status(400).send({ message: "L'email è già in uso" });
       } else if (existingUser.username === username) {
-        return res.status(400).send({ message: 'Username already in use' });
+        return res.status(400).send({ message: "Lo username è già in uso" });
       }
+    }
+
+    // Controllo della password
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).send({
+        message: "La password deve essere lunga almeno 8 caratteri, deve contenere almeno una maiuscola, un carattere speciale e un numero"
+      });
     }
 
     const newUser = new User({
@@ -33,10 +69,9 @@ router.post("/", async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-
     res.status(201).json(savedUser);
   } catch (error) {
-    console.log(error.message);
+    console.log("Error creating user:", error.message);
     res.status(500).send({ message: error.message });
   }
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import styles from "../../styles/HomePage.module.css";
-import SignUp from "../../components/LoginPage/SignUp";
+import SignIn from "../../components/SignInPage/SignIn";
 
 const Login = () => {
   return (
@@ -19,7 +18,7 @@ const Login = () => {
       </Head>
 
       <main>
-        <SignUp />
+        <SignIn />
       </main>
 
       <footer>

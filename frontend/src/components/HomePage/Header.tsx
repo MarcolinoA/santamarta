@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa'; // Make sure you have react-icons installed
+import { FaUserCircle } from 'react-icons/fa';
 import style from "../../Styles/Header.module.css";
 
 interface HeaderProps {
@@ -26,8 +26,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, username }) => {
           <div className={style.dropdownMenu}>
             <div className={style.dropdownArrow}></div>
             <div className={style.dropdownContent}>
-              {/* You can add more options here */}
-              <p>{isLoggedIn ? `Welcome, ${username}` : 'Guest'}</p>
+              <p>{isLoggedIn ? `Benvenuto, ${username}` : 'Ospite'}</p>
               <button>Profile</button>
               <button>Logout</button>
             </div>

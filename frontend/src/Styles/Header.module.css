@@ -23,9 +23,9 @@
 
 .dropdownMenu {
   position: absolute;
-  bottom: 60px; /* Adjust based on icon size and padding */
-  right: 0;
-  background-color: #fff;
+  bottom: 70px; 
+  right: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 10px;
@@ -35,23 +35,19 @@
 
 .dropdownArrow {
   position: absolute;
-  bottom: -10px; /* Adjust to position at the top of the dropdown */
-  right: 10px; /* Center the arrow based on dropdown width */
+  bottom: -10px;
+  right: 10px; 
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #fff; /* Arrow pointing upwards */
-}
-
-.dropdownContent {
-  margin-top: 10px;
+  border-top: 10px solid #fff; 
 }
 
 .dropdownContent p {
   margin: 0;
   padding: 5px 0;
-  font-size: 0.9rem;
+  font-size: 18px;
 }
 
 .dropdownContent button {
@@ -62,4 +58,5 @@
   background-color: #f0f0f0;
   border-radius: 3px;
   cursor: pointer;
+  font-size: 18px;
 }
