@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
+import stylePage from "../../Styles/HomePage.module.css"
 import style from "../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -72,7 +72,7 @@ const SignUp: React.FC = () => {
         throw new Error(errorData.message || "Errore nella creazione dell'utente");
       }
 
-      router.push(`/?username=${encodeURIComponent(formData.username)}`);
+      router.push(`/signin`);
     } catch (error: any) {
       setError(error.message);
       console.error("Errore nella creazione dell'utente", error);

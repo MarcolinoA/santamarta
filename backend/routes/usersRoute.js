@@ -1,8 +1,16 @@
 import express from 'express';
 import User from '../models/scheduleUsers.js';
-import { resolveMx } from 'dns/promises'; // Usa il modulo `dns/promises` per `resolveMx`
+import { resolveMx } from 'dns/promises';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
+
+const COOKIE_NAME = 'authToken';
+const COOKIE_OPTIONS = {
+  //httpOnly: true,
+  secure: process.env.SECRET_KEY === 'production',
+  maxAge: 24 * 60 * 60 * 1000,
+};
 
 /* USERS ROUTES */
 
@@ -58,12 +66,16 @@ router.post("/", async (req, res) => {
         message: "La password deve essere lunga almeno 8 caratteri, deve contenere almeno una maiuscola, un carattere speciale e un numero"
       });
     }
+    
+    // Crittografia della password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = new User({
       name,
       surname,
       username,
-      password,
+      password: hashedPassword,
       email,
       priority
     });
@@ -141,6 +153,42 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     console.log("Error deleting user:", error.message);
     res.status(500).send({ message: "Failed to delete user", error: error.message });
+  }
+});
+
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username });
+    if (user && await bcrypt.compare(password, user.password)) {
+      const token = 'some-generated-token'; // Genera un token JWT o simile
+      res.cookie('authToken', token, COOKIE_OPTIONS);
+      res.cookie('username', username, COOKIE_OPTIONS); // Salva lo username in un cookie
+      res.json({ message: 'Login successful', username: user.username });
+    } else {
+      res.status(401).json({ message: 'Invalid credentials' });
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'An error occurred during login' });
+  }
+});
+
+// Profilo utente
+router.get('/profile', async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).send('You need to log in');
+  }
+
+  try {
+    const user = await User.findById(req.session.userId).select('-password');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send('An error occurred while fetching the profile');
   }
 });
 

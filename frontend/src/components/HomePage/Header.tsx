@@ -1,6 +1,7 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
+import Cookies from 'js-cookie';
 import style from "../../Styles/Header.module.css";
 
 interface HeaderProps {
@@ -8,8 +9,16 @@ interface HeaderProps {
   username: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ isLoggedIn, username }) => {
+const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [username, setUsername] = useState<string>('');
+
+  useEffect(() => {
+    const savedUsername = Cookies.get('username'); // Recupera lo username dal cookie
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
 
   const handleIconClick = () => {
     setIsDropdownVisible((prev) => !prev);
@@ -26,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, username }) => {
           <div className={style.dropdownMenu}>
             <div className={style.dropdownArrow}></div>
             <div className={style.dropdownContent}>
-              <p>{isLoggedIn ? `Benvenuto, ${username}` : 'Ospite'}</p>
+              <p>{isLoggedIn ? `Ciao, ${username}` : 'Ospite'}</p>
               <button>Profile</button>
               <button>Logout</button>
             </div>

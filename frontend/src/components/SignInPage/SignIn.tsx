@@ -6,13 +6,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 interface FormData {
-  email: string;
+  username: string;
   password: string;
 }
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    email: '',
+    username: '',
     password: ''
   });
   const [error, setError] = useState<string | null>(null);
@@ -28,24 +28,29 @@ const SignIn: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+  
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        credentials: 'include', // Invia i cookie con la richiesta
       });
-
+  
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Errore durante il login');
+        const responseText = await response.text();
+        try {
+          const errorData = JSON.parse(responseText);
+          throw new Error(errorData.message || 'Errore durante il login');
+        } catch (jsonError) {
+          throw new Error('Errore durante il login: ' + responseText);
+        }
       }
-
-      const { token, username } = await response.json();
-      localStorage.setItem('authToken', token); // Salva il token in localStorage (o usa cookie/sessionStorage)
-      router.push(`/?username=${encodeURIComponent(username)}`);
+  
+      const data = await response.json();
+      router.push('/');
     } catch (error: any) {
       setError(error.message);
       console.error("Errore durante il login", error);
@@ -58,12 +63,12 @@ const SignIn: React.FC = () => {
     <div className={stylePage.homePageContainer}>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
-          <label htmlFor="email" className={style.formLabel}>Email</label>
+          <label htmlFor="username" className={style.formLabel}>Username</label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
+            type="text" // Corretto il tipo dell'input
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleChange}
             required
             className={style.formInput}
