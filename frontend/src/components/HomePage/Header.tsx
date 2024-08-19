@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import style from "../../Styles/Header.module.css";
+import Link from 'next/link';
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -35,9 +36,11 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
           <div className={style.dropdownMenu}>
             <div className={style.dropdownArrow}></div>
             <div className={style.dropdownContent}>
-              <p>{isLoggedIn ? `Ciao, ${username}` : 'Ospite'}</p>
-              <button>Profile</button>
-              <button>Logout</button>
+              <p>{isLoggedIn ? `Ciao, ${username} gestisci il tuo account` : `Ciao, ospite, gestisci il tuo account`}</p>
+              <button><Link href="/signup">Registrati</Link></button>
+              <button><Link href="/signin">Accedi</Link></button>
+              <button><Link href="/logout">Esci</Link></button>
+              <button><Link href="/signup">Elimina</Link></button>
             </div>
           </div>
         )}

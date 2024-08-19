@@ -65,7 +65,7 @@ const SignIn: React.FC = () => {
         <div className={style.formGroup}>
           <label htmlFor="username" className={style.formLabel}>Username</label>
           <input
-            type="text" // Corretto il tipo dell'input
+            type="text"
             id="username"
             name="username"
             value={formData.username}

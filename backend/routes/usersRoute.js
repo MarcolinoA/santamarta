@@ -175,6 +175,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/logout', (req, res) => {
+  try {
+    res.clearCookie('authToken', COOKIE_OPTIONS);
+    res.clearCookie('username', COOKIE_OPTIONS);
+    res.json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'An error occurred during logout' });
+  }
+});
+
 // Profilo utente
 router.get('/profile', async (req, res) => {
   if (!req.session.userId) {

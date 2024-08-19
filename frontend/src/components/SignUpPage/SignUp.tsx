@@ -47,39 +47,39 @@ const SignUp: React.FC = () => {
 
     // Validazione delle password e email
     if (formData.password !== confirmPassword) {
-      setError('Le password non corrispondono');
-      setLoading(false);
-      return;
+        setError('Le password non corrispondono');
+        setLoading(false);
+        return;
     }
 
     if (formData.email !== confirmEmail) {
-      setError('Le email non corrispondono');
-      setLoading(false);
-      return;
+        setError('Le email non corrispondono');
+        setLoading(false);
+        return;
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Errore nella creazione dell'utente");
-      }
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Errore nella creazione dell'utente");
+        }
 
-      router.push(`/signin`);
+        router.push(`/signin`);
     } catch (error: any) {
-      setError(error.message);
-      console.error("Errore nella creazione dell'utente", error);
+        setError(error.message);
+        console.error("Errore nella creazione dell'utente", error);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   return (
     <div className={stylePage.homePageContainer}>
