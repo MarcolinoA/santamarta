@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css"
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import stylePage from "../../Styles/HomePage.module.css";
 import style from "../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Script from 'next/script';
 
 interface FormData {
   name: string;
@@ -11,6 +12,16 @@ interface FormData {
   username: string;
   password: string;
   email: string;
+}
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      render: (container: string, options: { sitekey: string, callback: (token: string) => void }) => void;
+    };
+  }
 }
 
 const SignUp: React.FC = () => {
@@ -25,6 +36,8 @@ const SignUp: React.FC = () => {
   const [confirmEmail, setConfirmEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +58,6 @@ const SignUp: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    // Validazione delle password e email
     if (formData.password !== confirmPassword) {
         setError('Le password non corrispondono');
         setLoading(false);
@@ -56,6 +68,12 @@ const SignUp: React.FC = () => {
         setError('Le email non corrispondono');
         setLoading(false);
         return;
+    }
+
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA');
+      setLoading(false);
+      return;
     }
 
     try {
@@ -79,10 +97,48 @@ const SignUp: React.FC = () => {
     } finally {
         setLoading(false);
     }
-};
+  };
+
+  useEffect(() => {
+    const loadRecaptcha = () => {
+      if (window.grecaptcha) {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.render('recaptcha-container', {
+            sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+            callback: (token: string) => {
+              setCaptchaToken(token);
+            }
+          });
+        });
+      } else {
+        console.error("reCAPTCHA non è stato caricato correttamente.");
+      }
+    };
+
+    loadRecaptcha();
+  }, []);
 
   return (
     <div className={stylePage.homePageContainer}>
+      <Script
+        src="https://www.google.com/recaptcha/enterprise.js?render=explicit"
+        strategy="beforeInteractive"
+        onLoad={() => {
+          console.log("reCAPTCHA script loaded");
+          if (window.grecaptcha) {
+            window.grecaptcha.ready(() => {
+              window.grecaptcha.render('recaptcha-container', {
+                sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+                callback: (token: string) => {
+                  setCaptchaToken(token);
+                }
+              });
+            });
+          } else {
+            console.error("reCAPTCHA non è stato caricato correttamente.");
+          }
+        }}
+      />
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="name" className={style.formLabel}>Name</label>
@@ -168,7 +224,11 @@ const SignUp: React.FC = () => {
             className={style.formInput}
           />
         </div>
-        {error && <div className={style.errorMessage}>{error}</div>}
+        <div className={style.captchaContainer}>
+          <label className={style.captchaLabel}>Please verify that you're not a robot:</label>
+          <div id="recaptcha-container"></div> {/* Container per il reCAPTCHA */}
+        </div>
+        {error && <div className={style.captchaError}>{error}</div>}
         <button type="submit" className={style.formButton} disabled={loading}>
           {loading ? 'Submitting...' : 'Registrati'}
         </button>
