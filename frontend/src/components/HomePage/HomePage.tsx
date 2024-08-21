@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'; // Importa useSearchParams
 import test from '../../../public/test.jpg';
-import styles from '../../styles/HomePage.module.css';
+import styles from "../../Styles/HomePage.module.css"
 import Navbar from './Navbar';
 import Header from './Header';
 

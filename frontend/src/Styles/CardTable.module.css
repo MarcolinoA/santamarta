@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  margin: 30px;
 }
 
 .cardTitle {
@@ -14,7 +15,7 @@
 
 .cardSection {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse; /* Position the large card to the right */
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -22,7 +23,7 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Due colonne */
-  grid-template-rows: repeat(2, 1fr); /* Due righe */
-  gap: 20px; /* Spazio tra le card nella griglia */
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-template-rows: repeat(2, 1fr); /* Two rows */
+  gap: 20px; /* Space between cards in the grid */
 }
