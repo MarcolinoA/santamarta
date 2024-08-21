@@ -71,6 +71,22 @@ router.post("/", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    // Verifica del CAPTCHA
+    const captchaResponse = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify`,
+      null,
+      {
+        params: {
+          secret: process.env.RECAPTCHA_SECRET_KEY,
+          response: captchaToken
+        }
+      });
+      const { success } = captchaResponse.data;
+    
+      if (!success) {
+        return res.status(400).send({ message: "CAPTCHA verification failed" });
+      }
+
     const newUser = new User({
       name,
       surname,
@@ -141,21 +157,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete a user
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await User.findByIdAndDelete(id);
-    if (!result) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    return res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    console.log("Error deleting user:", error.message);
-    res.status(500).send({ message: "Failed to delete user", error: error.message });
-  }
-});
-
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -172,6 +173,40 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'An error occurred during login' });
+  }
+});
+
+router.post('/logout', (req, res) => {
+  try {
+    res.clearCookie('authToken', COOKIE_OPTIONS);
+    res.clearCookie('username', COOKIE_OPTIONS);
+    res.json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'An error occurred during logout' });
+  }
+});
+
+router.post('/deleteAccount', async (req, res) => {
+  try {
+    const { username } = req.cookies;
+
+    if (!username) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    const user = await User.findOneAndDelete({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.clearCookie('authToken', COOKIE_OPTIONS);
+    res.clearCookie('username', COOKIE_OPTIONS);
+    res.json({ message: 'Account deleted successfully' });
+  } catch (error) {
+    console.error('Error during account deletion:', error);
+    res.status(500).json({ message: 'An error occurred during account deletion' });
   }
 });
 

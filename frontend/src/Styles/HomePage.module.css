@@ -1,7 +1,7 @@
 .homePageContainer {
   position: relative;
   width: 80%;
-  height: 80vh; /* Adjust the height as needed */
+  height: 90vh; /* Adjust the height as needed */
   margin: 40px auto; /* Center the container */
   background-color: #fff; /* Background color */
   border-radius: 20px; /* Rounded borders */

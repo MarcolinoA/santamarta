@@ -55,3 +55,49 @@
 .formButton:not(:disabled):hover {
   background-color: #005bb5;
 }
+
+/* General Container Style */
+.captchaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* reCAPTCHA Widget */
+.gRecaptcha {
+  margin-top: 10px;
+  transform: scale(0.90); /* Riduci leggermente la dimensione del CAPTCHA se necessario */
+  transform-origin: 0 0; /* Assicura che il CAPTCHA si ridimensioni correttamente */
+}
+
+/* Label for CAPTCHA */
+.captchaLabel {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/* Error Message Styling */
+.captchaError {
+  color: #f00;
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .g-recaptcha {
+    transform: scale(0.85); /* Riduce la scala per schermi più piccoli */
+  }
+}
+
+@media (max-width: 480px) {
+  .g-recaptcha {
+    transform: scale(0.80); /* Riduce ulteriormente la scala per schermi molto piccoli */
+  }
+}

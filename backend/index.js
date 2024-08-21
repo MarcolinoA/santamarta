@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Cambia con l'URL del tuo client
+  origin: 'http://localhost:3001', // Cambia con l'URL del tuo client
   credentials: true // Permette l'invio di cookie
 }));
 app.use(express.json());
