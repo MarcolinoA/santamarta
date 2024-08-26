@@ -1,10 +1,9 @@
-"use client";
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+"use client"
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import stylePage from "../../Styles/HomePage.module.css";
 import style from "../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Script from 'next/script';
 
 interface FormData {
   name: string;
@@ -12,16 +11,6 @@ interface FormData {
   username: string;
   password: string;
   email: string;
-}
-
-declare global {
-  interface Window {
-    grecaptcha: {
-      ready: (callback: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
-      render: (container: string, options: { sitekey: string, callback: (token: string) => void }) => void;
-    };
-  }
 }
 
 const SignUp: React.FC = () => {
@@ -36,7 +25,7 @@ const SignUp: React.FC = () => {
   const [confirmEmail, setConfirmEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -54,91 +43,57 @@ const SignUp: React.FC = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    console.log("EMAIL_USER:", process.env.EMAIL_USER);
+    console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     if (formData.password !== confirmPassword) {
-        setError('Le password non corrispondono');
-        setLoading(false);
-        return;
+      setError('Le password non corrispondono');
+      setLoading(false);
+      return;
     }
 
     if (formData.email !== confirmEmail) {
-        setError('Le email non corrispondono');
-        setLoading(false);
-        return;
-    }
-
-    if (!captchaToken) {
-      setError('Please complete the CAPTCHA');
+      setError('Le email non corrispondono');
       setLoading(false);
       return;
     }
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || "Errore nella creazione dell'utente");
+      if (!response.ok) {
+        const responseText = await response.text();
+        console.error('Risposta del server:', responseText);
+        try {
+          const errorData = JSON.parse(responseText);
+          throw new Error(errorData.message || 'Errore nella creazione dell\'utente');
+        } catch (jsonError) {
+          throw new Error('Errore nella creazione dell\'utente: ' + responseText);
         }
+      }
 
-        router.push(`/signin`);
+      const data = await response.json();
+      console.log('Dati utente:', data);
+      setMessage('Verifica la tua email per completare la registrazione.');
+
+      router.push(`/`);
     } catch (error: any) {
-        setError(error.message);
-        console.error("Errore nella creazione dell'utente", error);
+      setError(error.message);
+      console.error("Errore nella creazione dell'utente", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    const loadRecaptcha = () => {
-      if (window.grecaptcha) {
-        window.grecaptcha.ready(() => {
-          window.grecaptcha.render('recaptcha-container', {
-            sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-            callback: (token: string) => {
-              setCaptchaToken(token);
-            }
-          });
-        });
-      } else {
-        console.error("reCAPTCHA non è stato caricato correttamente.");
-      }
-    };
-
-    loadRecaptcha();
-  }, []);
-
   return (
     <div className={stylePage.homePageContainer}>
-      <Script
-        src="https://www.google.com/recaptcha/enterprise.js?render=explicit"
-        strategy="beforeInteractive"
-        onLoad={() => {
-          console.log("reCAPTCHA script loaded");
-          if (window.grecaptcha) {
-            window.grecaptcha.ready(() => {
-              window.grecaptcha.render('recaptcha-container', {
-                sitekey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-                callback: (token: string) => {
-                  setCaptchaToken(token);
-                }
-              });
-            });
-          } else {
-            console.error("reCAPTCHA non è stato caricato correttamente.");
-          }
-        }}
-      />
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="name" className={style.formLabel}>Name</label>
@@ -224,11 +179,8 @@ const SignUp: React.FC = () => {
             className={style.formInput}
           />
         </div>
-        <div className={style.captchaContainer}>
-          <label className={style.captchaLabel}>Please verify that you're not a robot:</label>
-          <div id="recaptcha-container"></div> {/* Container per il reCAPTCHA */}
-        </div>
-        {error && <div className={style.captchaError}>{error}</div>}
+        {message && <p>{message}</p>}
+        {error && <p className={style.errorMessage}>{error}</p>}
         <button type="submit" className={style.formButton} disabled={loading}>
           {loading ? 'Submitting...' : 'Registrati'}
         </button>

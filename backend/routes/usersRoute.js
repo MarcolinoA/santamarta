@@ -2,6 +2,8 @@ import express from 'express';
 import User from '../models/scheduleUsers.js';
 import { resolveMx } from 'dns/promises';
 import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 const router = express.Router();
 
@@ -15,92 +17,108 @@ const COOKIE_OPTIONS = {
 /* USERS ROUTES */
 
 // Add a new user
-router.post("/", async (req, res) => {
-  try {
-    const { name, surname, username, password, email, priority } = req.body;
+router.post('/register', async (req, res) => {
+  const { name, surname, username, password, email } = req.body;
 
-    // Controllo del formato dell'email
+  try {
+    // 1. Validazione Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).send({ message: "Il formato dell'email non è valido" });
     }
 
-    // Controllo della lunghezza dell'email
     if (email.length > 254) {
       return res.status(400).send({ message: "L'email è troppo lunga" });
     }
 
-    // Controllo della presenza del dominio
     const domain = email.split('@')[1];
     if (!domain) {
       return res.status(400).send({ message: "Il dominio dell'email non è valido" });
     }
 
-    // Controllo della presenza di DNS MX
-    try {
-      const addresses = await resolveMx(domain);
-      if (addresses.length === 0) {
-        return res.status(400).send({ message: "Il dominio dell'email non è registrato" });
-      }
-    } catch (err) {
-      return res.status(400).send({ message: 'Error checking MX records' });
+    const addresses = await resolveMx(domain);
+    if (addresses.length === 0) {
+      return res.status(400).send({ message: `Il dominio dell'email (${domain}) non ha record MX validi.` });
     }
 
-    // Controllo dell'unicità dell'email e dell'username
-    const existingUser = await User.findOne({
-      $or: [{ email: email }, { username: username }]
-    });
-
+    // 2. Verifica unicità username e email
+    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
-      if (existingUser.email === email) {
-        return res.status(400).send({ message: "L'email è già in uso" });
-      } else if (existingUser.username === username) {
-        return res.status(400).send({ message: "Lo username è già in uso" });
-      }
+      return res.status(400).send({ message: "Email o username già in uso" });
     }
 
-    // Controllo della password
+    // 3. Validazione della Password
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.status(400).send({
-        message: "La password deve essere lunga almeno 8 caratteri, deve contenere almeno una maiuscola, un carattere speciale e un numero"
+        message: "La password deve essere lunga almeno 8 caratteri e contenere almeno una maiuscola, un carattere speciale e un numero"
       });
     }
-    
-    // Crittografia della password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Verifica del CAPTCHA
-    const captchaResponse = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify`,
-      null,
-      {
-        params: {
-          secret: process.env.RECAPTCHA_SECRET_KEY,
-          response: captchaToken
-        }
-      });
-      const { success } = captchaResponse.data;
-    
-      if (!success) {
-        return res.status(400).send({ message: "CAPTCHA verification failed" });
-      }
+    // 4. Crittografia della Password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({
-      name,
-      surname,
-      username,
-      password: hashedPassword,
-      email,
-      priority
+    // 5. Generazione del Token di Verifica
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+
+    // Non salvare l'utente qui
+
+    // 7. Invia l'email di verifica
+    const transporter = nodemailer.createTransport({
+      service:'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
     });
 
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&name=${name}&surname=${surname}&username=${username}&password=${hashedPassword}&email=${email}`;
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Verifica la tua email',
+      text: `Clicca sul link per verificare la tua email: ${verificationUrl}`,
+      html: `<b>Clicca sul link per verificare la tua email:</b> <a href="${verificationUrl}">${verificationUrl}</a>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: 'Controlla la tua email per verificare il tuo indirizzo.' });
   } catch (error) {
-    console.log("Error creating user:", error.message);
-    res.status(500).send({ message: error.message });
+    console.error("Errore durante la registrazione:", error);
+    res.status(500).send({ message: "Errore durante la registrazione", error: error.message });
+  }
+});
+
+router.get('/verify-email', async (req, res) => {
+  const { token, name, surname, username, password, email } = req.query;
+
+  try {
+    // Supponiamo che tu abbia salvato il token nel database quando l'utente si è registrato.
+    const user = await User.findOne({ email, verificationToken: token });
+    
+    if (!user) {
+      return res.status(400).json({ message: 'Token non valido o utente non trovato' });
+    }
+
+    // Verifica se l'utente è già verificato
+    if (user.isVerified) {
+      return res.status(400).json({ message: 'Email già verificata' });
+    }
+
+    // Salva l'utente come verificato
+    user.isVerified = true;
+    user.verificationToken = null; // Elimina il token dopo l'uso
+    await user.save();
+
+    res.status(200).json({ message: 'Email verificata, registrazione completata.' });
+  } catch (error) {
+    console.error("Errore durante la verifica dell'email:", error);
+    res.status(500).send({ message: "Errore durante la verifica dell'email", error: error.message });
   }
 });
 
@@ -154,6 +172,22 @@ router.put("/:id", async (req, res) => {
   } catch (error) {
     console.log("Error updating user:", error.message);
     res.status(500).send({ message: "Failed to update user", error: error.message });
+  }
+});
+
+// Route per eliminare un utente tramite ID
+router.delete('/:id', async (req, res) => {
+  try {
+      const userId = req.params.id;
+      const deletedUser = await User.findByIdAndDelete(userId);
+
+      if (!deletedUser) {
+          return res.status(404).json({ message: 'Utente non trovato' });
+      }
+
+      res.status(200).json({ message: 'Utente eliminato con successo' });
+  } catch (error) {
+      res.status(500).json({ message: 'Errore nel server', error: error.message });
   }
 });
 
