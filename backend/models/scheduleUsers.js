@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-	surname: {
+  surname: {
     type: String,
     required: true,
   },
@@ -13,20 +13,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-	password: {
+  password: {
     type: String,
     required: true,
   },
-	email: {
+  email: {
     type: String,
     required: true,
   },
-  priority: {
+  isVerified: {
     type: Boolean,
-    required: false,
-    default: false
+    default: false,
   },
-
+  verificationToken: {
+    type: String,
+  },
 });
 
 const User = mongoose.model('User', userSchema);

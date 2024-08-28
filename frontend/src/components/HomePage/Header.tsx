@@ -37,10 +37,10 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
             <div className={style.dropdownArrow}></div>
             <div className={style.dropdownContent}>
               <p>{isLoggedIn ? `Ciao, ${username} gestisci il tuo account` : `Ciao, ospite, gestisci il tuo account`}</p>
-              <button><Link className={style.links} href="/signup">Registrati</Link></button>
-              <button><Link className={style.links} href="/signin">Accedi</Link></button>
-              <button><Link className={style.links} href="/logout">Esci</Link></button>
-              <button><Link className={style.links} href="/deleteAccount">Elimina</Link></button>
+              <button><Link className={style.links} href="/account/signup">Registrati</Link></button>
+              <button><Link className={style.links} href="/account/signin">Accedi</Link></button>
+              <button><Link className={style.links} href="/account/logout">Esci</Link></button>
+              <button><Link className={style.links} href="/account/deleteAccount">Elimina</Link></button>
             </div>
           </div>
         )}

@@ -1,16 +1,18 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage.module.css";
+import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import logo from "../../../../public/logo.png"
+import Image from 'next/image';
 
 interface FormData {
   username: string;
   password: string;
 }
 
-const SignIn: React.FC = () => {
+const SignInPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     username: '',
     password: ''
@@ -61,6 +63,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div className={stylePage.homePageContainer}>
+      <Image src={logo} alt="Logo" width={150} />
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="username" className={style.formLabel}>Username</label>
@@ -91,11 +94,11 @@ const SignIn: React.FC = () => {
           {loading ? 'Submitting...' : 'Accedi'}
         </button>
         <div>
-          <Link href="/signup" className={style.errorMessage}>Non hai un account? Registrati!</Link>
+          <Link href="/account/signup" className={style.errorMessage}>Non hai un account? Registrati!</Link>
         </div>
       </form>
     </div>
   );
 };
 
-export default SignIn;
+export default SignInPage;

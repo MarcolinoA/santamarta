@@ -31,9 +31,9 @@ const Navbar = () => {
           <div className={styles.dropdownMenu}>
             <div className={styles.dropdownArrow}></div>
             <div className={styles.dropdownContent}>
-              <button><Link className={styles.links} href="/signup">Assenze</Link></button>
-              <button><Link className={styles.links} href="/signin">Iscrizione</Link></button>
-              <button><Link className={styles.links} href="/logout">Doposcuola</Link></button>
+              <button><Link className={styles.links} href="/account/signup">Assenze</Link></button>
+              <button><Link className={styles.links} href="/account/signin">Iscrizione</Link></button>
+              <button><Link className={styles.links} href="/account/logout">Doposcuola</Link></button>
             </div>
           </div>
         )}

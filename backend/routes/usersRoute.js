@@ -61,7 +61,18 @@ router.post('/register', async (req, res) => {
     // 5. Generazione del Token di Verifica
     const verificationToken = crypto.randomBytes(32).toString('hex');
 
-    // Non salvare l'utente qui
+    // 6. Salva l'utente nel database con il token di verifica
+    const newUser = new User({
+      name,
+      surname,
+      username,
+      password: hashedPassword,
+      email,
+      verificationToken,
+      isVerified: false,
+    });
+    
+    await newUser.save();
 
     // 7. Invia l'email di verifica
     const transporter = nodemailer.createTransport({
@@ -81,10 +92,35 @@ router.post('/register', async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: 'Verifica la tua email',
-      text: `Clicca sul link per verificare la tua email: ${verificationUrl}`,
-      html: `<b>Clicca sul link per verificare la tua email:</b> <a href="${verificationUrl}">${verificationUrl}</a>`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <img src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEBkaCmV1LW5vcnRoLTEiSDBGAiEAqrH62Hk1V7et598%2BV37oF1S%2F8IXLbKvCly6Ddlp0IhACIQDlgR65h%2FpdkqiubId57qu07qI6Dl%2Fo7KQWlusm2%2Fu1DiqVAggyEAAaDDcyNDc3MjA3NTIwOCIM6XTOTZ7eOEBd%2Far6KvIBd9OVa4hshvrezUxrcucA4EHPk4087B0FvmbSsou1vf8M0tTQBMYl95I26LaKV0zmB7brL4cxr%2B7L%2FDe1TgqzK3BHSXOcFj4D2hEvbwhDT%2B9%2FoqD49Q%2BbEoYNZdfX0wP8e4OXPTiESr45Iw85M6WeTicQ21Mo0A2rmL1W0NLcx7y4t%2BZgJKAQMAFbeNQeX%2Bj%2Bs6oLtGw%2BKwIsVZfoSqMBbw22X%2BRIXGQQ3Avu2Pydo6DlYS4wSueQHsbAqC5r0Vx83RfUa4JF0yzdGGV658kb%2FBq8Ebc7kTwEBA4RDrzw7mlHtx%2FfV4BgUARD4XVuIUEVe5Qw%2B6y9tgY63gHiO44NVJDT82FiMYmemiBXxp%2FcoMCAv8aILnXjC6xrqx%2BccFuhXlCb4ot4VEEq029tmi15aLo8UAU04rx3UkpT%2FozskRdERmig20NxxxiyauzQ0CzZUYdBFwnm8kmyZ1IxI4diE3L1W05aSWlOV0%2BAUxaMw%2BjZikf1j1kMCn8gRQA%2BgpZSHQKeMXUjC4SH%2BUfQdBtzfx0YJLpjbG59mscrVcAqxn9akbC8193JTkbittCvxTIx%2BuAKIZrcK6ac56LJitdkX6tvmwT8lA0CNuPZK%2Fqba5CILzHGaEZEXq4%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240828T172046Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA2RP6IG3EBN6UTZIV%2F20240828%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Signature=02d81653192c256ff4bd3dd63bf5126e23eeec2e5416d71f13c6ff823f12f7af" alt="Logo" style="width: 150px; height: auto;" />
+          </div>
+          <div style="text-align: center;">
+            <h1 style="color: #333;">Benvenuto in Santa Marta!</h1>
+            <p style="font-size: 16px; color: #555;">
+              Grazie per esserti registrato! Per completare la tua registrazione, ti preghiamo di verificare il tuo indirizzo email cliccando sul pulsante qui sotto.
+            </p>
+            <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; margin: 20px 0; font-size: 16px; color: #fff; background-color: #007bff; border-radius: 5px; text-decoration: none;">
+              Verifica la tua email
+            </a>
+            <p style="font-size: 14px; color: #777;">
+              Se il pulsante non funziona, copia e incolla il seguente link nel tuo browser:
+            </p>
+            <a href="${verificationUrl}" style="font-size: 14px; color: #007bff;">${verificationUrl}</a>
+          </div>
+          <div style="margin-top: 40px; text-align: center; color: #999; font-size: 12px;">
+            <p>
+              Se non hai richiesto questa email, puoi ignorarla.
+            </p>
+            <p>
+              © ${new Date().getFullYear()} Nome della tua azienda. Tutti i diritti riservati.
+            </p>
+          </div>
+        </div>
+      `,
     };
-
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({ message: 'Controlla la tua email per verificare il tuo indirizzo.' });
@@ -95,30 +131,28 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/verify-email', async (req, res) => {
-  const { token, name, surname, username, password, email } = req.query;
+  const { token, email } = req.query;
 
   try {
-    // Supponiamo che tu abbia salvato il token nel database quando l'utente si è registrato.
     const user = await User.findOne({ email, verificationToken: token });
-    
+
     if (!user) {
       return res.status(400).json({ message: 'Token non valido o utente non trovato' });
     }
 
-    // Verifica se l'utente è già verificato
     if (user.isVerified) {
       return res.status(400).json({ message: 'Email già verificata' });
     }
 
-    // Salva l'utente come verificato
     user.isVerified = true;
-    user.verificationToken = null; // Elimina il token dopo l'uso
+    user.verificationToken = null;
     await user.save();
 
-    res.status(200).json({ message: 'Email verificata, registrazione completata.' });
+    // Reindirizza l'utente a una pagina di successo
+    return res.redirect(`${process.env.FRONTEND_URL}/verificationSuccess`);
   } catch (error) {
     console.error("Errore durante la verifica dell'email:", error);
-    res.status(500).send({ message: "Errore durante la verifica dell'email", error: error.message });
+    return res.status(500).send({ message: "Errore durante la verifica dell'email", error: error.message });
   }
 });
 

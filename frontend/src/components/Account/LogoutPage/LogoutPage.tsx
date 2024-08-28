@@ -1,10 +1,12 @@
 "use client";
 import React, { useState, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage.module.css";
+import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import logo from "../../../../public/logo.png"
 
-const Logout: React.FC = () => {
+const LogoutPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -27,7 +29,7 @@ const Logout: React.FC = () => {
 			}
 	
 			console.log("Logout successful.");
-			router.push('/'); // Reindirizza alla home page o alla pagina desiderata
+			router.push('/'); 
 		} catch (error: any) {
 			setError(error.message);
 			console.error("Errore durante il logout", error);
@@ -38,6 +40,7 @@ const Logout: React.FC = () => {
 	
   return (
     <div className={stylePage.homePageContainer}>
+      <Image src={logo} alt="Logo" width={150} />
       <form onSubmit={handleLogout} className={style.form}>
         <h2 className={style.formTitle}>Logout</h2>
         {error && <div className={style.errorMessage}>{error}</div>}
@@ -49,4 +52,4 @@ const Logout: React.FC = () => {
   );
 };
 
-export default Logout;
+export default LogoutPage;

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage.module.css";
+import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -13,7 +13,7 @@ interface FormData {
   email: string;
 }
 
-const SignUp: React.FC = () => {
+const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     surname: '',
@@ -43,8 +43,6 @@ const SignUp: React.FC = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    console.log("EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -83,7 +81,7 @@ const SignUp: React.FC = () => {
       console.log('Dati utente:', data);
       setMessage('Verifica la tua email per completare la registrazione.');
 
-      router.push(`/`);
+      router.push(`/account/accountVerification`);
     } catch (error: any) {
       setError(error.message);
       console.error("Errore nella creazione dell'utente", error);
@@ -184,10 +182,10 @@ const SignUp: React.FC = () => {
         <button type="submit" className={style.formButton} disabled={loading}>
           {loading ? 'Submitting...' : 'Registrati'}
         </button>
-        <div><Link href="/signin" className={style.errorMessage}>Hai già un account? Accedi!</Link></div>
+        <div><Link href="/account/signin" className={style.errorMessage}>Hai già un account? Accedi!</Link></div>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default SignUpPage;
