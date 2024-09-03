@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import VerificationSuccessPage from "../../components/Account/verificationSuccessPage/VerificationSuccessPage";
+import ResetPasswordPage from "../../../components/Account/ResetPasswordPage/ResetPasswordPage";
 
-const Verification_Success = () => {
+const Reset_Password = () => {
   return (
     <div>
       <Head>
@@ -18,10 +18,10 @@ const Verification_Success = () => {
       </Head>
 
       <main>
-        <VerificationSuccessPage />
+        <ResetPasswordPage />
       </main>
     </div>
   );
 };
 
-export default Verification_Success;
+export default Reset_Password;

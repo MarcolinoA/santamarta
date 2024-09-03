@@ -139,6 +139,7 @@ const SignUpPage: React.FC = () => {
             onChange={handleChange}
             required
             className={style.formInput}
+            autoComplete="new-password"
           />
         </div>
         <div className={style.formGroup}>
@@ -151,6 +152,7 @@ const SignUpPage: React.FC = () => {
             onChange={handleConfirmPasswordChange}
             required
             className={style.formInput}
+            autoComplete="new-password"
           />
         </div>
         <div className={style.formGroup}>

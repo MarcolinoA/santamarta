@@ -12,6 +12,7 @@ dotenv.config(); // Assicurati che questo sia eseguito per primo
 import { PORT, mongoDBURL } from './config.js';
 import homeImageRoute from './routes/imageRoute.js';
 import usersRoute from './routes/usersRoute.js';
+import OTPRoutes from "./domains/otp/routes.js"
 
 // Il resto del tuo codice rimane invariato
 const app = express();
@@ -45,6 +46,7 @@ app.use(session({
 // Route configuration
 app.use('/homeImage', homeImageRoute);
 app.use('/users', usersRoute);
+app.use('/otp', OTPRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {

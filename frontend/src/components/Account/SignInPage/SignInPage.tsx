@@ -64,6 +64,7 @@ const SignInPage: React.FC = () => {
   return (
     <div className={stylePage.homePageContainer}>
       <Image src={logo} alt="Logo" width={150} />
+      <h2 className={stylePage.title}>Effettua l'accesso</h2>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="username" className={style.formLabel}>Username</label>
@@ -87,13 +88,16 @@ const SignInPage: React.FC = () => {
             onChange={handleChange}
             required
             className={style.formInput}
+            autoComplete="new-password"
           />
         </div>
         {error && <div className={style.errorMessage}>{error}</div>}
         <button type="submit" className={style.formButton} disabled={loading}>
           {loading ? 'Submitting...' : 'Accedi'}
         </button>
-        <div>
+        <div className={style.errorLinks}>
+          <Link href="/account/recoverPassword" className={style.errorMessage}>Hai dimenticato la password? Recuperala!</Link>
+          <Link href="/account/" className={style.errorMessage}>Hai dimenticato lo username? Recuperalo!</Link>
           <Link href="/account/signup" className={style.errorMessage}>Non hai un account? Registrati!</Link>
         </div>
       </form>

@@ -41,13 +41,31 @@ router.post('/register', async (req, res) => {
       return res.status(400).send({ message: `Il dominio dell'email (${domain}) non ha record MX validi.` });
     }
 
-    // 2. Verifica unicità username e email
+    // 2. Validazione Name
+    const nameRegex = /^[a-zA-ZàèìòùÀÈÌÒÙäöüÄÖÜß\s-]{2,50}$/;
+    if (!nameRegex.test(name)) {
+      return res.status(400).send({ message: "Il nome deve essere lungo tra 2 e 50 caratteri e può contenere solo lettere, spazi, trattini e caratteri accentati" });
+    }
+    
+    // 3. Validazione Surname
+    const surnameRegex = /^[a-zA-ZàèìòùÀÈÌÒÙäöüÄÖÜß\s-]{2,50}$/;
+    if (!surnameRegex.test(surname)) {
+      return res.status(400).send({ message: "Il cognome deve essere lungo tra 2 e 50 caratteri e può contenere solo lettere, spazi, trattini e caratteri accentati" });
+    }
+    
+    // 4. Validazione Username
+    const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
+    if (!usernameRegex.test(username)) {
+      return res.status(400).send({ message: "Lo username deve essere lungo tra 3 e 30 caratteri e può contenere solo lettere, numeri e underscore" });
+    }
+
+    // 5. Verifica unicità username e email
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       return res.status(400).send({ message: "Email o username già in uso" });
     }
 
-    // 3. Validazione della Password
+    // 6. Validazione della Password
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.status(400).send({
@@ -55,13 +73,13 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    // 4. Crittografia della Password
+    // 7. Crittografia della Password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 5. Generazione del Token di Verifica
+    // 8. Generazione del Token di Verifica
     const verificationToken = crypto.randomBytes(32).toString('hex');
 
-    // 6. Salva l'utente nel database con il token di verifica
+    // 9. Salva l'utente nel database con il token di verifica
     const newUser = new User({
       name,
       surname,
@@ -74,7 +92,7 @@ router.post('/register', async (req, res) => {
     
     await newUser.save();
 
-    // 7. Invia l'email di verifica
+    // 10. Invia l'email di verifica
     const transporter = nodemailer.createTransport({
       service:'gmail',
       host: 'smtp.gmail.com',
@@ -86,7 +104,7 @@ router.post('/register', async (req, res) => {
       },
     });
 
-    const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&name=${name}&surname=${surname}&username=${username}&password=${hashedPassword}&email=${email}`;
+    const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&name=${name}&surname=${surname}&username=${username}&password=${hashedPassword}&email=${email}&type=registration`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -131,7 +149,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/verify-email', async (req, res) => {
-  const { token, email } = req.query;
+  const { token, email, type } = req.query;
 
   try {
     const user = await User.findOne({ email, verificationToken: token });
@@ -148,13 +166,101 @@ router.get('/verify-email', async (req, res) => {
     user.verificationToken = null;
     await user.save();
 
-    // Reindirizza l'utente a una pagina di successo
-    return res.redirect(`${process.env.FRONTEND_URL}/verificationSuccess`);
+    // Reindirizzamenti diversi a seconda del tipo di verifica
+    if (type === 'registration') {
+      return res.redirect(`${process.env.FRONTEND_URL}/account/registrationSuccess`);
+    } else if (type === 'reset-password') {
+      return res.redirect(`${process.env.FRONTEND_URL}/account/forgotPasswords`);
+    } else {
+      // Caso generico o per gestire errori
+      return res.redirect(`${process.env.FRONTEND_URL}/verificationError`);
+    }
   } catch (error) {
     console.error("Errore durante la verifica dell'email:", error);
     return res.status(500).send({ message: "Errore durante la verifica dell'email", error: error.message });
   }
 });
+
+/* INIZIO ROUTES PER MODIFICARE LA PASSWORD /
+
+// Route per richiedere il reset della password
+router.post('/richiedi-reset-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const utente = await User.findOne({ email });
+
+    if (!utente) {
+      return res.status(404).json({ messaggio: "Nessun utente associato a questa email" });
+    }
+    if (!utente.isVerified) {
+      return res.status(400).json({ messaggio: "L'email non è stata ancora verificata. Controlla la tua casella di posta" });
+    }
+
+    // Generazione del token di verifica
+    const tokenVerifica = crypto.randomBytes(32).toString('hex');
+
+    // Salva il token e la scadenza nel documento dell'utente
+    utente.tokenResetPassword = tokenVerifica;
+    utente.scadenzaResetPassword = Date.now() + 3600000; // 1 ora di validità
+    await utente.save();
+
+    // Invia l'email di verifica
+    const urlVerifica = `${process.env.FRONTEND_URL}/account/reimposta-password?token=${tokenVerifica}&email=${email}`;
+
+    const opzioniEmail = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Reimposta la tua password',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+          <h1 style="text-align: center;">Reimposta la tua password</h1>
+          <p>Clicca sul link sottostante per reimpostare la tua password:</p>
+          <a href="${urlVerifica}" style="display: inline-block; padding: 10px 20px; color: #fff; background-color: #007bff; text-decoration: none; border-radius: 5px;">Reimposta Password</a>
+          <p>Se non hai richiesto questa email, ignora questo messaggio.</p>
+        </div>
+      `,
+    };
+
+    await sendEmail(opzioniEmail);
+
+    res.status(200).json({ messaggio: 'Email inviata con successo. Controlla la tua casella di posta.' });
+
+  } catch (errore) {
+    console.error("Errore durante l'invio dell'email di reimpostazione password:", errore);
+    res.status(500).json({ messaggio: "Errore durante la richiesta di nuova password" });
+  }
+});
+
+// Route per reimpostare la password
+router.post('/reimposta-password', async (req, res) => {
+  const { token, email, nuovaPassword } = req.body;
+
+  try {
+    const utente = await User.findOne({
+      email,
+      tokenResetPassword: token,
+      scadenzaResetPassword: { $gt: Date.now() },
+    });
+
+    if (!utente) {
+      return res.status(400).json({ messaggio: 'Token non valido o scaduto' });
+    }
+
+    const passwordCriptata = await hashData(nuovaPassword);
+    utente.password = passwordCriptata;
+    utente.tokenResetPassword = null;
+    utente.scadenzaResetPassword = null;
+    await utente.save();
+
+    res.status(200).json({ messaggio: 'Password reimpostata con successo!' });
+
+  } catch (errore) {
+    console.error("Errore durante la reimpostazione della password:", errore);
+    res.status(500).json({ message: "Errore durante la reimpostazione della password" });
+  }
+});
+/ FINE ROUTES PER MODIFICARE LA PASSWORD */
 
 // Get all users
 router.get("/", async (req, res) => {
@@ -171,7 +277,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get a single user
-router.get("/:id", async (req, res) => {
+router.get("/find/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
@@ -186,7 +292,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update user data
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { name, surname, username, password, email, priority } = req.body;
@@ -210,7 +316,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Route per eliminare un utente tramite ID
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   try {
       const userId = req.params.id;
       const deletedUser = await User.findByIdAndDelete(userId);

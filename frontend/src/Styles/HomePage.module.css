@@ -17,3 +17,13 @@
 .homePageContainer img {
   border-radius: 20px; /* Ensures the image has rounded borders as well */
 }
+
+.title {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.description {
+  font-size: 16px;
+  margin: 0;
+}

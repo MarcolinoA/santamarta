@@ -10,7 +10,7 @@ const AccountVerificationPage: React.FC = () => {
       <form className={style.form}>
 				<Image src={logo} alt="Logo" width={150} />
         <h2 className={style.formTitle}>Controlla il tuo indirizzo di posta elettronico</h2>
-				<p className={style.desc}>Abbiamo inviato un'email di conferma all'account che hai usato per iscriverti, fai click sul link per completare registrazione!</p>
+				<p className={style.desc}>Abbiamo inviato un'email di conferma all'account che hai usato per iscriverti, segui le istruzioni scritte nell'email!</p>
       </form>
     </div>
   );

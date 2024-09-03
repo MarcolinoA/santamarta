@@ -32,8 +32,19 @@
 
 .errorMessage {
   color: #ff4d4f;
-  margin: 10px 0;
-  font-size: 14px;
+  margin: 10px 0 10px 0;
+  font-size: 16px;
+}
+
+.message {
+  color: #333;
+  margin: 10px 0 10px 0;
+  font-size: 16px;
+}
+
+.errorLinks {
+  display: flex;
+  flex-direction: column;
 }
 
 .formButton {
