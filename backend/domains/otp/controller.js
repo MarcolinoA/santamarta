@@ -2,6 +2,9 @@ import generateOTP from "../../util/generateOTP.js";
 import OTP from "./model.js";
 import { hashData, verifyHashedData } from "../../util/hashData.js";
 import sendEmail from "../../util/sendEmail.js"; // Assicurati che questa funzione esista e sia correttamente importata
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 export const verifyOTP = async ({ email, otp }) => {
 	try {
@@ -42,9 +45,13 @@ export const deleteOTP = async (email) => {
 }
 
 export const sendOTP = async ({ email, subject, message, duration = 1 }) => {
+  // Ottieni il percorso della directory corrente (in moduli ES)
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  
   try {
     if (!(email && subject && message)) {
-      throw new Error("Inserisci un email, un oggetto e un messaggio");
+      throw new Error("Inserisci un'email, un oggetto e un messaggio");
     }
 
     // Rimuove eventuali vecchi record per l'email specificata
@@ -53,13 +60,20 @@ export const sendOTP = async ({ email, subject, message, duration = 1 }) => {
     // Genera l'OTP
     const otp = generateOTP();
 
+    // Leggi il file HTML e sostituisci eventuali placeholder
+    let htmlContent = fs.readFileSync(path.join(__dirname, '../../util/emailTemplate.html'), 'utf8');
+    htmlContent = htmlContent.replace('{{OTP}}', otp);  // Sostituisci il placeholder con l'OTP generato
+    htmlContent = htmlContent.replace('{{MESSAGE}}', message);  // Sostituisci il placeholder con il messaggio
+
     // Configura l'email da inviare
     const mailOptions = {
       from: process.env.AUTH_MAIL,
       to: email,
       subject,
-      html: `<p>${message}</p><p style="color:tomato; font-size:25px;"><b>${otp}</b></p>`,
+      html: htmlContent
     };
+
+    // Invia l'email
     await sendEmail(mailOptions);
 
     // Salva l'OTP nel database
@@ -74,6 +88,7 @@ export const sendOTP = async ({ email, subject, message, duration = 1 }) => {
     const createdOTPRecord = await newOTP.save();
     return createdOTPRecord;
   } catch (error) {
+    console.error("Errore durante l'invio dell'OTP:", error);
     throw error;
   }
 };

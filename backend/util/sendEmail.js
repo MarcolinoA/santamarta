@@ -4,13 +4,13 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
   host: 'smtp-mail.outlook.com',
   port: 587,
-  secure: false, // Imposta su true se utilizzi la porta 465
+  secure: false,
 	auth: {
     user: "codingmarco@hotmail.com", 
 		pass: "hpnrayfoklmlpvli"
   },
-  logger: true,  // Abilita il logging
-  debug: true    // Abilita il debug
+  logger: true,
+  debug: true
 });
 
 // Test del trasportatore
