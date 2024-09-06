@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import logo from "../../../../public/logo.png"
 import Image from 'next/image';
+import Header from '../../utils/Header';
 
 interface FormData {
   username: string;
@@ -13,6 +14,12 @@ interface FormData {
 }
 
 const SignInPage: React.FC = () => {
+  const options = [
+    { label: 'Home', href: '/' },
+    { label: 'Registrati', href: '/account/pages/signup' },
+    { label: 'Esci', href: '/account/pages/logout' },
+  ];
+
   const [formData, setFormData] = useState<FormData>({
     username: '',
     password: ''
@@ -96,11 +103,12 @@ const SignInPage: React.FC = () => {
           {loading ? 'Submitting...' : 'Accedi'}
         </button>
         <div className={style.errorLinks}>
-          <Link href="/account/recoverPassword" className={style.errorMessage}>Hai dimenticato la password? Recuperala!</Link>
-          <Link href="/account/" className={style.errorMessage}>Hai dimenticato lo username? Recuperalo!</Link>
-          <Link href="/account/signup" className={style.errorMessage}>Non hai un account? Registrati!</Link>
+          <Link href="/account/password/recoverPassword" className={style.errorMessage}>Hai dimenticato la password? Recuperala!</Link>
+          <Link href="/account/username/recoverUsername" className={style.errorMessage}>Hai dimenticato lo username? Recuperalo!</Link>
+          <Link href="/account/pages/signup" className={style.errorMessage}>Non hai un account? Registrati!</Link>
         </div>
       </form>
+      <Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };

@@ -5,12 +5,19 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import logo from "../../../../public/logo.png"
+import Header from '../../utils/Header';
 
 interface FormData {
   email: string;
 }
 
 const ForgotPasswordPage: React.FC = () => {
+  const options = [
+    { label: 'Home', href: '/' },
+    { label: 'Accedi', href: '/account/pages/signin' },
+    { label: 'Registrati', href: '/account/pages/signup' },
+  ];
+
   const [formData, setFormData] = useState<FormData>({ email: '' });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -41,7 +48,7 @@ const ForgotPasswordPage: React.FC = () => {
       const data = await response.json();
       setMessage('Controlla la tua email per reimpostare la password.');
       setTimeout(() => {
-        router.push(`/account/resetPassword?email=${encodeURIComponent(formData.email)}`);
+        router.push(`/account/password/resetPassword?email=${encodeURIComponent(formData.email)}`);
       }, 3000);
     } catch (error: any) {
       setError(error.message);
@@ -74,6 +81,7 @@ const ForgotPasswordPage: React.FC = () => {
           {loading ? 'Invio...' : 'Invia'}
         </button>
       </form>
+      <Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };

@@ -5,8 +5,15 @@ import stylePage from "../../../Styles/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Header from '../../utils/Header';
 
 const DeleteAccountPage: React.FC = () => {
+  const options = [
+    { label: 'Home', href: '/' },
+    { label: 'Accedi', href: '/account/pages/signin' },
+    { label: 'Registrati', href: '/account/pages/signup' },
+  ];
+
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -53,6 +60,7 @@ const DeleteAccountPage: React.FC = () => {
           {loading ? "Eliminazione in corso" : "Elimina l'account"}
         </button>
       </form>
+      <Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };

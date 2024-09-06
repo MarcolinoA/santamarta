@@ -4,13 +4,21 @@ import { FaUserCircle } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import style from "../../Styles/Header.module.css";
 import Link from 'next/link';
+import Image from 'next/image';
+import logo from "../../../public/logo.png"
+
+interface HeaderOption {
+  label: string;
+  href: string;
+}
 
 interface HeaderProps {
   isLoggedIn: boolean;
   username: string;
+  options: HeaderOption[];
 }
 
-const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
+const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [username, setUsername] = useState<string>('');
 
@@ -36,11 +44,14 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
           <div className={style.dropdownMenu}>
             <div className={style.dropdownArrow}></div>
             <div className={style.dropdownContent}>
-              <p>{isLoggedIn ? `Ciao, ${username} gestisci il tuo account` : `Ciao, ospite, gestisci il tuo account`}</p>
-              <button><Link className={style.links} href="/account/signup">Registrati</Link></button>
-              <button><Link className={style.links} href="/account/signin">Accedi</Link></button>
-              <button><Link className={style.links} href="/account/logout">Esci</Link></button>
-              <button><Link className={style.links} href="/account/deleteAccount">Elimina</Link></button>
+              <Image src={logo} alt="Logo" width={120} />
+              {options.map((option, index) => (
+                <button key={index}>
+                  <Link className={style.links} href={option.href}>
+                    {option.label}
+                  </Link>
+                </button>
+              ))}
             </div>
           </div>
         )}

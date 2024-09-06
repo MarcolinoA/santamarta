@@ -13,7 +13,7 @@ const VerificationSuccessPage: React.FC = () => {
       <form className={style.form} onSubmit={(e) => e.preventDefault()}>
         <Image src={logo} alt="Logo" width={150} />
         <h2 className={style.formTitle}>Verifica completata</h2>
-        <button type="button" className={style.formButton} onClick={() => router.push('/account/signin')}>
+        <button type="button" className={style.formButton} onClick={() => router.push('/account/pages/signin')}>
           Accedi all'account
         </button>
       </form>

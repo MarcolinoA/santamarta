@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import AccountVerificationPage from "../../../components/Account/AccountVerificationPage/AccountVerificationPage";
+import AccountVerificationPage from "../../../../components/Account/AccountVerificationPage/AccountVerificationPage";
 
 const Account_Verification = () => {
   return (

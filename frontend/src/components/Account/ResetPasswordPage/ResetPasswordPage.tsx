@@ -5,6 +5,7 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import logo from "../../../../public/logo.png"
+import Header from '../../utils/Header';
 
 interface FormData {
   otp: string;
@@ -13,6 +14,12 @@ interface FormData {
 }
 
 const ResetPasswordPage: React.FC = () => {
+  const options = [
+    { label: 'Home', href: '/' },
+    { label: 'Accedi', href: '/account/pages/signin' },
+    { label: 'Registrati', href: '/account/pages/signup' },
+  ];
+
   const [formData, setFormData] = useState<FormData>({ otp: '', newPassword: '', confirmPassword: '' });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -112,6 +119,7 @@ const ResetPasswordPage: React.FC = () => {
           {loading ? 'Invio...' : 'Reimposta Password'}
         </button>
       </form>
+      <Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };

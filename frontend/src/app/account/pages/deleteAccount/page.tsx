@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import DeleteAccountPage from "../../../components/Account/DeleteAccountPage/DeleteAccountPage";
+import DeleteAccountPage from "../../../../components/Account/DeleteAccountPage/DeleteAccountPage";
 
 const Delete_Account = () => {
   return (

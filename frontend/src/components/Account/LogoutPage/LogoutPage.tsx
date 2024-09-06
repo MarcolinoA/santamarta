@@ -5,8 +5,15 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import logo from "../../../../public/logo.png"
+import Header from '../../utils/Header';
 
 const LogoutPage: React.FC = () => {
+	const options = [
+    { label: 'Home', href: '/' },
+    { label: 'Accedi', href: '/account/pages/signin' },
+    { label: 'Registrati', href: '/account/pages/signup' },
+  ];
+	
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -48,6 +55,7 @@ const LogoutPage: React.FC = () => {
           {loading ? 'Logging out...' : 'Logout'}
         </button>
       </form>
+			<Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };

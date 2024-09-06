@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import SignUp from "../../../components/Account/SignUpPage/SignUpPage";
+import SignUpPage from "../../../../components/Account/SignUpPage/SignUpPage";
 
 const Signup = () => {
   return (
@@ -18,7 +18,7 @@ const Signup = () => {
       </Head>
 
       <main>
-        <SignUp />
+        <SignUpPage />
       </main>
     </div>
   );

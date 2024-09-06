@@ -4,6 +4,7 @@ import stylePage from "../../../Styles/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Header from '../../utils/Header';
 
 interface FormData {
   name: string;
@@ -14,6 +15,12 @@ interface FormData {
 }
 
 const SignUpPage: React.FC = () => {
+  const options = [
+    { label: 'Home', href: '/' },
+    { label: 'Accedi', href: '/account/pages/signin' },
+    { label: 'Esci', href: '/account/pages/logout' },
+  ];
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     surname: '',
@@ -184,8 +191,9 @@ const SignUpPage: React.FC = () => {
         <button type="submit" className={style.formButton} disabled={loading}>
           {loading ? 'Submitting...' : 'Registrati'}
         </button>
-        <div><Link href="/account/signin" className={style.errorMessage}>Hai già un account? Accedi!</Link></div>
+        <div><Link href="/account/pages/signin" className={style.errorMessage}>Hai già un account? Accedi!</Link></div>
       </form>
+      <Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };
