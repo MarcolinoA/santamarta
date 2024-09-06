@@ -1,26 +1,30 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../../Styles/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
+import stylePage from "../../Styles/HomePage.module.css";
+import style from "../../Styles/Login.module.css";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import logo from "../../../../public/logo.png"
-import Header from '../../utils/Header';
+import logo from "../../../public/logo.png"
+import Header from '../utils/Header';
 
 interface FormData {
   otp: string;
-  newPassword: string;
-  confirmPassword: string;
+  newValue: string;
+  confirmValue: string;
 }
 
-const ResetPasswordPage: React.FC = () => {
+interface ResetPageProps {
+  type: 'password' | 'username';
+}
+
+const ResetValue: React.FC<ResetPageProps> = ({ type }) => {
   const options = [
     { label: 'Home', href: '/' },
     { label: 'Accedi', href: '/account/pages/signin' },
     { label: 'Registrati', href: '/account/pages/signup' },
   ];
 
-  const [formData, setFormData] = useState<FormData>({ otp: '', newPassword: '', confirmPassword: '' });
+  const [formData, setFormData] = useState<FormData>({ otp: '', newValue: '', confirmValue: '' });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -39,28 +43,28 @@ const ResetPasswordPage: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    if (formData.newPassword !== formData.confirmPassword) {
-      setError('Le password non coincidono.');
+    if (formData.newValue !== formData.confirmValue) {
+      setError(`${type === 'password' ? 'le password' : 'gli username'} non coincidono.`);
       setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/reset-password`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/reset-password`, { // ATENZIONE
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
           otp: formData.otp,
-          newPassword: formData.newPassword,
+          [`new${type.charAt(0).toUpperCase() + type.slice(1)}`]: formData.newValue,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Errore durante la reimpostazione della password');
+        throw new Error(`Errore durante la reimpostazione ${type === 'password' ? 'della password' : 'dello username'}`);
       }
 
-      setMessage('Password reimpostata con successo! Ora puoi effettuare il login.');
+      setMessage(`${type.charAt(0).toUpperCase() + type.slice(1)} reimpostato con successo! Ora puoi effettuare il login.`);
       setTimeout(() => router.push('/account/signin'), 3000);
     } catch (error: any) {
       setError(error.message);
@@ -72,8 +76,8 @@ const ResetPasswordPage: React.FC = () => {
   return (
     <div className={stylePage.homePageContainer}>
       <Image src={logo} alt="Logo" width={150} />
-      <h2 className={stylePage.title}>Reimposta la tua password</h2>
-      <p className={stylePage.description}>Inserisci il codice OTP ricevuto via email e la tua nuova password.</p>
+      <h2 className={stylePage.title}>Reimposta {type === 'password' ? 'la tua password' : 'il tuo username'}</h2>
+      <p className={stylePage.description}>Inserisci il codice OTP ricevuto via email e {type === 'password' ? 'la tua nuova password' : 'il tuo nuovo username'}.</p>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="otp" className={style.formLabel}>Codice OTP</label>
@@ -88,35 +92,35 @@ const ResetPasswordPage: React.FC = () => {
           />
         </div>
         <div className={style.formGroup}>
-          <label htmlFor="newPassword" className={style.formLabel}>Nuova Password</label>
+        <label htmlFor="newValue" className={style.formLabel}>Nuovo {type === 'password' ? 'Password' : 'Username'}</label>
           <input
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            value={formData.newPassword}
+            type={type === 'password' ? 'password' : 'text'}
+            id="newValue"
+            name="newValue"
+            value={formData.newValue}
             onChange={handleChange}
             required
             className={style.formInput}
-            autoComplete="new-password"
+            autoComplete={type === 'password' ? 'new-password' : 'off'}
           />
         </div>
         <div className={style.formGroup}>
-          <label htmlFor="confirmPassword" className={style.formLabel}>Conferma Nuova Password</label>
+        <label htmlFor="confirmValue" className={style.formLabel}>Conferma Nuovo {type === 'password' ? 'Password' : 'Username'}</label>
           <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            type={type === 'password' ? 'password' : 'text'}
+            id="confirmValue"
+            name="confirmValue"
+            value={formData.confirmValue}
             onChange={handleChange}
             required
             className={style.formInput}
-            autoComplete="new-password"
+            autoComplete={type === 'password' ? 'new-password' : 'off'}
           />
         </div>
         {message && <p className={style.message}>{message}</p>}
         {error && <p className={style.errorMessage}>{error}</p>}
         <button type="submit" className={style.formButton} disabled={loading}>
-          {loading ? 'Invio...' : 'Reimposta Password'}
+        {loading ? 'Invio...' : `Reimposta ${type === 'password' ? 'Password' : 'Username'}`}
         </button>
       </form>
       <Header isLoggedIn={false} username='' options={options}/>
@@ -124,4 +128,4 @@ const ResetPasswordPage: React.FC = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default ResetValue;

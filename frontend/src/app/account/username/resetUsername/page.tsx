@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import ResetValue from "../../../../components/Account/ResetValue";
 
-const Reset_Password = () => {
+const ResetUsername = () => {
   return (
     <div>
       <Head>
@@ -19,11 +19,11 @@ const Reset_Password = () => {
 
       <main>
         <ResetValue
-          type="password"
+          type="username"
         />
       </main>
     </div>
   );
 };
 
-export default Reset_Password;
+export default ResetUsername;

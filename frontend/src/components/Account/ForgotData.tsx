@@ -1,17 +1,31 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../../Styles/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
+import stylePage from "../../Styles/HomePage.module.css";
+import style from "../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import logo from "../../../../public/logo.png"
-import Header from '../../utils/Header';
+import logo from "../../../public/logo.png"
+import Header from '../utils/Header';
 
 interface FormData {
   email: string;
 }
 
-const ForgotPasswordPage: React.FC = () => {
+interface ForgotDataProps {
+  responseLinkProps?: string;
+  alertMessage?: string;
+  pushLink?: string;
+  title?: string;
+  description?: string;
+}
+
+const ForgotData: React.FC<ForgotDataProps> = ({
+  responseLinkProps = 'default',
+  alertMessage = 'la tua password',
+  pushLink = 'resetPassword',
+  title = 'Recupera Password',
+  description = 'la tua password'
+}) => {
   const options = [
     { label: 'Home', href: '/' },
     { label: 'Accedi', href: '/account/pages/signin' },
@@ -35,7 +49,7 @@ const ForgotPasswordPage: React.FC = () => {
     setError(null);
   
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/forgot-password`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/${responseLinkProps}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -46,9 +60,9 @@ const ForgotPasswordPage: React.FC = () => {
       }
   
       const data = await response.json();
-      setMessage('Controlla la tua email per reimpostare la password.');
+      setMessage(`Controlla la tua email per reimpostare ${alertMessage}`); //la tua password / il tuo username
       setTimeout(() => {
-        router.push(`/account/password/resetPassword?email=${encodeURIComponent(formData.email)}`);
+        router.push(`/account/password/${pushLink}?email=${encodeURIComponent(formData.email)}`); //resetPassword
       }, 3000);
     } catch (error: any) {
       setError(error.message);
@@ -60,8 +74,8 @@ const ForgotPasswordPage: React.FC = () => {
   return (
     <div className={stylePage.homePageContainer}>
       <Image src={logo} alt="Logo" width={150} />
-      <h2 className={stylePage.title}>Hai dimenticato la tua password?</h2>
-      <p className={stylePage.description}>Inserisci l'email con cui ti sei registrato per ricevere un link per reimpostare la password.</p>
+      <h2 className={stylePage.title}>{title}</h2>
+      <p className={stylePage.description}>Inserisci l'email con cui ti sei registrato per ricevere un link per reimpostare {description}</p>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="email" className={style.formLabel}>Email</label>
@@ -86,4 +100,4 @@ const ForgotPasswordPage: React.FC = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default ForgotData;
