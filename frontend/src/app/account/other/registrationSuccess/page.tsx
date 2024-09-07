@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import VerificationSuccessPage from "../../../components/Account/verificationSuccessPage/VerificationSuccessPage";
+import VerificationSuccessPage from "../../../../components/Account/verificationSuccessPage/VerificationSuccessPage";
 
 const Verification_Success = () => {
   return (

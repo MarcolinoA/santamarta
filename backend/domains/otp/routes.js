@@ -29,24 +29,24 @@ router.post("/verify", async (req, res) => {
 	}
 })
 
-router.post("/forgot-password", async (req, res) => {
+router.post("/forgot-data", async (req, res) => {
 	try {
-			const { email } = req.body;
-			const user = await User.findOne({ email });
-			if (!user) {
-					return res.status(404).json({ message: "User not found" });
-			}
+		const { email, type } = req.body;
+		const user = await User.findOne({ email });
+		if (!user) {
+				return res.status(404).json({ message: "User not found" });
+		}
 
-			const createdOTP = await sendOTP({
-					email,
-					subject: "Password Reset",
-					message: "Use this OTP to reset your password",
-					duration: 1
-			});
-			res.status(200).json({ message: "OTP sent to your email" });
-	} catch (error) {
-			res.status(400).send(error.message);
-	}
+    const createdOTP = await sendOTP({
+      email,
+      subject: `${type.charAt(0).toUpperCase() + type.slice(1)} Reset`,
+      message: `Use this OTP to reset your ${type}`,
+      duration: 1
+    });
+		res.status(200).json({ message: "OTP sent to your email" });
+} catch (error) {
+		res.status(400).send(error.message);
+}
 });
 
 // Verify OTP and reset password
@@ -56,12 +56,20 @@ router.post("/reset-password", async (req, res) => {
 			
 			const validOTP = await verifyOTP({ email, otp });
 			if (!validOTP) {
-					return res.status(400).json({ message: "Invalid or expired OTP" });
+					return res.status(400).json({ message: "OTP invalido o scaduto" });
 			}
 
 			const user = await User.findOne({ email });
 			if (!user) {
-					return res.status(404).json({ message: "User not found" });
+					return res.status(404).json({ message: "Utente non trovato" });
+			}
+
+			// Password validation
+			const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+			if (!passwordRegex.test(newPassword)) {
+				return res.status(400).json({
+					message: "La password deve essere lunga almeno 8 caratteri e deve contenere almeno una lettera maiuscola, un carattere speciale, e un numero"
+				});
 			}
 
 			user.password = await hashData(newPassword);
@@ -69,7 +77,45 @@ router.post("/reset-password", async (req, res) => {
 
 			await deleteOTP(email);
 
-			res.status(200).json({ message: "Password reset successfully" });
+			res.status(200).json({ message: "Password reimpostata con successo" });
+	} catch (error) {
+			res.status(400).send(error.message);
+	}
+});
+
+// Verify OTP and reset username
+router.post("/reset-username", async (req, res) => {
+	try {
+			const { email, otp, newUsername } = req.body;
+			
+			const validOTP = await verifyOTP({ email, otp });
+			if (!validOTP) {
+					return res.status(400).json({ message: "OTP invalido o scaduto" });
+			}
+
+			const user = await User.findOne({ email });
+			if (!user) {
+					return res.status(404).json({ message: "Utente non trovato" });
+			}
+
+			// Username validation
+			const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
+			if (!usernameRegex.test(newUsername)) {
+				return res.status(400).json({ message: "Lo username deve essere lungo tra i 3 e i 30 caratteri e può contenere solo lettere, numeri e underscores" });
+			}
+			
+			// Check if the new username is already in use
+			const existingUser = await User.findOne({ username: newUsername });
+			if (existingUser && existingUser.email !== email) {
+				return res.status(400).json({ message: "Questo username è già in uso" });
+			}
+			
+			user.username = await newUsername;
+			await user.save();
+
+			await deleteOTP(email);
+
+			res.status(200).json({ message: "Username reimpostato con successo" });
 	} catch (error) {
 			res.status(400).send(error.message);
 	}

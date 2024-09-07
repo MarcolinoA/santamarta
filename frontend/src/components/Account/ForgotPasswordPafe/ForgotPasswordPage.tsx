@@ -1,37 +1,16 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage.module.css"
+import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import logo from "../../../public/logo.png"
-import Header from '../utils/Header';
+import logo from "../../../../public/logo.png"
 
 interface FormData {
   email: string;
 }
 
-interface ForgotDataProps {
-  alertMessage?: string;
-  pushLink?: string;
-  title?: string;
-  description?: string;
-  type?: string;
-}
-
-const ForgotData: React.FC<ForgotDataProps> = ({
-  alertMessage = 'la tua password',
-  pushLink = 'resetPassword',
-  title = 'Recupera Password',
-  description = 'la tua password',
-  type = 'type'
-}) => {
-  const options = [
-    { label: 'Home', href: '/' },
-    { label: 'Accedi', href: '/account/pages/signin' },
-    { label: 'Registrati', href: '/account/pages/signup' },
-  ];
-
+const ForgotPasswordPage: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ email: '' });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,10 +28,10 @@ const ForgotData: React.FC<ForgotDataProps> = ({
     setError(null);
   
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/forgot-data`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, type }),
+        body: JSON.stringify(formData),
       });
   
       if (!response.ok) {
@@ -60,9 +39,9 @@ const ForgotData: React.FC<ForgotDataProps> = ({
       }
   
       const data = await response.json();
-      setMessage(`Controlla la tua email per reimpostare ${type === 'password' ? 'la tua password' : 'il tuo username'}`);
+      setMessage('Controlla la tua email per reimpostare la password.');
       setTimeout(() => {
-        router.push(`/account/${type}/${pushLink}?email=${encodeURIComponent(formData.email)}`); //resetPassword
+        router.push(`/account/resetPassword?email=${encodeURIComponent(formData.email)}`);
       }, 3000);
     } catch (error: any) {
       setError(error.message);
@@ -74,8 +53,8 @@ const ForgotData: React.FC<ForgotDataProps> = ({
   return (
     <div className={stylePage.homePageContainer}>
       <Image src={logo} alt="Logo" width={150} />
-      <h2 className={stylePage.title}>{title}</h2>
-      <p className={stylePage.description}>Inserisci l'email con cui ti sei registrato per ricevere un link per reimpostare {description}</p>
+      <h2 className={stylePage.title}>Hai dimenticato la tua password?</h2>
+      <p className={stylePage.description}>Inserisci l'email con cui ti sei registrato per ricevere un link per reimpostare la password.</p>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <label htmlFor="email" className={style.formLabel}>Email</label>
@@ -95,9 +74,8 @@ const ForgotData: React.FC<ForgotDataProps> = ({
           {loading ? 'Invio...' : 'Invia'}
         </button>
       </form>
-      <Header isLoggedIn={false} username='' options={options}/>
     </div>
   );
 };
 
-export default ForgotData;
+export default ForgotPasswordPage;

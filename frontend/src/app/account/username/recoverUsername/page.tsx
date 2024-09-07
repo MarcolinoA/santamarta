@@ -18,12 +18,12 @@ const ForgotUsername = () => {
       </Head>
 
       <main>
-        <ForgotData 
-          responseLinkProps="forgot-password" 
+        <ForgotData
           alertMessage="il tuo username."
           pushLink="resetUsername" 
           title="Hai dimenticato il tuo username?"
           description="lo username."
+          type="username"
         />
       </main>
     </div>

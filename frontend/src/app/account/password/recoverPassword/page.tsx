@@ -18,12 +18,12 @@ const ForgotPassword = () => {
       </Head>
 
       <main>
-        <ForgotData 
-          responseLinkProps="forgot-password" 
+        <ForgotData
           alertMessage="la tua password."
           pushLink="resetPassword" 
           title="Hai dimenticato la tua password?"
           description="la password."
+          type="password"
         />
       </main>
     </div>

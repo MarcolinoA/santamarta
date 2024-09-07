@@ -1,7 +1,7 @@
 import generateOTP from "../../util/generateOTP.js";
 import OTP from "./model.js";
 import { hashData, verifyHashedData } from "../../util/hashData.js";
-import sendEmail from "../../util/sendEmail.js"; // Assicurati che questa funzione esista e sia correttamente importata
+import sendEmail from "../../util/sendEmail.js";
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

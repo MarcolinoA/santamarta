@@ -4,6 +4,8 @@ import { resolveMx } from 'dns/promises';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import rateLimit from 'express-rate-limit';
+import sendEmail from '../util/sendEmail.js';
 
 const router = express.Router();
 
@@ -13,6 +15,18 @@ const COOKIE_OPTIONS = {
   secure: process.env.SECRET_KEY === 'production',
   maxAge: 24 * 60 * 60 * 1000,
 };
+
+const verifyEmailLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minuti
+  max: 5, // Limite a 5 richieste per finestra
+  message: 'Troppe richieste di verifica email, riprova più tardi.'
+});
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minuti
+  max: 5, // Limite a 5 tentativi di login per finestra
+  message: 'Troppi tentativi di login, riprova più tardi.'
+});
 
 /* USERS ROUTES */
 
@@ -77,7 +91,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // 8. Generazione del Token di Verifica
-    const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationToken = crypto.randomBytes(48).toString('hex');
 
     // 9. Salva l'utente nel database con il token di verifica
     const newUser = new User({
@@ -104,7 +118,7 @@ router.post('/register', async (req, res) => {
       },
     });
 
-    const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&name=${name}&surname=${surname}&username=${username}&password=${hashedPassword}&email=${email}&type=registration`;
+    const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&email=${email}&type=registration`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -113,14 +127,14 @@ router.post('/register', async (req, res) => {
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
           <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEBkaCmV1LW5vcnRoLTEiSDBGAiEAqrH62Hk1V7et598%2BV37oF1S%2F8IXLbKvCly6Ddlp0IhACIQDlgR65h%2FpdkqiubId57qu07qI6Dl%2Fo7KQWlusm2%2Fu1DiqVAggyEAAaDDcyNDc3MjA3NTIwOCIM6XTOTZ7eOEBd%2Far6KvIBd9OVa4hshvrezUxrcucA4EHPk4087B0FvmbSsou1vf8M0tTQBMYl95I26LaKV0zmB7brL4cxr%2B7L%2FDe1TgqzK3BHSXOcFj4D2hEvbwhDT%2B9%2FoqD49Q%2BbEoYNZdfX0wP8e4OXPTiESr45Iw85M6WeTicQ21Mo0A2rmL1W0NLcx7y4t%2BZgJKAQMAFbeNQeX%2Bj%2Bs6oLtGw%2BKwIsVZfoSqMBbw22X%2BRIXGQQ3Avu2Pydo6DlYS4wSueQHsbAqC5r0Vx83RfUa4JF0yzdGGV658kb%2FBq8Ebc7kTwEBA4RDrzw7mlHtx%2FfV4BgUARD4XVuIUEVe5Qw%2B6y9tgY63gHiO44NVJDT82FiMYmemiBXxp%2FcoMCAv8aILnXjC6xrqx%2BccFuhXlCb4ot4VEEq029tmi15aLo8UAU04rx3UkpT%2FozskRdERmig20NxxxiyauzQ0CzZUYdBFwnm8kmyZ1IxI4diE3L1W05aSWlOV0%2BAUxaMw%2BjZikf1j1kMCn8gRQA%2BgpZSHQKeMXUjC4SH%2BUfQdBtzfx0YJLpjbG59mscrVcAqxn9akbC8193JTkbittCvxTIx%2BuAKIZrcK6ac56LJitdkX6tvmwT8lA0CNuPZK%2Fqba5CILzHGaEZEXq4%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240828T172046Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA2RP6IG3EBN6UTZIV%2F20240828%2Feu-north-1%2Fs3%2Faws4_request&X-Amz-Signature=02d81653192c256ff4bd3dd63bf5126e23eeec2e5416d71f13c6ff823f12f7af" alt="Logo" style="width: 150px; height: auto;" />
+            <img src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png" alt="Logo" style="width: 150px; height: auto;" />
           </div>
           <div style="text-align: center;">
             <h1 style="color: #333;">Benvenuto in Santa Marta!</h1>
             <p style="font-size: 16px; color: #555;">
               Grazie per esserti registrato! Per completare la tua registrazione, ti preghiamo di verificare il tuo indirizzo email cliccando sul pulsante qui sotto.
             </p>
-            <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; margin: 20px 0; font-size: 16px; color: #fff; background-color: #007bff; border-radius: 5px; text-decoration: none;">
+            <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; margin: 20px 0; font-size: 16px; color: #000; background-color: #FDD040; border-radius: 5px; text-decoration: none;">
               Verifica la tua email
             </a>
             <p style="font-size: 14px; color: #777;">
@@ -141,6 +155,14 @@ router.post('/register', async (req, res) => {
     };
     await transporter.sendMail(mailOptions);
 
+    // Imposta un cookie con l'email dell'utente
+    res.cookie('userEmail', email, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // true in produzione
+    maxAge: 15 * 60 * 1000, // 15 minuti
+    sameSite: 'strict'
+    });
+
     res.status(200).json({ message: 'Controlla la tua email per verificare il tuo indirizzo.' });
   } catch (error) {
     console.error("Errore durante la registrazione:", error);
@@ -148,7 +170,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.get('/verify-email', async (req, res) => {
+router.get('/verify-email', verifyEmailLimiter, async (req, res) => {
   const { token, email, type } = req.query;
 
   try {
@@ -168,9 +190,9 @@ router.get('/verify-email', async (req, res) => {
 
     // Reindirizzamenti diversi a seconda del tipo di verifica
     if (type === 'registration') {
-      return res.redirect(`${process.env.FRONTEND_URL}/account/registrationSuccess`);
+      return res.redirect(`${process.env.FRONTEND_URL}/account/other/registrationSuccess`);
     } else if (type === 'reset-password') {
-      return res.redirect(`${process.env.FRONTEND_URL}/account/forgotPasswords`);
+      return res.redirect(`${process.env.FRONTEND_URL}/account/password/recoverPassword`);
     } else {
       // Caso generico o per gestire errori
       return res.redirect(`${process.env.FRONTEND_URL}/verificationError`);
@@ -178,6 +200,82 @@ router.get('/verify-email', async (req, res) => {
   } catch (error) {
     console.error("Errore durante la verifica dell'email:", error);
     return res.status(500).send({ message: "Errore durante la verifica dell'email", error: error.message });
+  }
+});
+
+// Route per re-inviare l'email di verifica
+router.post('/resend-verification', async (req, res) => {
+  const { email } = req.body;
+  console.log('Richiesta di reinvio verifica per email:', email);
+
+  try {
+    const user = await User.findOne({ email, isVerified: false });
+    console.log('Utente trovato:', user ? 'Sì' : 'No');
+    if (!user) {
+      return res.status(404).json({ message: 'Utente non trovato o già verificato' });
+    }
+
+    // Genera un nuovo token di verifica
+    const newVerificationToken = crypto.randomBytes(48).toString('hex');
+    console.log('Nuovo token di verifica generato e salvato');
+
+    // Invia nuovamente l'email di verifica
+    const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${newVerificationToken}&email=${email}&type=registration`;
+    console.log('URL di verifica:', verificationUrl);
+
+   // Prepara le opzioni email
+   const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: 'Verifica la tua email - Reinvio',
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png" alt="Logo" style="width: 150px; height: auto;" />
+        </div>
+        <div style="text-align: center;">
+          <h1 style="color: #333;">Benvenuto in Santa Marta!</h1>
+          <p style="font-size: 16px; color: #555;">
+            Grazie per esserti registrato! Per completare la tua registrazione, ti preghiamo di verificare il tuo indirizzo email cliccando sul pulsante qui sotto.
+          </p>
+          <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; margin: 20px 0; font-size: 16px; color: #000; background-color: #FDD040; border-radius: 5px; text-decoration: none;">
+            Verifica la tua email
+          </a>
+          <p style="font-size: 14px; color: #777;">
+            Se il pulsante non funziona, copia e incolla il seguente link nel tuo browser:
+          </p>
+          <a href="${verificationUrl}" style="font-size: 14px; color: #007bff;">${verificationUrl}</a>
+        </div>
+        <div style="margin-top: 40px; text-align: center; color: #999; font-size: 12px;">
+          <p>
+            Se non hai richiesto questa email, puoi ignorarla.
+          </p>
+          <p>
+            © ${new Date().getFullYear()} Nome della tua azienda. Tutti i diritti riservati.
+          </p>
+        </div>
+      </div>
+    `,
+  };
+
+  console.log('Tentativo di invio email...');
+  await sendEmail(mailOptions);
+  console.log('Email inviata con successo');
+
+    res.status(200).json({ message: 'Email di verifica reinviata con successo' });
+  } catch (error) {
+    console.error('Errore durante il reinvio dell\'email di verifica:', error);
+    res.status(500).json({ message: 'Errore durante il reinvio dell\'email di verifica' });
+  }
+});
+
+// leggi i cookies
+router.get('/get-email', (req, res) => {
+  const email = req.cookies.userEmail;
+  if (email) {
+    res.json({ email });
+  } else {
+    res.status(404).json({ message: 'Email non trovata' });
   }
 });
 
@@ -250,18 +348,18 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const user = await User.findOne({ username });
     if (user && await bcrypt.compare(password, user.password)) {
-      const token = 'some-generated-token'; // Genera un token JWT o simile
-      res.cookie('authToken', token, COOKIE_OPTIONS);
-      res.cookie('username', username, COOKIE_OPTIONS); // Salva lo username in un cookie
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+      res.cookie('authToken', token, { ...COOKIE_OPTIONS, httpOnly: true });
+      res.cookie('username', username, { ...COOKIE_OPTIONS, httpOnly: false });
       res.json({ message: 'Login successful', username: user.username });
     } else {
-      res.status(401).json({ message: 'Invalid credentials' });
+      res.status(401).send('Credenziali non valide' );
     }
   } catch (error) {
     console.error('Error during login:', error);
@@ -271,8 +369,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/logout', (req, res) => {
   try {
-    res.clearCookie('authToken', COOKIE_OPTIONS);
-    res.clearCookie('username', COOKIE_OPTIONS);
+    res.clearCookie('authToken', { ...COOKIE_OPTIONS, httpOnly: true });
+    res.clearCookie('username', { ...COOKIE_OPTIONS, httpOnly: false });
     res.json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error during logout:', error);
@@ -282,20 +380,16 @@ router.post('/logout', (req, res) => {
 
 router.post('/deleteAccount', async (req, res) => {
   try {
-    const { username } = req.cookies;
+    const userId = req.user.id; // Ottenuto dal middleware di autenticazione
 
-    if (!username) {
-      return res.status(401).json({ message: 'User not authenticated' });
-    }
-
-    const user = await User.findOneAndDelete({ username });
+    const user = await User.findByIdAndDelete(userId);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.clearCookie('authToken', COOKIE_OPTIONS);
-    res.clearCookie('username', COOKIE_OPTIONS);
+    res.clearCookie('authToken', { ...COOKIE_OPTIONS, httpOnly: true });
+    res.clearCookie('username', { ...COOKIE_OPTIONS, httpOnly: false });
     res.json({ message: 'Account deleted successfully' });
   } catch (error) {
     console.error('Error during account deletion:', error);
@@ -303,7 +397,7 @@ router.post('/deleteAccount', async (req, res) => {
   }
 });
 
-// Profilo utente
+/* Profilo utente
 router.get('/profile', async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).send('You need to log in');
@@ -319,5 +413,6 @@ router.get('/profile', async (req, res) => {
     res.status(500).send('An error occurred while fetching the profile');
   }
 });
+*/
 
 export default router;

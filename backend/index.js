@@ -5,6 +5,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import { initScheduledJobs } from "./util/cronJobs.js"
 
 // Carica le variabili d'ambiente
 dotenv.config(); // Assicurati che questo sia eseguito per primo
@@ -16,6 +17,9 @@ import OTPRoutes from "./domains/otp/routes.js"
 
 // Il resto del tuo codice rimane invariato
 const app = express();
+
+// Inizializza i lavori pianificati
+initScheduledJobs();
 
 // CORS configuration
 app.use(cors({

@@ -71,6 +71,7 @@ const SignUpPage: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include' // Importante per inviare e ricevere cookies
       });
 
       if (!response.ok) {
@@ -85,10 +86,9 @@ const SignUpPage: React.FC = () => {
       }
 
       const data = await response.json();
-      console.log('Dati utente:', data);
       setMessage('Verifica la tua email per completare la registrazione.');
 
-      router.push(`/account/accountVerification`);
+      router.push(`/account/other/accountVerification`);
     } catch (error: any) {
       setError(error.message);
       console.error("Errore nella creazione dell'utente", error);

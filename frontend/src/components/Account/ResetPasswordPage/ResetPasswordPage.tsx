@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage.module.css"
+import style from "../../../Styles/Login.module.css";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import logo from "../../../public/logo.png"
-import Header from '../utils/Header';
+import logo from "../../../../public/logo.png"
+import Header from '../../utils/Header';
 
 interface FormData {
   otp: string;
@@ -50,7 +50,7 @@ const ResetValue: React.FC<ResetPageProps> = ({ type }) => {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/reset-${type}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/otp/reset-password`, { // ATENZIONE
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,7 +65,7 @@ const ResetValue: React.FC<ResetPageProps> = ({ type }) => {
       }
 
       setMessage(`${type.charAt(0).toUpperCase() + type.slice(1)} reimpostato con successo! Ora puoi effettuare il login.`);
-      setTimeout(() => router.push('/account/pages/signin'), 3000);
+      setTimeout(() => router.push('/account/signin'), 3000);
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -76,7 +76,7 @@ const ResetValue: React.FC<ResetPageProps> = ({ type }) => {
   return (
     <div className={stylePage.homePageContainer}>
       <Image src={logo} alt="Logo" width={150} />
-      <h2 className={stylePage.title}>Reimposta {type === 'password' ? 'la tua password' : 'il tuo username'}</h2>
+      <h2 className={stylePage.title}>Reimposta {type === 'password' ? 'la tua password' : 'il tuo username'}</h2>      <p className={stylePage.description}>Inserisci il codice OTP ricevuto via email e la tua nuova password.</p>
       <p className={stylePage.description}>Inserisci il codice OTP ricevuto via email e {type === 'password' ? 'la tua nuova password' : 'il tuo nuovo username'}.</p>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
