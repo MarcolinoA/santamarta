@@ -1,4 +1,4 @@
-import style from "../../Styles/Footer.module.css";
+import style from "../../../Styles/Footer.module.css";
 import Contact from "./Sections/Contact";
 import Browse from "./Sections/Browse";
 import Info from "./Sections/Info";

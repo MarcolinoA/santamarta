@@ -6,14 +6,14 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import logo from "../../../../public/logo.png"
 import Image from 'next/image';
-import Header from '../../utils/Header';
+import Header from '../../shared/Header';
 
 interface FormData {
   username: string;
   password: string;
 }
 
-const SignInPage: React.FC = () => {
+const SignIn: React.FC = () => {
   const options = [
     { label: 'Home', href: '/' },
     { label: 'Registrati', href: '/account/pages/signup' },
@@ -113,4 +113,4 @@ const SignInPage: React.FC = () => {
   );
 };
 
-export default SignInPage;
+export default SignIn;

@@ -5,7 +5,7 @@ import style from "../../Styles/Login.module.css";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import logo from "../../../public/logo.png"
-import Header from '../utils/Header';
+import Header from '../../shared/Header';
 
 interface FormData {
   otp: string;

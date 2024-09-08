@@ -5,9 +5,10 @@ import { useSearchParams } from 'next/navigation'; // Importa useSearchParams
 import test from '../../../public/test.jpg';
 import styles from "../../Styles/HomePage.module.css"
 import Navbar from './Navbar';
-import Header from '../utils/Header';
+import Header from '../shared/Header';
 
 const HomePage = () => {
+
   const options = [
     { label: 'Registrati', href: '/account/pages/signup' },
     { label: 'Accedi', href: '/account/pages/signin' },

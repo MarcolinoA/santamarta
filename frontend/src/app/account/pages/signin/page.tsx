@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import SignInPage from "../../../../components/Account/SignInPage/SignInPage";
+import SignIn from "../../../../components/Account/pages/SignIn";
 
 const Signin = () => {
   return (
@@ -18,7 +18,7 @@ const Signin = () => {
       </Head>
 
       <main>
-        <SignInPage />
+        <SignIn />
       </main>
     </div>
   );

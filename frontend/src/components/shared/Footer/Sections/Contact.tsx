@@ -1,5 +1,5 @@
 "use client"
-import style from "../../../Styles/Footer.module.css"
+import style from "../../../../Styles/Footer.module.css"
 
 const Contact = () => {
   return (

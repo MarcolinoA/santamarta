@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import DeleteAccountPage from "../../../../components/Account/DeleteAccountPage/DeleteAccountPage";
+import DeleteAccountPage from "../../../../components/Account/pages/DeleteAccount";
+import DeleteAccount from "../../../../components/Account/pages/DeleteAccount";
 
 const Delete_Account = () => {
   return (
@@ -18,7 +19,7 @@ const Delete_Account = () => {
       </Head>
 
       <main>
-        <DeleteAccountPage />
+        <DeleteAccount />
       </main>
     </div>
   );

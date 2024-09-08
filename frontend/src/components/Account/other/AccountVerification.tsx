@@ -6,7 +6,7 @@ import stylePage from "../../../Styles/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import Image from 'next/image';
 
-const AccountVerificationPage: React.FC = () => {
+const AccountVerification: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [email, setEmail] = useState<string | null>(null);
   const router = useRouter();
@@ -76,4 +76,4 @@ const AccountVerificationPage: React.FC = () => {
   );
 };
 
-export default AccountVerificationPage;
+export default AccountVerification;

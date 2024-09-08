@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import AccountVerificationPage from "../../../../components/Account/AccountVerificationPage/AccountVerificationPage";
+import AccountVerification from "../../../../components/Account/other/AccountVerification";
 
 const Account_Verification = () => {
   return (
@@ -18,7 +18,7 @@ const Account_Verification = () => {
       </Head>
 
       <main>
-        <AccountVerificationPage />
+        <AccountVerification/>
       </main>
     </div>
   );

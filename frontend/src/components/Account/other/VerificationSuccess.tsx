@@ -5,7 +5,7 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-const VerificationSuccessPage: React.FC = () => {
+const VerificationSuccess: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -21,5 +21,5 @@ const VerificationSuccessPage: React.FC = () => {
   );
 };
 
-export default VerificationSuccessPage;
+export default VerificationSuccess;
 

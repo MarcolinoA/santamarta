@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import ResetValue from "../../../../components/Account/ResetValue";
+import ResetValue from "../../../../components/Account/reset/ResetValue";
 
 const Reset_Password = () => {
   return (

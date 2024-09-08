@@ -5,9 +5,9 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import logo from "../../../../public/logo.png"
-import Header from '../../utils/Header';
+import Header from '../../shared/Header';
 
-const LogoutPage: React.FC = () => {
+const LogoutC: React.FC = () => {
 	const options = [
     { label: 'Home', href: '/' },
     { label: 'Accedi', href: '/account/pages/signin' },
@@ -60,4 +60,4 @@ const LogoutPage: React.FC = () => {
   );
 };
 
-export default LogoutPage;
+export default LogoutC;

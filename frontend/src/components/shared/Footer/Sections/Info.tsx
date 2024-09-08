@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
-import logo from "../../../../public/logo.png"
-import style from "../../../Styles/Footer.module.css"
+import logo from "../../../../../public/logo.png"
+import style from "../../../../Styles/Footer.module.css"
 
 const Info = () => {
   return (

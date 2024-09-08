@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import SignUpPage from "../../../../components/Account/SignUpPage/SignUpPage";
+import SignUpPage from "../../../../components/Account/pages/SignUp";
 
 const Signup = () => {
   return (

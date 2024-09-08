@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 import HomePage from "../components/HomePage/HomePage";
 import styles from "../Styles/HomePage.module.css";
-import CardTable from "../components/CardTable";
+import CardTable from "../components/HomePage/Cards/CardTable"
 import Script from "next/script";
-import CardTableTwo from "../components/CardTableTwo";
-import Footer from "../components/Footer/Footer";
+import CardTableTwo from "../components/HomePage/Cards/CardTableTwo";
+import Footer from "../components/shared/Footer/Footer";
 
 const Home = () => {
   return (

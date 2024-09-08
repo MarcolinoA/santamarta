@@ -5,9 +5,9 @@ import stylePage from "../../../Styles/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Header from '../../utils/Header';
+import Header from '../../shared/Header';
 
-const DeleteAccountPage: React.FC = () => {
+const DeleteAccount: React.FC = () => {
   const options = [
     { label: 'Home', href: '/' },
     { label: 'Accedi', href: '/account/pages/signin' },
@@ -65,4 +65,4 @@ const DeleteAccountPage: React.FC = () => {
   );
 };
 
-export default DeleteAccountPage;
+export default DeleteAccount;

@@ -1,20 +1,19 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
-const verifyToken = async (req, res, next) => {
-	const token = req.body.token || req.query.token || req.headers["x-access-token"];
+const authMiddleware = (req, res, next) => {
+  const token = req.cookies.authToken;
 
-	if(!token) {
-		return res.status(403).send("è richiesto un token di autenticazione")
-	}
+  if (!token) {
+    return res.status(401).json({ message: 'No token, authorization denied' });
+  }
 
-	try {
-		const decodedToken = await jwt.verify(token, process.env.TOKEN_KEY);
-		req.currentUser = decodedToken
-	} catch (error) {
-		return res.status(401).send("Token invalido")
-	}
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Token is not valid' });
+  }
+};
 
-	return next();
-}
-
-module.exports = verifyToken
+export default authMiddleware;

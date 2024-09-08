@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import ForgotData from "../../../../components/Account/ForgotData";
+import ForgotData from "../../../../components/Account/reset/ForgotData";
 
 const ForgotPassword = () => {
   return (

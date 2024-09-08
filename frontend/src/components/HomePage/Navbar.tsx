@@ -4,10 +4,12 @@ import logo from "../../../public/logo.png"
 import styles from "../../Styles/Navbar.module.css"
 import Link from "next/link";
 import { useState } from "react";
+import { useAuthentication } from "../../hooks/useAuthentications"
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-
+  const isAuthenticated = useAuthentication();
+  
   const handleIconClick = () => {
     setIsDropdownVisible((prev) => !prev);
   };
@@ -25,6 +27,9 @@ const Navbar = () => {
           <li><a className={styles.link}>Orari</a></li>
           <li><a className={styles.link}>Area riservata</a></li>
           <li><a className={styles.link}>Contatti</a></li>
+          {isAuthenticated && (
+            <li><a className={styles.link}>Roma</a></li>
+          )}
           <li className={styles.link} onClick={handleIconClick}>
             Modulistica
           {isDropdownVisible && (

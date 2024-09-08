@@ -6,8 +6,16 @@ import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import rateLimit from 'express-rate-limit';
 import sendEmail from '../util/sendEmail.js';
+import jwt from 'jsonwebtoken';
+import authMiddleware from '../middleware/auth.js';
 
 const router = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  console.error('JWT_SECRET is not set in the environment variables');
+  process.exit(1);
+}
 
 const COOKIE_NAME = 'authToken';
 const COOKIE_OPTIONS = {
@@ -27,8 +35,6 @@ const loginLimiter = rateLimit({
   max: 5, // Limite a 5 tentativi di login per finestra
   message: 'Troppi tentativi di login, riprova più tardi.'
 });
-
-/* USERS ROUTES */
 
 // Add a new user
 router.post('/register', async (req, res) => {
@@ -107,21 +113,9 @@ router.post('/register', async (req, res) => {
     await newUser.save();
 
     // 10. Invia l'email di verifica
-    const transporter = nodemailer.createTransport({
-      service:'gmail',
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
     const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&email=${email}&type=registration`;
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    await sendEmail({
       to: email,
       subject: 'Verifica la tua email',
       html: `
@@ -152,8 +146,7 @@ router.post('/register', async (req, res) => {
           </div>
         </div>
       `,
-    };
-    await transporter.sendMail(mailOptions);
+    });
 
     // Imposta un cookie con l'email dell'utente
     res.cookie('userEmail', email, {
@@ -198,7 +191,6 @@ router.get('/verify-email', verifyEmailLimiter, async (req, res) => {
       return res.redirect(`${process.env.FRONTEND_URL}/verificationError`);
     }
   } catch (error) {
-    console.error("Errore durante la verifica dell'email:", error);
     return res.status(500).send({ message: "Errore durante la verifica dell'email", error: error.message });
   }
 });
@@ -206,26 +198,24 @@ router.get('/verify-email', verifyEmailLimiter, async (req, res) => {
 // Route per re-inviare l'email di verifica
 router.post('/resend-verification', async (req, res) => {
   const { email } = req.body;
-  console.log('Richiesta di reinvio verifica per email:', email);
 
   try {
     const user = await User.findOne({ email, isVerified: false });
-    console.log('Utente trovato:', user ? 'Sì' : 'No');
     if (!user) {
       return res.status(404).json({ message: 'Utente non trovato o già verificato' });
     }
 
     // Genera un nuovo token di verifica
     const newVerificationToken = crypto.randomBytes(48).toString('hex');
-    console.log('Nuovo token di verifica generato e salvato');
+
+    user.verificationToken = newVerificationToken;
+    await user.save();
 
     // Invia nuovamente l'email di verifica
     const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${newVerificationToken}&email=${email}&type=registration`;
-    console.log('URL di verifica:', verificationUrl);
 
    // Prepara le opzioni email
-   const mailOptions = {
-    from: process.env.EMAIL_USER,
+   await sendEmail({
     to: email,
     subject: 'Verifica la tua email - Reinvio',
     html: `
@@ -256,15 +246,10 @@ router.post('/resend-verification', async (req, res) => {
         </div>
       </div>
     `,
-  };
+  });
 
-  console.log('Tentativo di invio email...');
-  await sendEmail(mailOptions);
-  console.log('Email inviata con successo');
-
-    res.status(200).json({ message: 'Email di verifica reinviata con successo' });
+  res.status(200).json({ message: 'Email di verifica reinviata con successo' });
   } catch (error) {
-    console.error('Errore durante il reinvio dell\'email di verifica:', error);
     res.status(500).json({ message: 'Errore durante il reinvio dell\'email di verifica' });
   }
 });
@@ -279,91 +264,31 @@ router.get('/get-email', (req, res) => {
   }
 });
 
-// Get all users
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.status(200).send({
-      count: users.length,
-      data: users,
-    });
-  } catch (error) {
-    console.log("Error fetching users:", error.message);
-    res.status(500).send({ message: "Failed to fetch users", error: error.message });
-  }
-});
-
-// Get a single user
-router.get("/find/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    console.error("Error retrieving user:", error.message);
-    res.status(500).send({ message: "Failed to retrieve user", error: error.message });
-  }
-});
-
-// Update user data
-router.put("/update/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, surname, username, password, email, priority } = req.body;
-
-    // Validate input
-    if (!name || !surname || !username || !password || !email) {
-      return res.status(400).send({
-        message: "All fields are required: name, surname, username, password, email",
-      });
-    }
-
-    const result = await User.findByIdAndUpdate(id, req.body, { new: true });
-    if (!result) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    return res.status(200).send({ message: "User updated successfully", user: result });
-  } catch (error) {
-    console.log("Error updating user:", error.message);
-    res.status(500).send({ message: "Failed to update user", error: error.message });
-  }
-});
-
-// Route per eliminare un utente tramite ID
-router.delete('/delete/:id', async (req, res) => {
-  try {
-      const userId = req.params.id;
-      const deletedUser = await User.findByIdAndDelete(userId);
-
-      if (!deletedUser) {
-          return res.status(404).json({ message: 'Utente non trovato' });
-      }
-
-      res.status(200).json({ message: 'Utente eliminato con successo' });
-  } catch (error) {
-      res.status(500).json({ message: 'Errore nel server', error: error.message });
-  }
-});
-
 router.post('/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const user = await User.findOne({ username });
+
     if (user && await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+      if (!process.env.JWT_SECRET) {
+        return res.status(500).json({ message: 'Server configuration error' });
+      }
+
+      const token = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: '24h' }
+      );
+
       res.cookie('authToken', token, { ...COOKIE_OPTIONS, httpOnly: true });
       res.cookie('username', username, { ...COOKIE_OPTIONS, httpOnly: false });
       res.json({ message: 'Login successful', username: user.username });
     } else {
-      res.status(401).send('Credenziali non valide' );
+      res.status(401).json({ message: 'Credenziali non valide' });
     }
   } catch (error) {
-    console.error('Error during login:', error);
-    res.status(500).json({ message: 'An error occurred during login' });
+    res.status(500).json({ message: 'An error occurred during login', error: error.message });
   }
 });
 

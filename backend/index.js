@@ -14,6 +14,7 @@ import { PORT, mongoDBURL } from './config.js';
 import homeImageRoute from './routes/imageRoute.js';
 import usersRoute from './routes/usersRoute.js';
 import OTPRoutes from "./domains/otp/routes.js"
+import devRoutes from "./routes/DevRoutes.js"
 
 // Il resto del tuo codice rimane invariato
 const app = express();
@@ -51,6 +52,7 @@ app.use(session({
 app.use('/homeImage', homeImageRoute);
 app.use('/users', usersRoute);
 app.use('/otp', OTPRoutes);
+app.use('/dev', devRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {

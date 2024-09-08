@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import LogoutPage from "../../../../components/Account/LogoutPage/LogoutPage";
+import LogoutC from "../../../../components/Account/pages/Logout";
 
 const Logout = () => {
   return (
@@ -18,7 +18,7 @@ const Logout = () => {
       </Head>
 
       <main>
-        <LogoutPage />
+        <LogoutC />
       </main>
     </div>
   );
