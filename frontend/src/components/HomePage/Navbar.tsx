@@ -8,8 +8,8 @@ import { useAuthentication } from "../../hooks/useAuthentications"
 
 const Navbar: React.FC = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const isAuthenticated = useAuthentication();
-  
+  const { isAuthenticated, username } = useAuthentication();
+  console.log('Navbar render:', { isAuthenticated, username }); // Aggiungi questo log
   const handleIconClick = () => {
     setIsDropdownVisible((prev) => !prev);
   };
@@ -28,8 +28,10 @@ const Navbar: React.FC = () => {
           <li><a className={styles.link}>Area riservata</a></li>
           <li><a className={styles.link}>Contatti</a></li>
           {isAuthenticated && (
-            <li><a className={styles.link}>Roma</a></li>
-          )}
+        <>
+          <li><a className={styles.link}>Roma</a></li>
+        </>
+      )}
           <li className={styles.link} onClick={handleIconClick}>
             Modulistica
           {isDropdownVisible && (

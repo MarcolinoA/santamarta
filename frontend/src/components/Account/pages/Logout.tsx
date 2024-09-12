@@ -29,14 +29,23 @@ const LogoutC: React.FC = () => {
 				method: 'POST',
 				credentials: 'include', // Include i cookie nella richiesta
 			});
-	
+
 			if (!response.ok) {
 				const errorData = await response.json();
 				throw new Error(errorData.message || 'Errore durante il logout');
 			}
-	
-			console.log("Logout successful.");
-			router.push('/'); 
+    // Rimuovi il token dal localStorage
+    localStorage.removeItem('authToken');
+
+    // Rimuovi i cookie manualmente
+    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+    // Forza un aggiornamento dello stato di autenticazione
+    window.dispatchEvent(new Event('storage'));
+
+    // Reindirizza alla home page
+    window.location.href = '/';
 		} catch (error: any) {
 			setError(error.message);
 			console.error("Errore durante il logout", error);

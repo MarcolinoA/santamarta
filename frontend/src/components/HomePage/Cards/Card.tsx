@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../Styles/Card.module.css";
+import styles from "../../../Styles/Card.module.css";
 import Image, { StaticImageData } from "next/image";
 
 interface CardProps {

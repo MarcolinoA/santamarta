@@ -271,18 +271,32 @@ router.post('/login', loginLimiter, async (req, res) => {
     const user = await User.findOne({ username });
 
     if (user && await bcrypt.compare(password, user.password)) {
-      if (!process.env.JWT_SECRET) {
-        return res.status(500).json({ message: 'Server configuration error' });
-      }
-
       const token = jwt.sign(
         { userId: user._id },
         process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
+  
+      // console.log('Setting cookies:', { authToken: token, username: user.username });
+  
+      res.cookie('authToken', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 24 * 60 * 60 * 1000 // 24 ore
+      });
 
-      res.cookie('authToken', token, { ...COOKIE_OPTIONS, httpOnly: true });
-      res.cookie('username', username, { ...COOKIE_OPTIONS, httpOnly: false });
+      res.cookie('username', user.username, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 24 * 60 * 60 * 1000 // 24 ore
+      });
+  
+      // console.log('Cookies set:', res.getHeaders()['set-cookie']);
+  
       res.json({ message: 'Login successful', username: user.username });
     } else {
       res.status(401).json({ message: 'Credenziali non valide' });
@@ -293,14 +307,23 @@ router.post('/login', loginLimiter, async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-  try {
-    res.clearCookie('authToken', { ...COOKIE_OPTIONS, httpOnly: true });
-    res.clearCookie('username', { ...COOKIE_OPTIONS, httpOnly: false });
-    res.json({ message: 'Logout successful' });
-  } catch (error) {
-    console.error('Error during logout:', error);
-    res.status(500).json({ message: 'An error occurred during logout' });
-  }
+  res.clearCookie('authToken', { 
+    httpOnly: true, 
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/'
+  });
+
+  res.clearCookie('username', { 
+    httpOnly: false, 
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/'
+  });
+
+  console.log('Cookies cleared on logout');
+
+  res.json({ message: 'Logout successful' });
 });
 
 router.post('/deleteAccount', async (req, res) => {

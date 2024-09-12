@@ -1,11 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-import Cookies from 'js-cookie';
 import style from "../../Styles/Header.module.css";
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from "../../../public/logo.png"
+import { useAuthentication } from '../../hooks/useAuthentications';
 
 interface HeaderOption {
   label: string;
@@ -20,14 +20,12 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [username, setUsername] = useState<string>('');
-
-  useEffect(() => {
-    const savedUsername = Cookies.get('username'); // Recupera lo username dal cookie
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-  }, []);
+  const { isAuthenticated, username } = useAuthentication();
+  
+  if (isAuthenticated === null) {
+    // Lo stato di autenticazione non è ancora stato determinato
+    return null; // o un componente di caricamento
+  }
 
   const handleIconClick = () => {
     setIsDropdownVisible((prev) => !prev);
@@ -44,7 +42,11 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
           <div className={style.dropdownMenu}>
             <div className={style.dropdownArrow}></div>
             <div className={style.dropdownContent}>
+            {isAuthenticated ? (
+              <div>{`Ciao, ${username}`}</div>
+              ) : (
               <Image src={logo} alt="Logo" width={120} />
+            )}
               {options.map((option, index) => (
                 <button key={index}>
                   <Link className={style.links} href={option.href}>

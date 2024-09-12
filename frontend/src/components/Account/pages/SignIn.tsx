@@ -7,6 +7,7 @@ import Link from 'next/link';
 import logo from "../../../../public/logo.png"
 import Image from 'next/image';
 import Header from '../../shared/Header';
+import Cookies from 'js-cookie';
 
 interface FormData {
   username: string;
@@ -41,24 +42,46 @@ const SignIn: React.FC = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-        credentials: 'include', // Invia i cookie con la richiesta
+        credentials: 'include',
       });
   
       if (!response.ok) {
-        const responseText = await response.text();
-        try {
-          const errorData = JSON.parse(responseText);
-          throw new Error(errorData.message || 'Errore durante il login');
-        } catch (jsonError) {
-          throw new Error('Errore durante il login: ' + responseText);
+        if (response.status === 429) {
+          throw new Error('Troppi tentativi di accesso. Riprova più tardi.');
         }
+        
+        let errorMessage;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message;
+        } catch {
+          errorMessage = await response.text();
+        }
+        throw new Error(errorMessage || 'Errore durante il login');
       }
   
       const data = await response.json();
+      console.log('Login successful:', data);
+
+      // Salva il token nel localStorage
+      localStorage.setItem('authToken', data.token);
+
+      // Aggiungi un ritardo per dare tempo ai cookie di essere impostati
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // verifica dei cookies
+      const allCookies = Cookies.get();
+      console.log('All cookies after login:', allCookies);
+  
+      const authToken = allCookies.authToken || localStorage.getItem('authToken');
+      if (!authToken) {
+        console.error('AuthToken non trovato nei cookie o nel localStorage');
+        throw new Error('Il cookie di autenticazione non è stato impostato correttamente');
+      }
+  
+      console.log('AuthToken found:', authToken);
       router.push('/');
     } catch (error: any) {
       setError(error.message);
