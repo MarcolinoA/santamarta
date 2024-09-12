@@ -8,6 +8,7 @@ import logo from "../../../../public/logo.png"
 import Image from 'next/image';
 import Header from '../../shared/Header';
 import Cookies from 'js-cookie';
+import { useAuthentication } from '../../../hooks/useAuthentications';
 
 interface FormData {
   username: string;
@@ -20,6 +21,8 @@ const SignIn: React.FC = () => {
     { label: 'Registrati', href: '/account/pages/signup' },
     { label: 'Esci', href: '/account/pages/logout' },
   ];
+
+  const { login } = useAuthentication();
 
   const [formData, setFormData] = useState<FormData>({
     username: '',
@@ -61,31 +64,33 @@ const SignIn: React.FC = () => {
         }
         throw new Error(errorMessage || 'Errore durante il login');
       }
-  
+      
       const data = await response.json();
-      console.log('Login successful:', data);
+      console.log('Server response:', data); // Debug line
 
       // Salva il token nel localStorage
-      localStorage.setItem('authToken', data.token);
+      // localStorage.setItem('authToken', data.token);
 
       // Aggiungi un ritardo per dare tempo ai cookie di essere impostati
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // verifica dei cookies
       const allCookies = Cookies.get();
-      console.log('All cookies after login:', allCookies);
   
       const authToken = allCookies.authToken || localStorage.getItem('authToken');
       if (!authToken) {
-        console.error('AuthToken non trovato nei cookie o nel localStorage');
         throw new Error('Il cookie di autenticazione non è stato impostato correttamente');
       }
   
-      console.log('AuthToken found:', authToken);
-      router.push('/');
+      if (data.username) {
+        login(authToken, data.username);
+        console.log('Login successful. Token:', authToken, 'Username:', data.username);
+        router.push('/');
+      } else {
+        throw new Error('Token not received from server');
+      }
     } catch (error: any) {
       setError(error.message);
-      console.error("Errore durante il login", error);
     } finally {
       setLoading(false);
     }

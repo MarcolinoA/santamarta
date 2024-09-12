@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../../../../public/logo.png"
 import stylePage from "../../../Styles/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Header from '../../shared/Header';
+import { useAuthentication } from "../../../hooks/useAuthentications";
 
 const DeleteAccount: React.FC = () => {
   const options = [
@@ -16,13 +17,20 @@ const DeleteAccount: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { isAuthenticated, username } = useAuthentication();
   const router = useRouter();
 
   const handleDeleteAccount = async () => {
+    if (!isAuthenticated || !username) {
+      setError('Devi essere autenticato per eliminare l\'account');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
+      console.log('Attempting to delete account for username:', username);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/deleteAccount`, {
         method: 'POST',
         headers: {
@@ -31,11 +39,14 @@ const DeleteAccount: React.FC = () => {
         credentials: 'include',
       });
 
+      const data = await response.json();
+      console.log('Server response:', data);
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Errore durante la cancellazione dell\'account');
+        throw new Error(data.message || 'Errore durante la cancellazione dell\'account');
       }
 
+      console.log('Account deleted successfully');
       router.push(`/`); 
     } catch (error: any) {
       setError(error.message);
@@ -44,6 +55,17 @@ const DeleteAccount: React.FC = () => {
       setLoading(false);
     }
   };
+
+  if (isAuthenticated === false) {
+    return (
+      <div className={stylePage.homePageContainer}>
+        <Image src={logo} alt="Logo" width={150} />
+        <h2 className={style.formTitle}>Accesso Negato</h2>
+        <p>Sessione scaduta. Effettua nuovamente il login.</p>
+        <Header isLoggedIn={false} username='' options={options}/>
+      </div>
+    );
+  }
 
   return (
     <div className={stylePage.homePageContainer}>

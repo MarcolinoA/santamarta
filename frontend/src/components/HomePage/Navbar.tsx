@@ -3,16 +3,20 @@ import Image from "next/image";
 import logo from "../../../public/logo.png"
 import styles from "../../Styles/Navbar.module.css"
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthentication } from "../../hooks/useAuthentications"
 
 const Navbar: React.FC = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const { isAuthenticated, username } = useAuthentication();
-  console.log('Navbar render:', { isAuthenticated, username }); // Aggiungi questo log
+  const { isAuthenticated, checkAuth } = useAuthentication();
+  
   const handleIconClick = () => {
     setIsDropdownVisible((prev) => !prev);
   };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <div className={styles.navbar}>

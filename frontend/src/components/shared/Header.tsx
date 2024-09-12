@@ -20,11 +20,14 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const { isAuthenticated, username } = useAuthentication();
+  const { isAuthenticated, username, checkAuth } = useAuthentication();
+  
+  useEffect(() => {
+    checkAuth();
+  }, []);
   
   if (isAuthenticated === null) {
-    // Lo stato di autenticazione non è ancora stato determinato
-    return null; // o un componente di caricamento
+    return null;
   }
 
   const handleIconClick = () => {

@@ -2,7 +2,6 @@ import express from 'express';
 import User from '../models/scheduleUsers.js';
 import { resolveMx } from 'dns/promises';
 import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import rateLimit from 'express-rate-limit';
 import sendEmail from '../util/sendEmail.js';
@@ -16,13 +15,6 @@ if (!JWT_SECRET) {
   console.error('JWT_SECRET is not set in the environment variables');
   process.exit(1);
 }
-
-const COOKIE_NAME = 'authToken';
-const COOKIE_OPTIONS = {
-  //httpOnly: true,
-  secure: process.env.SECRET_KEY === 'production',
-  maxAge: 24 * 60 * 60 * 1000,
-};
 
 const verifyEmailLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minuti
@@ -264,7 +256,7 @@ router.get('/get-email', (req, res) => {
   }
 });
 
-router.post('/login', loginLimiter, async (req, res) => {
+router.post('/login', /* loginLimiter, */ async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -272,21 +264,21 @@ router.post('/login', loginLimiter, async (req, res) => {
 
     if (user && await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
-        { userId: user._id },
+        { userId: user._id, username: user.username },
         process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
   
-      // console.log('Setting cookies:', { authToken: token, username: user.username });
+      console.log('Generated token:', token); // Debug line
   
       res.cookie('authToken', token, {
-        httpOnly: true,
+        httpOnly: false, // Manteniamo false per il debug
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         path: '/',
         maxAge: 24 * 60 * 60 * 1000 // 24 ore
       });
-
+    
       res.cookie('username', user.username, {
         httpOnly: false,
         secure: process.env.NODE_ENV === 'production',
@@ -294,9 +286,8 @@ router.post('/login', loginLimiter, async (req, res) => {
         path: '/',
         maxAge: 24 * 60 * 60 * 1000 // 24 ore
       });
-  
-      // console.log('Cookies set:', res.getHeaders()['set-cookie']);
-  
+      
+      console.log('Login successful, cookies set:', { authToken: token, username: user.username });
       res.json({ message: 'Login successful', username: user.username });
     } else {
       res.status(401).json({ message: 'Credenziali non valide' });
@@ -326,23 +317,46 @@ router.post('/logout', (req, res) => {
   res.json({ message: 'Logout successful' });
 });
 
-router.post('/deleteAccount', async (req, res) => {
+router.post('/deleteAccount', authMiddleware, async (req, res) => {
+  
   try {
-    const userId = req.user.id; // Ottenuto dal middleware di autenticazione
+    const username = req.user.username;
+    console.log('Username from token:', username);
 
-    const user = await User.findByIdAndDelete(userId);
+    const deletedUser = await User.findOneAndDelete({ username });
+
+    if (!username) {
+      console.log('No username found in token');
+      return res.status(404).json({ message: 'Utente non trovato' });
+    }
+
+    const user = await User.findOne({ username });
+    console.log('User found:', user);
 
     if (!user) {
+      console.log('User not found in database');
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.clearCookie('authToken', { ...COOKIE_OPTIONS, httpOnly: true });
-    res.clearCookie('username', { ...COOKIE_OPTIONS, httpOnly: false });
-    res.json({ message: 'Account deleted successfully' });
+    console.log('User deleted:', deletedUser);
+
+    if (!deletedUser) {
+      console.log('User not deleted');
+      return res.status(500).json({ message: 'Eliminazione fallita' });
+    }
+
+    res.clearCookie('authToken');
+    res.clearCookie('username');
+
+    res.json({ message: 'Account eliminato con successo' });
   } catch (error) {
     console.error('Error during account deletion:', error);
     res.status(500).json({ message: 'An error occurred during account deletion' });
   }
+});
+
+router.get('/verify-token', authMiddleware, (req, res) => {
+  res.json({ valid: true });
 });
 
 /* Profilo utente

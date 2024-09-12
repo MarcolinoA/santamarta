@@ -1,11 +1,11 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage.module.css";
+import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import logo from "../../../public/logo.png"
-import Header from '../../shared/Header';
+import logo from "../../../../public/logo.png"
+import Header from "../../shared/Header"
 
 interface FormData {
   email: string;
