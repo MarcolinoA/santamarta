@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Header from '../../shared/Header';
 import Cookies from 'js-cookie';
 import { useAuthentication } from '../../../hooks/useAuthentications';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface FormData {
   username: string;
@@ -31,10 +32,15 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -66,12 +72,7 @@ const SignIn: React.FC = () => {
       }
       
       const data = await response.json();
-      console.log('Server response:', data); // Debug line
-
-      // Salva il token nel localStorage
-      // localStorage.setItem('authToken', data.token);
-
-      // Aggiungi un ritardo per dare tempo ai cookie di essere impostati
+      // Ritardo per dare tempo ai cookie di essere impostati
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // verifica dei cookies
@@ -84,7 +85,6 @@ const SignIn: React.FC = () => {
   
       if (data.username) {
         login(authToken, data.username);
-        console.log('Login successful. Token:', authToken, 'Username:', data.username);
         router.push('/');
       } else {
         throw new Error('Token not received from server');
@@ -115,16 +115,25 @@ const SignIn: React.FC = () => {
         </div>
         <div className={style.formGroup}>
           <label htmlFor="password" className={style.formLabel}>Password</label>
+          <div className={style.passwordInputWrapper}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
-            className={style.formInput}
+            className={`${style.formInput} ${style.passwordInput}`}
             autoComplete="new-password"
           />
+          <button 
+            type="button" 
+            onClick={togglePasswordVisibility} 
+            className={style.passwordToggle}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+          </div>
         </div>
         {error && <div className={style.errorMessage}>{error}</div>}
         <button type="submit" className={style.formButton} disabled={loading}>

@@ -27,7 +27,6 @@ const LogoutC: React.FC = () => {
     setError(null);
   
     try {
-      console.log("Attempting to logout...");
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`, {
         method: 'POST',
         credentials: 'include',

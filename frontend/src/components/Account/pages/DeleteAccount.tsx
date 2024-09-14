@@ -30,7 +30,6 @@ const DeleteAccount: React.FC = () => {
     setError(null);
 
     try {
-      console.log('Attempting to delete account for username:', username);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/deleteAccount`, {
         method: 'POST',
         headers: {
@@ -40,13 +39,11 @@ const DeleteAccount: React.FC = () => {
       });
 
       const data = await response.json();
-      console.log('Server response:', data);
 
       if (!response.ok) {
         throw new Error(data.message || 'Errore durante la cancellazione dell\'account');
       }
 
-      console.log('Account deleted successfully');
       router.push(`/`); 
     } catch (error: any) {
       setError(error.message);

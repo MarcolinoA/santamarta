@@ -19,7 +19,6 @@ router.post("/", async (req, res) => {
 
     res.status(201).json(savedHomeImage);
   } catch (error) {
-    console.log(error.message);
     res.status(500).send({ message: error.message });
   }
 });
@@ -33,7 +32,7 @@ router.get("/", async (req, res) => {
       data: images,
     });
   } catch (error) {
-    console.log(error.message);
+    (error.message);
     res.status(500).send({ message: error.message });
   }
 });
@@ -71,7 +70,7 @@ router.put("/:id", async (request, response) => {
     }
     return response.status(200).send({ message: "Image updated successfully" });
   } catch (error) {
-    console.log(error.message);
+    (error.message);
     response.status(500).send({ message: error.message });
   }
 });

@@ -5,6 +5,7 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Header from '../../shared/Header';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface FormData {
   name: string;
@@ -33,6 +34,8 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -47,6 +50,14 @@ const SignUp: React.FC = () => {
 
   const handleConfirmEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setConfirmEmail(e.target.value);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(prev => !prev);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -138,29 +149,47 @@ const SignUp: React.FC = () => {
         </div>
         <div className={style.formGroup}>
           <label htmlFor="password" className={style.formLabel}>Password</label>
+          <div className={style.passwordInputWrapper}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
-            className={style.formInput}
+            className={`${style.formInput} ${style.passwordInput}`}
             autoComplete="new-password"
           />
+          <button 
+            type="button" 
+            onClick={togglePasswordVisibility} 
+            className={style.passwordToggle}
+          >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
         </div>
         <div className={style.formGroup}>
           <label htmlFor="confirmPassword" className={style.formLabel}>Confirm Password</label>
+          <div className={style.passwordInputWrapper}>
           <input
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             name="confirmPassword"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             required
-            className={style.formInput}
+            className={`${style.formInput} ${style.passwordInput}`}
             autoComplete="new-password"
           />
+          <button 
+            type="button" 
+            onClick={toggleConfirmPasswordVisibility} 
+            className={style.passwordToggle}
+          >
+            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+          </div>  
         </div>
         <div className={style.formGroup}>
           <label htmlFor="email" className={style.formLabel}>Email</label>

@@ -20,8 +20,6 @@ export function useAuthentication() {
           credentials: 'include'
         });
 
-        console.log('AuthToken from cookies:', authToken);
-
         if (response.ok) {
           setIsAuthenticated(true);
           setUsername(storedUsername);

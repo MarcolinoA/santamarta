@@ -5,6 +5,7 @@ import logo from "../../../../public/logo.png"
 import stylePage from "../../../Styles/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import Image from 'next/image';
+import Link from 'next/link';
 
 const AccountVerification: React.FC = () => {
   const [message, setMessage] = useState<string>('');
@@ -62,7 +63,7 @@ const AccountVerification: React.FC = () => {
       <form className={style.form}>
         <Image src={logo} alt="Logo" width={150} />
         <h2 className={style.formTitle}>Controlla il tuo indirizzo di posta elettronica</h2>
-        <p className={style.desc}>Abbiamo inviato un'email di conferma all'account che hai usato per iscriverti, segui le istruzioni indicate nell'email!</p>
+        <p className={style.desc}>Abbiamo inviato un'email di conferma all'account che hai usato per iscriverti, segui le istruzioni indicate nell'email! <br /> Se non vedi l'email controlla nello spam!</p>
         <div 
           className={style.errorMessage} 
           onClick={handleResendVerification}
@@ -70,6 +71,13 @@ const AccountVerification: React.FC = () => {
         >
           Non hai ricevuto l'email? Richiedine una nuova premendo QUI e controlla la tua casella di posta!
         </div>
+        <Link 
+          className={style.errorMessage} 
+          style={{ cursor: 'pointer' }}
+          href='/'
+        >
+          Torna alla Home!
+        </Link>
         {message && <p className={style.message}>{message}</p>}
       </form>
     </div>

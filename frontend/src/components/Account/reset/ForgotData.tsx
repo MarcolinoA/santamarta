@@ -56,10 +56,10 @@ const ForgotData: React.FC<ForgotDataProps> = ({
       });
   
       if (!response.ok) {
-        throw new Error('Errore nell\'invio della richiesta');
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Errore ${response.status}: ${response.statusText}`);
       }
   
-      const data = await response.json();
       setMessage(`Controlla la tua email per reimpostare ${type === 'password' ? 'la tua password' : 'il tuo username'}`);
       setTimeout(() => {
         router.push(`/account/${type}/${pushLink}?email=${encodeURIComponent(formData.email)}`); //resetPassword

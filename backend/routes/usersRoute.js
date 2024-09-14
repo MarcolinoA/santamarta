@@ -36,53 +36,51 @@ router.post('/register', async (req, res) => {
     // 1. Validazione Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).send({ message: "Il formato dell'email non è valido" });
+      return res.status(400).send("Il formato dell'email non è valido");
     }
 
     if (email.length > 254) {
-      return res.status(400).send({ message: "L'email è troppo lunga" });
+      return res.status(400).send("L'email è troppo lunga");
     }
 
     const domain = email.split('@')[1];
     if (!domain) {
-      return res.status(400).send({ message: "Il dominio dell'email non è valido" });
+      return res.status(400).send("Il dominio dell'email non è valido");
     }
 
     const addresses = await resolveMx(domain);
     if (addresses.length === 0) {
-      return res.status(400).send({ message: `Il dominio dell'email (${domain}) non ha record MX validi.` });
+      return res.status(400).send(`Il dominio dell'email (${domain}) non ha record MX validi.`);
     }
 
     // 2. Validazione Name
     const nameRegex = /^[a-zA-ZàèìòùÀÈÌÒÙäöüÄÖÜß\s-]{2,50}$/;
     if (!nameRegex.test(name)) {
-      return res.status(400).send({ message: "Il nome deve essere lungo tra 2 e 50 caratteri e può contenere solo lettere, spazi, trattini e caratteri accentati" });
+      return res.status(400).send("Il nome deve essere lungo tra 2 e 50 caratteri e può contenere solo lettere, spazi, trattini e caratteri accentati");
     }
     
     // 3. Validazione Surname
     const surnameRegex = /^[a-zA-ZàèìòùÀÈÌÒÙäöüÄÖÜß\s-]{2,50}$/;
     if (!surnameRegex.test(surname)) {
-      return res.status(400).send({ message: "Il cognome deve essere lungo tra 2 e 50 caratteri e può contenere solo lettere, spazi, trattini e caratteri accentati" });
+      return res.status(400).send("Il cognome deve essere lungo tra 2 e 50 caratteri e può contenere solo lettere, spazi, trattini e caratteri accentati" );
     }
     
     // 4. Validazione Username
     const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
     if (!usernameRegex.test(username)) {
-      return res.status(400).send({ message: "Lo username deve essere lungo tra 3 e 30 caratteri e può contenere solo lettere, numeri e underscore" });
+      return res.status(400).send("Lo username deve essere lungo tra 3 e 30 caratteri e può contenere solo lettere, numeri e underscore");
     }
 
     // 5. Verifica unicità username e email
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
-      return res.status(400).send({ message: "Email o username già in uso" });
+      return res.status(400).send("Email o username già in uso");
     }
 
     // 6. Validazione della Password
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
     if (!passwordRegex.test(password)) {
-      return res.status(400).send({
-        message: "La password deve essere lunga almeno 8 caratteri e contenere almeno una maiuscola, un carattere speciale e un numero"
-      });
+      return res.status(400).send("La password deve essere lunga almeno 8 caratteri e contenere almeno una maiuscola, un carattere speciale e un numero");
     }
 
     // 7. Crittografia della Password
@@ -256,7 +254,7 @@ router.get('/get-email', (req, res) => {
   }
 });
 
-router.post('/login', /* loginLimiter, */ async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -268,8 +266,6 @@ router.post('/login', /* loginLimiter, */ async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
-  
-      console.log('Generated token:', token); // Debug line
   
       res.cookie('authToken', token, {
         httpOnly: false, // Manteniamo false per il debug
@@ -287,7 +283,6 @@ router.post('/login', /* loginLimiter, */ async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000 // 24 ore
       });
       
-      console.log('Login successful, cookies set:', { authToken: token, username: user.username });
       res.json({ message: 'Login successful', username: user.username });
     } else {
       res.status(401).json({ message: 'Credenziali non valide' });
@@ -312,41 +307,36 @@ router.post('/logout', (req, res) => {
     path: '/'
   });
 
-  console.log('Cookies cleared on logout');
-
   res.json({ message: 'Logout successful' });
 });
 
 router.post('/deleteAccount', authMiddleware, async (req, res) => {
-  
   try {
     const username = req.user.username;
-    console.log('Username from token:', username);
-
+    
+    if (!username) {
+      return res.status(404).json({ message: 'Utente non trovato' });
+    }
+    
     const deletedUser = await User.findOneAndDelete({ username });
 
-    if (!username) {
-      console.log('No username found in token');
+    if (!deletedUser) {
       return res.status(404).json({ message: 'Utente non trovato' });
     }
 
-    const user = await User.findOne({ username });
-    console.log('User found:', user);
+    res.clearCookie('authToken', { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/'
+    });
 
-    if (!user) {
-      console.log('User not found in database');
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    console.log('User deleted:', deletedUser);
-
-    if (!deletedUser) {
-      console.log('User not deleted');
-      return res.status(500).json({ message: 'Eliminazione fallita' });
-    }
-
-    res.clearCookie('authToken');
-    res.clearCookie('username');
+    res.clearCookie('username', { 
+      httpOnly: false, 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/'
+    });
 
     res.json({ message: 'Account eliminato con successo' });
   } catch (error) {
@@ -358,23 +348,5 @@ router.post('/deleteAccount', authMiddleware, async (req, res) => {
 router.get('/verify-token', authMiddleware, (req, res) => {
   res.json({ valid: true });
 });
-
-/* Profilo utente
-router.get('/profile', async (req, res) => {
-  if (!req.session.userId) {
-    return res.status(401).send('You need to log in');
-  }
-
-  try {
-    const user = await User.findById(req.session.userId).select('-password');
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).send('An error occurred while fetching the profile');
-  }
-});
-*/
 
 export default router;

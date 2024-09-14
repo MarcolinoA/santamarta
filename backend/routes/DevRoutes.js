@@ -12,7 +12,6 @@ router.get("/users", async (req, res) => {
       data: users,
     });
   } catch (error) {
-    console.log("Error fetching users:", error.message);
     res.status(500).send({ message: "Failed to fetch users", error: error.message });
   }
 });
@@ -51,7 +50,6 @@ router.put("/update/:id", async (req, res) => {
     }
     return res.status(200).send({ message: "User updated successfully", user: result });
   } catch (error) {
-    console.log("Error updating user:", error.message);
     res.status(500).send({ message: "Failed to update user", error: error.message });
   }
 });
