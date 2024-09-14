@@ -5,6 +5,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import { initScheduledJobs } from "./util/cronJobs.js"
 
 // Carica le variabili d'ambiente
 dotenv.config(); // Assicurati che questo sia eseguito per primo
@@ -12,9 +13,14 @@ dotenv.config(); // Assicurati che questo sia eseguito per primo
 import { PORT, mongoDBURL } from './config.js';
 import homeImageRoute from './routes/imageRoute.js';
 import usersRoute from './routes/usersRoute.js';
+import OTPRoutes from "./domains/otp/routes.js"
+import devRoutes from "./routes/DevRoutes.js"
 
 // Il resto del tuo codice rimane invariato
 const app = express();
+
+// Inizializza i lavori pianificati
+initScheduledJobs();
 
 // CORS configuration
 app.use(cors({
@@ -45,6 +51,8 @@ app.use(session({
 // Route configuration
 app.use('/homeImage', homeImageRoute);
 app.use('/users', usersRoute);
+app.use('/otp', OTPRoutes);
+app.use('/dev', devRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
