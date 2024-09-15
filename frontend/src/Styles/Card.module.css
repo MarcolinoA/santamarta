@@ -83,3 +83,33 @@
   flex-wrap: wrap;
   gap: 20px; 
 }
+
+.cardTable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 30px;
+}
+
+.cardTitle {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.cardSection {
+  display: flex;
+  flex-direction: row-reverse; /* Position the large card to the right */
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-template-rows: repeat(2, 1fr); /* Two rows */
+  gap: 20px; /* Space between cards in the grid */
+}

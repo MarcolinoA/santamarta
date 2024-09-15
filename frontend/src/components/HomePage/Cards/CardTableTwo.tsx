@@ -88,7 +88,7 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 
   return (
     <div className={styles.cardTable}>
-      <div className={styles.cardTitle}>{cardTitle}</div>
+      <h2 className={styles.cardTitle}>{cardTitle}</h2>
       <div className={styles.cardSection}>
         <div className={styles.cardGrid}>
           {cardArr

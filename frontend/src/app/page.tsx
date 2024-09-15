@@ -27,19 +27,17 @@ const Home = () => {
         <Script
           src="https://www.google.com/recaptcha/enterprise.js?render=explicit"
           strategy="beforeInteractive"
-        />{" "}
+        />
       </Head>
 
       <main className={styles.main}>
         <HomePage />
       </main>
 
-      <div>
-        <CardTable cardTitle="Laboratori" />
+      <CardTable cardTitle="Laboratori" />
 
-        <CardTableTwo cardTitle="Servizi" />
-      </div>
-
+      <CardTableTwo cardTitle="Servizi" />
+      
       <footer>
         <Footer />
       </footer>
