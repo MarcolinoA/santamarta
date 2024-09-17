@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function LaScuolaPage() {
-	return (
-		<div>LaScuolaPage</div>
-	)
+	return <div>LaScuolaPage</div>;
 }
 
-export default LaScuolaPage
+export default LaScuolaPage;

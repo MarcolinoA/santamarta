@@ -1,3 +1,3 @@
-import routes from "./routes.js"
+import routes from "./routes.js";
 
-module.exports = routes
+module.exports = routes;

@@ -1,78 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santa Marta Password Reset</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-        }
-        .header img {
-            max-width: 150px;
-        }
-        .content {
-            padding: 10px;
-            text-align: center;
-        }
-        .content h1 {
-            color: #333333;
-        }
-        .content p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #666666;
-        }
-        .otp {
-            display: inline-block;
-            background-color: #FDD040;
-            color: #000;
-            padding: 10px 20px 10px 25px;
-            font-size: 24px;
-            letter-spacing: 5px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #999999;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eeeeee;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <img src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png" alt="Logo">
-        </div>
-        <div class="content">
-            <h1>Reimposta la tua password!</h1>
-            <p>Ciao,</p>
-            <p>Abbiamo ricevuto una richiesta per reimpostare la tua password. Utilizza il codice OTP qui sotto per reimpostarla:</p>
-            <div class="otp">{{OTP}}</div>
-            <p>Questo codice è valido per 1 ora. Se non hai richiesto questa operazione, ignora questa email.</p>
-        </div>
-        <div class="footer">
-            © 2024 Santamarta. Tutti i diritti riservati.
-        </div>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Santa Marta Password Reset</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				color: #333333;
+				margin: 0;
+				padding: 0;
+			}
+			.container {
+				width: 100%;
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #ffffff;
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+			.header {
+				text-align: center;
+			}
+			.header img {
+				max-width: 150px;
+			}
+			.content {
+				padding: 10px;
+				text-align: center;
+			}
+			.content h1 {
+				color: #333333;
+			}
+			.content p {
+				font-size: 16px;
+				line-height: 1.5;
+				color: #666666;
+			}
+			.otp {
+				display: inline-block;
+				background-color: #fdd040;
+				color: #000;
+				padding: 10px 20px 10px 25px;
+				font-size: 24px;
+				letter-spacing: 5px;
+				margin: 20px 0;
+				border-radius: 5px;
+			}
+			.footer {
+				text-align: center;
+				font-size: 12px;
+				color: #999999;
+				margin-top: 20px;
+				padding-top: 20px;
+				border-top: 1px solid #eeeeee;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<img
+					src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png"
+					alt="Logo"
+				/>
+			</div>
+			<div class="content">
+				<h1>Reimposta la tua password!</h1>
+				<p>Ciao,</p>
+				<p>
+					Abbiamo ricevuto una richiesta per reimpostare la tua password.
+					Utilizza il codice OTP qui sotto per reimpostarla:
+				</p>
+				<div class="otp">{{OTP}}</div>
+				<p>
+					Questo codice è valido per 1 ora. Se non hai richiesto questa
+					operazione, ignora questa email.
+				</p>
+			</div>
+			<div class="footer">© 2024 Santamarta. Tutti i diritti riservati.</div>
+		</div>
+	</body>
 </html>
