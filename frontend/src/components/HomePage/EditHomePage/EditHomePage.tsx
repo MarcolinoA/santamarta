@@ -6,6 +6,7 @@ import { StaticImageData } from "next/image";
 import Card from "../../Sections/Cards/Card";
 import PriorityButton from "../../shared/PriorityButton";
 import { FaPlus } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 // al click sull'immagine bisogna far si che l'immagine nella schermata home cambi
 // bisogna aggiungere bottoni per eliminarla dalla lista
@@ -20,15 +21,17 @@ interface Image {
 
 function EditHomePage() {
 	const [images, setImages] = useState<Image[]>([]);
+	const [activeImageId, setActiveImageId] = useState<number | null>(null);
 	const [loading, setLoading] = useState(false);
+	const router = useRouter();
 
 	const option = [
-		{ 
-			href: "/addHomePageImage", 
-			icon: <FaPlus size={30} />, 
+		{
+			href: "/home/homePageAddImg",
+			icon: <FaPlus size={30} />,
 			style: {
-				position: 'fixed' as const, // Fixed matches the 'Position' type
-			}, 
+				position: "fixed" as const, // Fixed matches the 'Position' type
+			},
 		},
 	];
 
@@ -48,15 +51,39 @@ function EditHomePage() {
 		fetchImages();
 	}, []);
 
+	const handleCardClick = async (id: number) => {
+		// Imposta l'ID dell'immagine attiva
+		setActiveImageId(id);
+
+		// Aggiorna lo stato dell'immagine nel database
+		await imageServices.updateImage(String(id), { active: true });
+
+		// Aggiorna lo stato locale
+		setImages((prevImages) =>
+			prevImages.map((image) =>
+				image._id === id
+					? { ...image, active: true }
+					: { ...image, active: false }
+			)
+		);
+
+		router.push("/");
+	};
+
 	return (
 		<>
 			<div className={style.editHomePageWrapper}>
 				<h2 className={style.editHomePageTitle}>
-					Seleziona l'immagine della schermata home
+					Fai click su una delle Card per impostarla come immagine della
+					schermata home
 				</h2>
 				<div className={style.imagesCardSection}>
 					{images.map((card: Image) => (
-						<div key={card._id} className={style.cardWrapper}>
+						<div
+							key={card._id}
+							className={style.cardWrapper}
+							onClick={() => handleCardClick(card._id)}
+						>
 							<Card
 								cardName={card.title}
 								cardNameWidth="200px"
@@ -69,7 +96,7 @@ function EditHomePage() {
 							/>
 						</div>
 					))}
-					<PriorityButton option={option}/>
+					<PriorityButton option={option} />
 				</div>
 			</div>
 		</>

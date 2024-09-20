@@ -11,7 +11,8 @@ const homeImageSchema = new mongoose.Schema({
 	},
 	active: {
 		type: Boolean,
-		required: true
+		required: false,
+		default: false
 	}
 });
 

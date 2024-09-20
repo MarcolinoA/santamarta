@@ -30,7 +30,6 @@ transporter.verify((error, success) => {
 const sendEmail = async (mailOptions) => {
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email inviata:', info.response);
   } catch (error) {
     console.error('Errore nell\'invio dell\'email:', error);
     throw error; // Propaga l'errore per ulteriori elaborazioni
