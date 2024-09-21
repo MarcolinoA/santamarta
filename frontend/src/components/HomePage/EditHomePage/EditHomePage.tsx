@@ -5,8 +5,10 @@ import { imageServices } from "../../../services/apiImagesServices";
 import { StaticImageData } from "next/image";
 import Card from "../../Sections/Cards/Card";
 import PriorityButton from "../../shared/PriorityButton";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import styleBtn from "../../../Styles/HomePage/EditButton.module.css"
+import DeleteBtn from "./DeleteBtn";
 
 // al click sull'immagine bisogna far si che l'immagine nella schermata home cambi
 // bisogna aggiungere bottoni per eliminarla dalla lista
@@ -25,13 +27,22 @@ function EditHomePage() {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 
-	const option = [
+	const optionPlus = [
 		{
 			href: "/home/homePageAddImg",
 			icon: <FaPlus size={30} />,
 			style: {
-				position: "fixed" as const, // Fixed matches the 'Position' type
+				position: "fixed" as const,
+				bottom: "20px", // Mantieni questa posizione
+			left: "20px",
 			},
+		},
+	];
+
+	const optionDelete = [
+		{
+			href: "/home/homePageDeleteImg",
+			icon: <FaTrash size={30} />,
 		},
 	];
 
@@ -96,7 +107,8 @@ function EditHomePage() {
 							/>
 						</div>
 					))}
-					<PriorityButton option={option} />
+					<PriorityButton option={optionPlus} />
+					<DeleteBtn option={optionDelete} />
 				</div>
 			</div>
 		</>

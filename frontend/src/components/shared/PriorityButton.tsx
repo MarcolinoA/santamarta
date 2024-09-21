@@ -16,9 +16,10 @@ interface ButtonOptions {
 
 interface ButtonProps {
 	option: ButtonOptions[];
+	customClass?: string; // Aggiungi questa linea
 }
 
-const PriorityButton: React.FC<ButtonProps> = ({ option }) => {
+const PriorityButton: React.FC<ButtonProps> = ({ option, customClass }) => {
 	const { isAuthenticated, userPriority } = useAuthentication();
 
 	if (!isAuthenticated || !userPriority) {
@@ -30,8 +31,8 @@ const PriorityButton: React.FC<ButtonProps> = ({ option }) => {
 			{option.map((option, index) => (
 				<Link key={index} href={option.href}>
 					<div
-						className={`${style.editIcon} ${option.style.position === "fixed" ? style.fixedPosition : ""}`} // Add a dynamic class
-					>
+						className={`${style.editIcon} ${option.style.position === "fixed" ? style.fixedPosition : ""} ${index === 1 ? customClass : ""}`} 
+						>
 						{option.icon}
 					</div>
 				</Link>
