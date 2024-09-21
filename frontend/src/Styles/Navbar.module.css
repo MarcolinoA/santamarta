@@ -1,97 +1,97 @@
 .navbar {
-    background-color: transparent;
-    color: #000;
-    display: block;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
+	background-color: transparent;
+	color: #000;
+	display: block;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 10;
 }
 
 .logoContainer {
-    margin-left: 30px;
-    justify-content: center;
+	margin-left: 30px;
+	justify-content: center;
 }
 
 .linksContainer {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
+	display: flex;
+	flex-grow: 1;
+	justify-content: center;
 }
 
 .horizontalMenu {
-    background-color: rgba(255, 255, 255, 0.6);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    list-style-type: none;
-    position: relative;
-    padding: 0;
-    border-radius: 30px;
-    height: 90px;
+	background-color: rgba(255, 255, 255, 0.6);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 0;
+	border-radius: 30px;
+	height: 90px;
 }
 
 .link {
-    padding: 15px;
-    transition: all 0.3s ease;
+	padding: 15px;
+	transition: all 0.3s ease;
 }
 
 .link:hover {
-    cursor: pointer;
-    text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
-    color: #000;
+	cursor: pointer;
+	text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+	color: #000;
 }
 
 .dropdownMenu {
-    position: absolute;
-    top: 100%; /* Place the dropdown directly below the navbar */
-    left: 88.5%; /* Center it horizontally below the navbar */
-    transform: translateX(-50%); /* Adjust for centering */
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    width: 150px;
-    text-align: center;
-    z-index: 11; /* Ensure it appears above other elements */
+	position: absolute;
+	top: 100%; /* Place the dropdown directly below the navbar */
+	left: 88.5%; /* Center it horizontally below the navbar */
+	transform: translateX(-50%); /* Adjust for centering */
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	width: 150px;
+	text-align: center;
+	z-index: 11; /* Ensure it appears above other elements */
 }
-  
+
 .dropdownArrow {
-    position: absolute;
-    top: -10px; /* Position arrow above the dropdown */
-    left: 50%; /* Center it horizontally */
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid rgba(255, 255, 255, 0.3); /* Adjust arrow direction */
+	position: absolute;
+	top: -10px; /* Position arrow above the dropdown */
+	left: 50%; /* Center it horizontally */
+	transform: translateX(-50%);
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid rgba(255, 255, 255, 0.3); /* Adjust arrow direction */
 }
-  
+
 .dropdownContent p {
-    margin: 0;
-    padding: 5px 0;
-    font-size: 18px;
+	margin: 0;
+	padding: 5px 0;
+	font-size: 18px;
 }
-  
+
 .dropdownContent button {
-    width: 100%;
-    padding: 5px 0;
-    margin-top: 5px;
-    border: none;
-    background-color:  rgba(255, 255, 255, 0.6);
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 18px;
+	width: 100%;
+	padding: 5px 0;
+	margin-top: 5px;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 18px;
 }
 
 .links {
-    text-decoration: none;
-    color: #000;
+	text-decoration: none;
+	color: #000;
 }

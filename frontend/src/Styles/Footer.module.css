@@ -1,95 +1,95 @@
 .footerContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: #FDD040;
-  color: #000 ;
-  padding: 0px 40px;
-  position: relative;
-  z-index: 1;
-  margin: -10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	background-color: #fdd040;
+	color: #000;
+	padding: 0px 40px;
+	position: relative;
+	z-index: 1;
+	margin: -10px;
 }
 
 .waveContainer {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
 }
 
 .waveContainer svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  position: relative;
-  top: -5px; /* Aggiusta per una transizione fluida tra l'onda e il footer */
+	display: block;
+	width: 100%;
+	height: auto;
+	position: relative;
+	top: -5px; /* Aggiusta per una transizione fluida tra l'onda e il footer */
 }
 
 .firstSection,
 .secondSection,
 .thirdSection {
-  flex: 1;
-  margin: 0px;
-  padding: 10px;
+	flex: 1;
+	margin: 0px;
+	padding: 10px;
 }
 
 .firstSection {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 /*Browse section*/
 .browse {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .browseNav {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 
 .browseLink {
-  text-decoration: none;
-  color: #000;
+	text-decoration: none;
+	color: #000;
 }
 
 /*Contact section*/
 .contact {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .contactTitle {
-  justify-content: left;
-  align-items: center;
+	justify-content: left;
+	align-items: center;
 }
 
 .hr {
-  width: 100%;
-  border-color: black;
+	width: 100%;
+	border-color: black;
 }
 
 .mapsField,
 .phoneField,
 .emailField {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
 }
 
 .address,
 .mapsDiv,
 .phoneDiv,
 .emailDiv {
-  font-size: var(--footer_desc_size);
+	font-size: var(--footer_desc_size);
 }
 
 .mapsLink .phoneLink .emailLink {
-  text-decoration: none;
-  color: var(--footer_color);
+	text-decoration: none;
+	color: var(--footer_color);
 }
 
 /*

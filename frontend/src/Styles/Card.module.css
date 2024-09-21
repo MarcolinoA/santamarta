@@ -1,85 +1,151 @@
 .CardContainer {
-  position: relative;
-  overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  opacity: 1; /* Assicurati che le card siano visibili subito */
-  transform: none; /* Assicurati che le card siano nella posizione originale */
-  transition: none; /* Rimuove tutte le transizioni */
-  perspective: 1000px; /* Mantieni la prospettiva per l'effetto 3D */
-  cursor: pointer; /* Aggiungi il cursore a mano per indicare che è cliccabile */
+	position: relative;
+	overflow: hidden;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	background-color: #fff;
+	opacity: 1; /* Assicurati che le card siano visibili subito */
+	transform: none; /* Assicurati che le card siano nella posizione originale */
+	transition: none; /* Rimuove tutte le transizioni */
+	perspective: 1000px; /* Mantieni la prospettiva per l'effetto 3D */
+	cursor: pointer; /* Aggiungi il cursore a mano per indicare che è cliccabile */
 }
 
 .CardContainer.visible {
-  opacity: 1;
-  transform: none; /* Assicurati che le card siano nella posizione originale */
+	opacity: 1;
+	transform: none; /* Assicurati che le card siano nella posizione originale */
 }
 
 /* Contenitore interno per gestire la rotazione 3D */
 .cardInner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 0.8s; /* Mantieni la transizione per la rotazione della card */
-  transform-style: preserve-3d; /* Mantiene il 3D durante la trasformazione */
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transition: transform 0.8s; /* Mantieni la transizione per la rotazione della card */
+	transform-style: preserve-3d; /* Mantiene il 3D durante la trasformazione */
 }
 
 .flipped .cardInner {
-  transform: rotateY(180deg); /* Ruota la card di 180 gradi */
+	transform: rotateY(180deg); /* Ruota la card di 180 gradi */
 }
 
-.cardFront, 
+.cardFront,
 .cardBack {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  backface-visibility: hidden; /* Nasconde il retro quando non visibile */
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	backface-visibility: hidden; /* Nasconde il retro quando non visibile */
 }
 
 .cardFront {
-  background-color: #fff; /* Sfondo del fronte della card */
+	background-color: #fff; /* Sfondo del fronte della card */
 }
 
 .cardBack {
-  background-color: #f8f8f8; /* Sfondo del retro della card */
-  transform: rotateY(180deg); /* Ruota il retro della card per allinearsi */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
+	background-color: #f8f8f8; /* Sfondo del retro della card */
+	transform: rotateY(180deg); /* Ruota il retro della card per allinearsi */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	box-sizing: border-box;
 }
 
 .cardBack p {
-  margin: 0;
-  font-size: 16px;
-  text-align: center;
-  color: #333;
+	margin: 0;
+	font-size: 16px;
+	text-align: center;
+	color: #333;
 }
 
 .cardName {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: #000;
-  z-index: 10;
-  font-size: 1.2rem;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 8px;
-  border-radius: 30px;
-  width: 100px;
-  height: 17px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	color: #000;
+	z-index: 10;
+	font-size: 1.2rem;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 8px;
+	border-radius: 30px;
+	width: 100px;
+	height: 17px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .cardLayout {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.cardTable {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+	margin: 30px;
+}
+
+.cardTitle {
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.cardSection {
+	display: flex;
+	flex-direction: row-reverse; /* Position the large card to the right */
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.cardGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* Two columns */
+	grid-template-rows: repeat(2, 1fr); /* Two rows */
+	gap: 20px; /* Space between cards in the grid */
+}
+
+/* Edit Home Page Cards*/
+
+.editHomePageWrapper {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.editHomePageTitle {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+  color: #333;
+}
+
+.imagesCardSection {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; 
+  justify-content: center;
+  gap: 30px;
+}
+
+.imagesCardSection > * {
+  flex: 0 0 calc(25% - 22.5px); /* 4 cards per row, accounting for gap */
+  max-width: calc(25% - 22.5px);
+  margin-bottom: 30px;
+}
+
+.cardWrapper {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardWrapper:hover {
+  transform: translateY(-5px);
 }

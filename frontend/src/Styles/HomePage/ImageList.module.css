@@ -1,0 +1,69 @@
+.imageList {
+	flex: 1 1 30%;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	justify-content: center;
+}
+
+.imageItem {
+	height: 70px;
+	width: 80vh;
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	margin: 20px 0;
+	justify-content: center;
+	text-align: center;
+	flex: 0 0 30%; 
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi un'ombra per migliorare l'aspetto */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.imageInfo {
+	display: flex;
+	flex-direction: row;
+	justify-content:center;
+	align-items: center;
+}
+
+.imageTitle {
+	margin: 0px 20px;
+	width: 100px;
+}
+
+.imageStatus {
+	margin: 0px 20px; /* Spaziatura verticale */
+	color: #000; /* Colore del testo dello stato */
+	width: 100px;
+}
+
+.deleteButton {
+	width: 100px;
+	height: 40px;
+	margin: 0px 20px;
+	background-color: #ff4d4f;
+	color: white; 
+	border: none;
+	border-radius: 5px;
+	padding: 5px 10px;
+	cursor: pointer; 
+	font-size: 16px;
+}
+
+.scrollableContainer {
+	max-height: 600px; /* Imposta l'altezza massima desiderata */
+	overflow-y: auto; /* Abilita lo scorrimento verticale */
+	display: flex; /* Utilizza flexbox per l'allineamento */
+	flex-wrap: wrap; /* Permette di andare a capo */
+	align-items: flex-start;
+}
+
+.imageItem {
+	flex: 1 1 30%; /* Imposta la larghezza delle colonne (3 colonne) */
+	margin: 10px; /* Margine tra le colonne */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi un'ombra per migliorare l'aspetto */
+}
