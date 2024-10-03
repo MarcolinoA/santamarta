@@ -1,4 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const FALLBACK_IMAGE = "https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png"
 
 export const imageServices = {
 	// Get all images
@@ -76,13 +77,14 @@ export const imageServices = {
 	},
 
 	getActiveImage: async () => {
-		try {
-			const response = await fetch(`${API_URL}/homeImage/active`); // Ensure this is correct
-			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-			return await response.json();
-		} catch (error) {
-			console.error("Error fetching active image:", error);
-			throw error;
-		}
-	},
+    try {
+        const response = await fetch(`${API_URL}/homeImage/active`); // Assicurati che questo sia corretto
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching active image:", error);
+        // Restituisci l'immagine di fallback in caso di errore
+        return { image: FALLBACK_IMAGE }; // Utilizza l'URL dell'immagine di fallback
+    }
+},
 };
