@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import style from "../../Styles/Header.module.css";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { useAuthentication } from "../../hooks/useAuthentications";
 interface HeaderOption {
 	label: string;
 	href: string;
+	dataid: string;
 }
 
 interface HeaderProps {
@@ -22,33 +23,53 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 	const { isAuthenticated, username, checkAuth } = useAuthentication();
 
-	useEffect(() => {
-		checkAuth();
-	}, []);
+	// Funzione per mostrare/nascondere il menu
+	const toggleDropdown = () => {
+		setIsDropdownVisible(!isDropdownVisible);
+	};
 
-	if (isAuthenticated === null) {
-		return null;
-	}
+	// Funzione che nasconde il dropdown se perde il focus
+	const handleBlur = () => {
+		// Usa setTimeout per ritardare la chiusura del dropdown
+		setTimeout(() => {
+			setIsDropdownVisible(false);
+		}, 150);
+	};
 
-	const handleIconClick = () => {
-		setIsDropdownVisible((prev) => !prev);
+	const handleClick = () => {
+		// Impedisce la chiusura immediata del dropdown quando si clicca sui pulsanti
+		setIsDropdownVisible(true);
 	};
 
 	return (
 		<div className={style.headerContainer}>
-			<div className={style.userInfo} onClick={handleIconClick}>
-				<FaUserCircle className={style.userIcon} size={30} />
+			<div
+				className={style.userInfo}
+				tabIndex={0}
+				onBlur={handleBlur}
+				data-id="header-btn"
+			>
+				{/* Usa tabIndex per abilitare il focus */}
+				<FaUserCircle
+					className={style.userIcon}
+					size={30}
+					onClick={toggleDropdown}
+				/>
 				{isDropdownVisible && (
 					<div className={style.dropdownMenu}>
 						<div className={style.dropdownArrow}></div>
-						<div className={style.dropdownContent}>
+						<div className={style.dropdownContent} data-id="dropdown-content">
 							{isAuthenticated ? (
 								<div>{`Ciao, ${username}`}</div>
 							) : (
-								<Image src={logo} alt="Logo" width={120} />
+								<Image src={logo} alt="Logo" width={120} data-id="header-logo" />
 							)}
 							{options.map((option, index) => (
-								<button key={index}>
+								<button
+									key={index}
+									data-id={option.dataid}
+									onClick={handleClick} // Riconosce il clic e mantiene aperto il dropdown
+								>
 									<Link className={style.links} href={option.href}>
 										{option.label}
 									</Link>

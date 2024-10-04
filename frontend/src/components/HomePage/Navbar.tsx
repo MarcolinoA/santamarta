@@ -23,8 +23,8 @@ const Navbar: React.FC = () => {
 			<div className={styles.logoContainer}>
 				<Image src={logo} alt="Logo" width={150} />
 			</div>
-			<div className={styles.linksContainer}>
-				<ul className={styles.horizontalMenu}>
+			<div className={styles.linksContainer} data-id="nav-links-container">
+				<ul className={styles.horizontalMenu} data-id="nav-links-container">
 					{/*<li><a className={styles.link}>Laboratori</a></li>
           <li><a className={styles.link}>Servizi</a></li>*/}
 					<li>

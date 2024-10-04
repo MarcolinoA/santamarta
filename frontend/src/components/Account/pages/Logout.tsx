@@ -10,9 +10,9 @@ import Header from "../../shared/Header";
 
 const LogoutC: React.FC = () => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Registrati", href: "/account/pages/signup" },
+		{ label: "Home", href: "/",  dataid: "home-btn"},
+		{ label: "Accedi", href: "/account/pages/signin",  dataid: "signin-btn" },
+		{ label: "Registrati", href: "/account/pages/signup",  dataid: "signup-btn" },
 	];
 
 	const [error, setError] = useState<string | null>(null);
