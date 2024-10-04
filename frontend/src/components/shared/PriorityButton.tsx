@@ -27,7 +27,7 @@ const PriorityButton: React.FC<ButtonProps> = ({ option, customClass }) => {
 	}
 
 	return (
-		<div className={style.editButtonContainer}>
+		<div className={style.editButtonContainer} data-id="priority-btn">
 			{option.map((option, index) => (
 				<Link key={index} href={option.href}>
 					<div

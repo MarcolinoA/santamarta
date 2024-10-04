@@ -8,19 +8,28 @@ import PriorityButton from "../shared/PriorityButton";
 import { FaPen } from "react-icons/fa";
 import { imageServices } from "../../services/apiImagesServices";
 import Header from "../shared/Header";
+import dynamic from "next/dynamic";
 
 const FALLBACK_IMAGE =
 	"https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png";
 
 const HomePage = () => {
 	const [imageSrc, setImageSrc] = useState<string>(FALLBACK_IMAGE);
-	const [loading, setLoading] = useState<boolean>(true); // Stato di caricamento
+	const [loading, setLoading] = useState<boolean>(true);
 
 	const options = [
-		{ label: "Registrati", href: "/account/pages/signup" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Esci", href: "/account/pages/logout" },
-		{ label: "Elimina", href: "/account/pages/deleteAccount" },
+		{
+			label: "Registrati",
+			href: "/account/pages/signup",
+			dataid: "signup-btn",
+		},
+		{ label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
+		{ label: "Esci", href: "/account/pages/logout", dataid: "logout-btn" },
+		{
+			label: "Elimina",
+			href: "/account/pages/deleteAccount",
+			dataid: "delete-account-btn",
+		},
 	];
 
 	const option = [
@@ -35,7 +44,7 @@ const HomePage = () => {
 
 	useEffect(() => {
 		const fetchActiveImage = async () => {
-			setLoading(true); 
+			setLoading(true);
 			try {
 				const image = await imageServices.getActiveImage();
 				// Se l'immagine non è disponibile, imposta l'immagine di fallback
@@ -62,15 +71,20 @@ const HomePage = () => {
 	return (
 		<div className={styles.homePageContainer}>
 			<Navbar />
-			<Image
-				src={imageSrc}
-				alt="test"
-				layout="fill"
-				objectFit="cover"
-				quality={100}
-				priority={true}
-				data-id="home-page-img"
-			/>
+			{loading ? (
+				<div data-id="loading-spinner" className={styles.loader}></div>
+			) : (
+				<Image
+					src={imageSrc}
+					alt="test"
+					layout="fill"
+					objectFit="cover"
+					quality={100}
+					priority={true}
+					data-id="home-page-img"
+				/>
+				
+			)}
 			<Header
 				isLoggedIn={true}
 				username={(username as string) || ""}

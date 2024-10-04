@@ -1,9 +1,12 @@
+HEADER: 
+	Aggiungere la possibilità di chiudere il dropdown con ESC
+	Mostrare determinati campi in base allo stato dell'utente
+
+LOGOUT:
+	Non si vede un cazzo
+
 Footer
 
-TESTA ZIOPERONE TEEEESTAAAAA
-
 Da implementare il captcha
-Menu per cambiare l'immagine home
-Il footer mi fa cagare
 
 ricambiare tutta quella storia dell head error punycode ecc.
