@@ -3,24 +3,32 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import logo from "../../../../public/logo.png";
 import Image from "next/image";
 import Header from "../../shared/Header";
 import Cookies from "js-cookie";
 import { useAuthentication } from "../../../hooks/useAuthentications";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import InputField from "../../shared/InputFieldProps";
+import FormFooter from "../../shared/FormFooter";
+import { validateForm } from "../../../utils/validation";
 
 interface FormData {
 	username: string;
 	password: string;
 }
 
+interface Errors {
+	[key: string]: string;
+}
+
 const SignIn: React.FC = () => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Registrati", href: "/account/pages/signup" },
-		{ label: "Esci", href: "/account/pages/logout" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{
+			label: "Registrati",
+			href: "/account/pages/signup",
+			dataid: "signup-btn",
+		},
 	];
 
 	const { login } = useAuthentication();
@@ -29,10 +37,11 @@ const SignIn: React.FC = () => {
 		username: "",
 		password: "",
 	});
-	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
-	const router = useRouter();
+	const [errors, setErrors] = useState<Errors>({});
+	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -46,8 +55,15 @@ const SignIn: React.FC = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
-		setError(null);
+		setErrors({});
+		setMessage(null);
 
+		const validationErrors = validateForm(formData, undefined, undefined, false);
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(validationErrors as Errors);
+			setLoading(false);
+			return;
+	}
 		try {
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_API_URL}/users/login`,
@@ -75,10 +91,8 @@ const SignIn: React.FC = () => {
 			}
 
 			const data = await response.json();
-			// Ritardo per dare tempo ai cookie di essere impostati
 			await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			// verifica dei cookies
 			const allCookies = Cookies.get();
 
 			const authToken =
@@ -96,7 +110,7 @@ const SignIn: React.FC = () => {
 				throw new Error("Token not received from server");
 			}
 		} catch (error: any) {
-			setError(error.message);
+			setErrors({ form: error.message });
 		} finally {
 			setLoading(false);
 		}
@@ -105,67 +119,43 @@ const SignIn: React.FC = () => {
 	return (
 		<div className={stylePage.homePageContainer}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 className={stylePage.title}>Effettua l'accesso</h2>
-			<form onSubmit={handleSubmit} className={style.form}>
+			<h2 data-id="title" className={stylePage.title}>Effettua l'accesso</h2>
+			<form onSubmit={handleSubmit} className={style.form} data-id="signInForm">
 				<div className={style.formGroup}>
-					<label htmlFor="username" className={style.formLabel}>
-						Username
-					</label>
-					<input
-						type="text"
+					<InputField
 						id="username"
+						dataid="username"
 						name="username"
+						type="text"
 						value={formData.username}
 						onChange={handleChange}
+						label="Username"
 						required
-						className={style.formInput}
+					/>
+					<InputField
+						id="password"
+						dataid="password"
+						name="password"
+						type="password"
+						value={formData.password}
+						onChange={handleChange}
+						label="Password"
+						required
+						showPasswordToggle
+						showPassword={showPassword}
+						togglePasswordVisibility={togglePasswordVisibility}
 					/>
 				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="password" className={style.formLabel}>
-						Password
-					</label>
-					<div className={style.passwordInputWrapper}>
-						<input
-							type={showPassword ? "text" : "password"}
-							id="password"
-							name="password"
-							value={formData.password}
-							onChange={handleChange}
-							required
-							className={`${style.formInput} ${style.passwordInput}`}
-							autoComplete="new-password"
-						/>
-						<button
-							type="button"
-							onClick={togglePasswordVisibility}
-							className={style.passwordToggle}
-						>
-							{showPassword ? <FaEyeSlash /> : <FaEye />}
-						</button>
-					</div>
-				</div>
-				{error && <div className={style.errorMessage}>{error}</div>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Submitting..." : "Accedi"}
-				</button>
-				<div className={style.errorLinks}>
-					<Link
-						href="/account/password/recoverPassword"
-						className={style.errorMessage}
-					>
-						Hai dimenticato la password? Recuperala!
-					</Link>
-					<Link
-						href="/account/username/recoverUsername"
-						className={style.errorMessage}
-					>
-						Hai dimenticato lo username? Recuperalo!
-					</Link>
-					<Link href="/account/pages/signup" className={style.errorMessage}>
-						Non hai un account? Registrati!
-					</Link>
-				</div>
+				<FormFooter
+					message={message}
+					errors={errors}
+					loading={loading}
+					btnDataId="submit-btn"
+					btnLoadingText="Accesso in corso..."
+					btnText="Accedi"
+					hrefLink="/"
+					linkText="Non hai un account? Registrati!"
+				/>
 			</form>
 			<Header isLoggedIn={false} username="" options={options} />
 		</div>
