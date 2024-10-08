@@ -10,9 +10,7 @@ import { useAuthentication } from "../../../hooks/useAuthentications";
 
 const DeleteAccount: React.FC = () => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Registrati", href: "/account/pages/signup" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
 	];
 
 	const [loading, setLoading] = useState<boolean>(false);
@@ -62,8 +60,8 @@ const DeleteAccount: React.FC = () => {
 		return (
 			<div className={stylePage.homePageContainer}>
 				<Image src={logo} alt="Logo" width={150} />
-				<h2 className={style.formTitle}>Accesso Negato</h2>
-				<p>Sessione scaduta. Effettua nuovamente il login.</p>
+				<h2 data-id="access-denied" className={style.formTitle}>Accesso Negato</h2>
+				<p data-id="session-expired">Sessione scaduta. Effettua nuovamente il login.</p>
 				<Header isLoggedIn={false} username="" options={options} />
 			</div>
 		);
@@ -72,10 +70,11 @@ const DeleteAccount: React.FC = () => {
 	return (
 		<div className={stylePage.homePageContainer}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 className={style.formTitle}>Elimina il tuo account</h2>
-			{error && <div className={style.errorMessage}>{error}</div>}
-			<form className={style.form} onSubmit={(e) => e.preventDefault()}>
+			<h2 data-id="delete-title" className={style.formTitle}>Elimina il tuo account</h2>
+			{error && <div data-id="acc-delete-err-msg" className={style.errorMessage}>{error}</div>}
+			<form data-id="deleteAccForm" className={style.form} onSubmit={(e) => e.preventDefault()}>
 				<button
+					data-id="delete-btn"
 					type="button"
 					className={style.formButton}
 					onClick={handleDeleteAccount}

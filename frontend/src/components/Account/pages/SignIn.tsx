@@ -97,7 +97,7 @@ const SignIn: React.FC = () => {
 
 			const authToken =
 				allCookies.authToken || localStorage.getItem("authToken");
-			if (!authToken) {
+			if (!authToken) {            
 				throw new Error(
 					"Il cookie di autenticazione non è stato impostato correttamente"
 				);
