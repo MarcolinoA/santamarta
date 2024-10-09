@@ -1,27 +1,23 @@
 "use client";
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthentication } from "../../../hooks/useAuthentications";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
-import Image from "next/image";
-import logo from "../../../../public/logo.png";
-import Header from "../../shared/Header";
+import FormPageLayout from "../../shared/FormPageLayout";
+import AccessDenied from "../../shared/AccessDenied";
 
 const LogoutC: React.FC = () => {
-	const options = [
-		{ label: "Home", href: "/",  dataid: "home-btn"},
-		{ label: "Accedi", href: "/account/pages/signin",  dataid: "signin-btn" },
-		{ label: "Registrati", href: "/account/pages/signup",  dataid: "signup-btn" },
-	];
-
 	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
+	const [isClient, setIsClient] = useState<boolean>(false); // Aggiunto stato per rilevare se siamo lato client
 	const router = useRouter();
 	const { isAuthenticated, username, logout } = useAuthentication();
 
-	const handleLogout = async (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	useEffect(() => {
+		// Imposta isClient su true una volta che siamo nel client
+		setIsClient(true);
+	}, []);
+
+	const handleLogout = async () => {
 		setLoading(true);
 		setError(null);
 
@@ -48,30 +44,34 @@ const LogoutC: React.FC = () => {
 		}
 	};
 
-	if (typeof window === "undefined") {
-		return null; // Return null during server-side rendering
+	// Se non è client-side, non renderizzare nulla
+	if (!isClient) {
+		return null;
 	}
 
+	// Se non autenticato, mostra AccessDenied
 	if (!isAuthenticated) {
-		return null; // or a loading spinner
+		return <AccessDenied />;
 	}
 
+	// Se autenticato, mostra il form di logout
 	return (
-		<div className={stylePage.homePageContainer}>
-			<Image src={logo} alt="Logo" width={150} />
-			<form onSubmit={handleLogout} className={style.form}>
-				<h2 className={style.formTitle}>Logout</h2>
-				{error && <div className={style.errorMessage}>{error}</div>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Logging out..." : "Logout"}
-				</button>
-			</form>
-			<Header
-				isLoggedIn={isAuthenticated}
-				username={username || ""}
-				options={options}
-			/>
-		</div>
+		<FormPageLayout
+			title="Logout"
+			error={error}
+			loading={loading}
+			onSubmit={handleLogout}
+			buttonText="Logout"
+			loadingText="Logging out..."
+			isAuthenticated={isAuthenticated}
+			username={username || ""}
+			options={[
+				{ label: "Home", href: "/", dataid: "home-btn" },
+			]}
+			buttonDataId="logout-btn"
+			formDataId="logoutForm"
+			errorDataId="logout-err-msg"
+		/>
 	);
 };
 

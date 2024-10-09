@@ -2,14 +2,12 @@ HEADER:
 	Aggiungere la possibilità di chiudere il dropdown con ESC
 	Mostrare determinati campi in base allo stato dell'utente
 
-LOGOUT:
-	Non si vede un cazzo
-
 LOADING:
 	aggiungere l'icona di caricamento
+
+STYLE: 
+	Sistemare le pagine di stile
 
 Footer
 
 Da implementare il captcha
-
-ricambiare tutta quella storia dell head error punycode ecc.

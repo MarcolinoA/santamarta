@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import logo from "../../../../public/logo.png";
 import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
@@ -10,7 +9,6 @@ import Link from "next/link";
 const AccountVerification: React.FC = () => {
 	const [message, setMessage] = useState<string>("");
 	const [email, setEmail] = useState<string | null>(null);
-	const router = useRouter();
 
 	useEffect(() => {
 		const fetchEmail = async () => {
@@ -40,7 +38,7 @@ const AccountVerification: React.FC = () => {
 
 	const handleResendVerification = async () => {
 		if (!email) {
-			setMessage("Errore: email non trovata. Per favore, registrati di nuovo.");
+			setMessage("Errore: email non trovata. Registrati di nuovo");
 			return;
 		}
 		try {
@@ -70,17 +68,18 @@ const AccountVerification: React.FC = () => {
 
 	return (
 		<div className={stylePage.homePageContainer}>
-			<form className={style.form}>
+			<form className={style.form} data-id="av-form">
 				<Image src={logo} alt="Logo" width={150} />
-				<h2 className={style.formTitle}>
+				<h2 className={style.formTitle} data-id="av-title">
 					Controlla il tuo indirizzo di posta elettronica
 				</h2>
-				<p className={style.desc}>
+				<p className={style.desc} data-id="av-desc">
 					Abbiamo inviato un'email di conferma all'account che hai usato per
 					iscriverti, segui le istruzioni indicate nell'email! <br /> Se non
 					vedi l'email controlla nello spam!
 				</p>
 				<div
+				data-id="av-resend"
 					className={style.errorMessage}
 					onClick={handleResendVerification}
 					style={{ cursor: "pointer" }}
@@ -89,13 +88,14 @@ const AccountVerification: React.FC = () => {
 					controlla la tua casella di posta!
 				</div>
 				<Link
+				data-id="av-link"
 					className={style.errorMessage}
 					style={{ cursor: "pointer" }}
 					href="/"
 				>
 					Torna alla Home!
 				</Link>
-				{message && <p className={style.message}>{message}</p>}
+				{message && <p data-id="av-msg" className={style.message}>{message}</p>}
 			</form>
 		</div>
 	);

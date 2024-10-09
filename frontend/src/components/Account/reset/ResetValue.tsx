@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import stylePage from "../../Styles/HomePage.module.css";
-import style from "../../Styles/Login.module.css";
+import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import style from "../../../Styles/Login.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import logo from "../../../public/logo.png";
+import logo from "../../../../public/logo.png";
 import Header from "../../shared/Header";
 
 interface FormData {
@@ -19,9 +19,9 @@ interface ResetPageProps {
 
 const ResetValue: React.FC<ResetPageProps> = ({ type }) => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Registrati", href: "/account/pages/signup" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{ label: "Accedi", href: "/account/pages/signin",dataid: "signin-btn" },
+		{ label: "Registrati", href: "/account/pages/signup", dataid: "signup-btn" },
 	];
 
 	const [formData, setFormData] = useState<FormData>({

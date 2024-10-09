@@ -154,7 +154,11 @@ const SignIn: React.FC = () => {
 					btnLoadingText="Accesso in corso..."
 					btnText="Accedi"
 					hrefLink="/"
-					linkText="Non hai un account? Registrati!"
+					linkText="Torna alla Home"
+					hrefLink2="/account/password/recoverPassword"
+					linkText2="Hai dimenticato la password? Recuperala!"
+					hrefLink3="/account/username/recoverUsername"
+					linkText3="Hai dimenticato lo username? Recuperalo!"
 				/>
 			</form>
 			<Header isLoggedIn={false} username="" options={options} />
