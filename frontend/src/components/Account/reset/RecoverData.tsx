@@ -1,17 +1,19 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import stylePage from "../../../Styles/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../../../../public/logo.png";
 import Header from "../../shared/Header";
+import InputField from "../../shared/InputFieldProps";
+import FormFooter from "../../shared/FormFooter";
 
 interface FormData {
 	email: string;
 }
 
-interface ForgotDataProps {
+interface RecoverDataProps {
 	alertMessage?: string;
 	pushLink?: string;
 	title?: string;
@@ -19,7 +21,7 @@ interface ForgotDataProps {
 	type?: string;
 }
 
-const ForgotData: React.FC<ForgotDataProps> = ({
+const RecoverData: React.FC<RecoverDataProps> = ({
 	alertMessage = "la tua password",
 	pushLink = "resetPassword",
 	title = "Recupera Password",
@@ -27,9 +29,9 @@ const ForgotData: React.FC<ForgotDataProps> = ({
 	type = "type",
 }) => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Registrati", href: "/account/pages/signup" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{ label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
+		{ label: "Registrati", href: "/account/pages/signup",dataid: "signup-btn"},
 	];
 
 	const [formData, setFormData] = useState<FormData>({ email: "" });
@@ -75,7 +77,7 @@ const ForgotData: React.FC<ForgotDataProps> = ({
 				); //resetPassword
 			}, 3000);
 		} catch (error: any) {
-			setError(error.message);
+			setError("Invio dell'email di recupero non riuscito");
 		} finally {
 			setLoading(false);
 		}
@@ -84,35 +86,43 @@ const ForgotData: React.FC<ForgotDataProps> = ({
 	return (
 		<div className={stylePage.homePageContainer}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 className={stylePage.title}>{title}</h2>
-			<p className={stylePage.description}>
+			<h2 data-id="rd-title" className={stylePage.title}>{title}</h2>
+			<p data-id="rd-desc" className={stylePage.description}>
 				Inserisci l'email con cui ti sei registrato per ricevere un link per
 				reimpostare {description}
 			</p>
-			<form onSubmit={handleSubmit} className={style.form}>
+			<form data-id="rd-form" onSubmit={handleSubmit} className={style.form}>
 				<div className={style.formGroup}>
-					<label htmlFor="email" className={style.formLabel}>
-						Email
-					</label>
-					<input
-						type="email"
+				<InputField
 						id="email"
+						dataid="email"
 						name="email"
+						type="email"
 						value={formData.email}
 						onChange={handleChange}
+						label="Email"
 						required
-						className={style.formInput}
 					/>
+
 				</div>
-				{message && <p className={style.message}>{message}</p>}
-				{error && <p className={style.errorMessage}>{error}</p>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Invio..." : "Invia"}
-				</button>
+				<FormFooter
+					message={message}
+					errors={{ error: error || "" }}
+					loading={loading}
+					btnDataId="rd-btn"
+					btnLoadingText="Invio..."
+					btnText="Invia"
+					hrefLink="/"
+					linkText="Torna alla home"
+					hrefLink2=""
+					linkText2=""
+					hrefLink3=""
+					linkText3=""
+				/>
 			</form>
 			<Header isLoggedIn={false} username="" options={options} />
 		</div>
 	);
 };
 
-export default ForgotData;
+export default RecoverData;

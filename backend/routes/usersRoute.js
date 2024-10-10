@@ -398,7 +398,7 @@ router.post("/deleteAccount", authMiddleware, async (req, res) => {
 		console.error("Error during account deletion:", error);
 		res
 			.status(500)
-			.json({ message: "An error occurred during account deletion" });
+			.json({ message: "Errore durante l'eliminazione dell'account" });
 	}
 });
 

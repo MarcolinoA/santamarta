@@ -55,8 +55,6 @@ export function useAuthentication() {
 		document.cookie = `username=${user}; path=/; max-age=86400; samesite=lax`;
 		setIsAuthenticated(true);
 		setUsername(user);
-		// Nota: qui dovresti ottenere la priorità dell'utente dal server
-		// Per ora, impostiamo un valore di default
 		setUserPriority(false);
 	};
 

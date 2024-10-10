@@ -1,5 +1,5 @@
 import React from "react";
-import ResetValue from "../../../../components/Account/reset/ResetValue";
+import ResetData from "../../../../components/Account/reset/ResetData";
 
 // Esporta il metadata
 export const metadata = {
@@ -29,7 +29,7 @@ const ResetPassword = () => {
 	return (
 		<div>
 			<main>
-				<ResetValue type="password" />
+				<ResetData type="password" />
 			</main>
 		</div>
 	);

@@ -1,11 +1,12 @@
 "use client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import Header from "../../shared/Header";
+import InputField from "../../shared/InputFieldProps";
+import { validateForm } from "../../../utils/validation";
+import FormFooter from "../../shared/FormFooter";
 
 interface FormData {
 	name: string;
@@ -15,13 +16,23 @@ interface FormData {
 	email: string;
 }
 
+interface Errors {
+	name?: string;
+	surname?: string;
+	username?: string;
+	password?: string;
+	email?: string;
+	confirmPassword?: string;
+	confirmEmail?: string;
+	form?: string;
+}
+
 const SignUp: React.FC = () => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Esci", href: "/account/pages/logout" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{ label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
 	];
-
+	
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		surname: "",
@@ -31,20 +42,20 @@ const SignUp: React.FC = () => {
 	});
 	const [confirmPassword, setConfirmPassword] = useState<string>("");
 	const [confirmEmail, setConfirmEmail] = useState<string>("");
-	const [error, setError] = useState<string | null>(null);
+	const [errors, setErrors] = useState<Errors>({});
 	const [loading, setLoading] = useState<boolean>(false);
 	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [showConfirmPassword, setShowConfirmPassword] =
-		useState<boolean>(false);
-
+	useState<boolean>(false);
+	
 	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
-
+	
 	const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setConfirmPassword(e.target.value);
 	};
@@ -64,16 +75,17 @@ const SignUp: React.FC = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
-		setError(null);
+		setErrors({});
+		setMessage(null);
 
-		if (formData.password !== confirmPassword) {
-			setError("Le password non corrispondono");
-			setLoading(false);
-			return;
-		}
-
-		if (formData.email !== confirmEmail) {
-			setError("Le email non corrispondono");
+		const validationErrors = validateForm(
+			formData,
+			confirmPassword, 
+			confirmEmail, 
+			true
+		);
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(validationErrors);
 			setLoading(false);
 			return;
 		}
@@ -109,7 +121,7 @@ const SignUp: React.FC = () => {
 
 			router.push(`/account/other/accountVerification`);
 		} catch (error: any) {
-			setError(error.message);
+			setErrors({ form: error.message });
 			console.error("Errore nella creazione dell'utente", error);
 		} finally {
 			setLoading(false);
@@ -120,133 +132,93 @@ const SignUp: React.FC = () => {
 		<div className={stylePage.homePageContainer}>
 			<form onSubmit={handleSubmit} className={style.form}>
 				<div className={style.formGroup}>
-					<label htmlFor="name" className={style.formLabel}>
-						Name
-					</label>
-					<input
-						type="text"
+					<InputField
 						id="name"
+						dataid="name"
 						name="name"
+						type="text"
 						value={formData.name}
 						onChange={handleChange}
+						label="Name"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="surname" className={style.formLabel}>
-						Surname
-					</label>
-					<input
-						type="text"
+					<InputField
 						id="surname"
+						dataid="surname"
 						name="surname"
+						type="text"
 						value={formData.surname}
 						onChange={handleChange}
+						label="Surname"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="username" className={style.formLabel}>
-						Username
-					</label>
-					<input
-						type="text"
+					<InputField
 						id="username"
+						dataid="username"
 						name="username"
+						type="text"
 						value={formData.username}
 						onChange={handleChange}
+						label="Username"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="password" className={style.formLabel}>
-						Password
-					</label>
-					<div className={style.passwordInputWrapper}>
-						<input
-							type={showPassword ? "text" : "password"}
-							id="password"
-							name="password"
-							value={formData.password}
-							onChange={handleChange}
-							required
-							className={`${style.formInput} ${style.passwordInput}`}
-							autoComplete="new-password"
-						/>
-						<button
-							type="button"
-							onClick={togglePasswordVisibility}
-							className={style.passwordToggle}
-						>
-							{showPassword ? <FaEyeSlash /> : <FaEye />}
-						</button>
-					</div>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="confirmPassword" className={style.formLabel}>
-						Confirm Password
-					</label>
-					<div className={style.passwordInputWrapper}>
-						<input
-							type={showConfirmPassword ? "text" : "password"}
-							id="confirmPassword"
-							name="confirmPassword"
-							value={confirmPassword}
-							onChange={handleConfirmPasswordChange}
-							required
-							className={`${style.formInput} ${style.passwordInput}`}
-							autoComplete="new-password"
-						/>
-						<button
-							type="button"
-							onClick={toggleConfirmPasswordVisibility}
-							className={style.passwordToggle}
-						>
-							{showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-						</button>
-					</div>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="email" className={style.formLabel}>
-						Email
-					</label>
-					<input
-						type="email"
+					<InputField
+						id="password"
+						dataid="password"
+						name="password"
+						type="password"
+						value={formData.password}
+						onChange={handleChange}
+						label="Password"
+						required
+						showPasswordToggle
+						showPassword={showPassword}
+						togglePasswordVisibility={togglePasswordVisibility}
+					/>
+					<InputField
+						id="confirmPassword"
+						dataid="confirmPassword"
+						name="confirmPassword"
+						type="password"
+						value={confirmPassword}
+						onChange={handleConfirmPasswordChange}
+						label="Confirm Password"
+						required
+						showPasswordToggle
+						showPassword={showConfirmPassword}
+						togglePasswordVisibility={toggleConfirmPasswordVisibility}
+					/>
+					<InputField
 						id="email"
+						dataid="email"
 						name="email"
+						type="email"
 						value={formData.email}
 						onChange={handleChange}
+						label="Email"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="confirmEmail" className={style.formLabel}>
-						Confirm Email
-					</label>
-					<input
-						type="email"
+					<InputField
 						id="confirmEmail"
+						dataid="confirmEmail"
 						name="confirmEmail"
+						type="email"
 						value={confirmEmail}
 						onChange={handleConfirmEmailChange}
+						label="Confirm Email"
 						required
-						className={style.formInput}
 					/>
 				</div>
-				{message && <p>{message}</p>}
-				{error && <p className={style.errorMessage}>{error}</p>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Submitting..." : "Registrati"}
-				</button>
-				<div>
-					<Link href="/account/pages/signin" className={style.errorMessage}>
-						Hai già un account? Accedi!
-					</Link>
-				</div>
+				<FormFooter
+					message={message}
+					errors={errors}
+					loading={loading}
+					btnDataId="submit-btn"
+					btnLoadingText="Registrazione in corso..."
+					btnText="Registrati"
+					hrefLink="/account/pages/signin"
+					linkText="Hai già un account? Accedi!"
+				/>
 			</form>
 			<Header isLoggedIn={false} username="" options={options} />
 		</div>

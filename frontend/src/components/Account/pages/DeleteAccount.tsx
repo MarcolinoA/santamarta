@@ -1,20 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import logo from "../../../../public/logo.png";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Header from "../../shared/Header";
 import { useAuthentication } from "../../../hooks/useAuthentications";
+import AccessDenied from "../../shared/AccessDenied";
+import FormPageLayout from "../../shared/FormPageLayout";
 
 const DeleteAccount: React.FC = () => {
-	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Registrati", href: "/account/pages/signup" },
-	];
-
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 	const { isAuthenticated, username } = useAuthentication();
@@ -59,33 +50,24 @@ const DeleteAccount: React.FC = () => {
 	};
 
 	if (isAuthenticated === false) {
-		return (
-			<div className={stylePage.homePageContainer}>
-				<Image src={logo} alt="Logo" width={150} />
-				<h2 className={style.formTitle}>Accesso Negato</h2>
-				<p>Sessione scaduta. Effettua nuovamente il login.</p>
-				<Header isLoggedIn={false} username="" options={options} />
-			</div>
-		);
+		return <AccessDenied />;
 	}
 
 	return (
-		<div className={stylePage.homePageContainer}>
-			<Image src={logo} alt="Logo" width={150} />
-			<h2 className={style.formTitle}>Elimina il tuo account</h2>
-			{error && <div className={style.errorMessage}>{error}</div>}
-			<form className={style.form} onSubmit={(e) => e.preventDefault()}>
-				<button
-					type="button"
-					className={style.formButton}
-					onClick={handleDeleteAccount}
-					disabled={loading}
-				>
-					{loading ? "Eliminazione in corso" : "Elimina l'account"}
-				</button>
-			</form>
-			<Header isLoggedIn={false} username="" options={options} />
-		</div>
+		<FormPageLayout
+			title="Elimina il tuo account"
+			error={error}
+			loading={loading}
+			onSubmit={handleDeleteAccount}
+			buttonText="Elimina l'account"
+			loadingText="Eliminazione in corso..."
+			isAuthenticated={false}
+			username=""
+			options={[{ label: "Home", href: "/", dataid: "home-btn" }]}
+			buttonDataId="delete-btn"
+			formDataId="deleteAccForm"
+			errorDataId="acc-delete-err-msg"
+		/>
 	);
 };
 

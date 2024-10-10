@@ -15,30 +15,40 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 			title: "Fattoria didattica",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione della Fattoria Didattica.",
+			alt: "Fattoria Didattica Image",
+			dataid: "fattoria-didattica",
 		},
 		{
 			index: 2,
 			title: "Laboratorio di psicomotricità",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Psicomotricità.",
+			alt: "Laboratorio di Psicomotricità Image",
+			dataid: "laboratorio-psicomotricita",
 		},
 		{
 			index: 3,
 			title: "Laboratorio di inglese",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Inglese.",
+			alt: "Laboratorio di Inglese Image",
+			dataid: "laboratorio-inglese",
 		},
 		{
 			index: 4,
 			title: "Laboratorio di religione",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Religione.",
+			alt: "Laboratorio di Religione Image",
+			dataid: "laboratorio-religione",
 		},
 		{
 			index: 5,
 			title: "Laboratorio musicale",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio Musicale.",
+			alt: "Laboratorio Musicale Image",
+			dataid: "laboratorio-musicale",
 		},
 	]);
 
@@ -91,6 +101,9 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 				<div className={styles.cardLarge}>
 					{cardArr.find((card) => card.index === activeCardIndex) && (
 						<Card
+							dataid={
+								cardArr.find((card) => card.index === activeCardIndex)?.dataid || " "
+							}
 							key={
 								cardArr.find((card) => card.index === activeCardIndex)?.index
 							}
@@ -141,6 +154,7 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 								img={card.img}
 								alt={card.title}
 								desc={card.desc}
+								dataid={card.dataid}
 								className={
 									card.index === activeCardIndex ? styles.activeCard : ""
 								}
