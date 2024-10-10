@@ -77,7 +77,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 				); //resetPassword
 			}, 3000);
 		} catch (error: any) {
-			setError(error.message);
+			setError("Invio dell'email di recupero non riuscito");
 		} finally {
 			setLoading(false);
 		}
@@ -109,7 +109,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 					message={message}
 					errors={{ error: error || "" }}
 					loading={loading}
-					btnDataId="fd-title"
+					btnDataId="rd-btn"
 					btnLoadingText="Invio..."
 					btnText="Invia"
 					hrefLink="/"
@@ -126,27 +126,3 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 };
 
 export default RecoverData;
-
-/**
-2. Test di Invio del Modulo
-Verifica che il modulo si comporti correttamente quando viene inviato, sia in caso di successo che di errore.
-Cosa testare:
-
-Simula l'invio con un'email valida e verifica che il messaggio di successo venga visualizzato.
-Simula l'invio con un'email non valida o che causa un errore e verifica che il messaggio di errore venga mostrato.
-
-. Test di Stato del Caricamento
-Verifica che il pulsante di invio mostri il corretto stato di caricamento quando la richiesta è in corso.
-
-
-4. Test di Validazione del Campo Email
-Verifica che il campo email non accetti input non validi.
-
-
-5. Test di Navigazione
-Verifica che il Header funzioni correttamente e che gli utenti possano navigare verso le altre pagine.
-
-6. Test di Messaggi di Stato
-Verifica che i messaggi di stato (successo e errore) vengano visualizzati solo quando appropriato.
-
- */

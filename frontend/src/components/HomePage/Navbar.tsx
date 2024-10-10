@@ -40,11 +40,11 @@ const Navbar: React.FC = () => {
 						<a className={styles.link}>Contatti</a>
 					</li>
 					{isAuthenticated && (
-						<>
+						<div>
 							<li>
 								<a className={styles.link}>Roma</a>
 							</li>
-						</>
+						</div>
 					)}
 					<li className={styles.link} onClick={handleIconClick}>
 						Modulistica

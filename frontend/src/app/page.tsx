@@ -3,9 +3,9 @@ import Head from "next/head";
 import HomePage from "../components/HomePage/HomePage";
 import styles from "../Styles/HomePage/HomePage.module.css";
 import Script from "next/script";
-import Footer from "../components/shared/Footer/Footer";
 import CardTable from "../components/Sections/Cards/CardTable";
 import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
+import Footer from "../components/shared/Footer";
 
 const Home = () => {
 	return (

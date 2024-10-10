@@ -40,6 +40,21 @@ router.post("/forgot-data", async (req, res) => {
 			return res.status(404).json({ message: "User not found" });
 		}
 
+		// 1. Validazione Email
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			return res.status(400).send("Il formato dell'email non è valido");
+		}
+
+		if (email.length > 254) {
+			return res.status(400).send("L'email è troppo lunga");
+		}
+
+		const domain = email.split("@")[1];
+		if (!domain) {
+			return res.status(400).send("Il dominio dell'email non è valido");
+		}
+
 		const createdOTP = await sendOTP({
 			email,
 			subject: `${type.charAt(0).toUpperCase() + type.slice(1)} Reset`,
@@ -106,12 +121,10 @@ router.post("/reset-username", async (req, res) => {
 		// Username validation
 		const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
 		if (!usernameRegex.test(newUsername)) {
-			return res
-				.status(400)
-				.json({
-					message:
-						"Lo username deve essere lungo tra i 3 e i 30 caratteri e può contenere solo lettere, numeri e underscores",
-				});
+			return res.status(400).json({
+				message:
+					"Lo username deve essere lungo tra i 3 e i 30 caratteri e può contenere solo lettere, numeri e underscores",
+			});
 		}
 
 		// Check if the new username is already in use

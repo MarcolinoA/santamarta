@@ -144,7 +144,7 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 									? styles.activeCard
 									: ""
 							}
-							isFlipped={flippedCards.includes(activeCardIndex)} // Passa lo stato della rotazione
+							isFlipped={flippedCards.includes(activeCardIndex)}
 							onFlip={() => handleFlipCard(activeCardIndex)} // Funzione per gestire la rotazione
 						/>
 					)}

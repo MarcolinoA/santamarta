@@ -82,8 +82,7 @@ const HomePage = () => {
 					quality={100}
 					priority={true}
 					data-id="home-page-img"
-				/>
-				
+				/>	
 			)}
 			<Header
 				isLoggedIn={true}
