@@ -17,7 +17,7 @@ interface FormData {
 	password: string;
 }
 
-interface Errors {
+interface SignInErrors {
 	[key: string]: string;
 }
 
@@ -38,7 +38,7 @@ const SignIn: React.FC = () => {
 		password: "",
 	});
 	const [loading, setLoading] = useState<boolean>(false);
-	const [errors, setErrors] = useState<Errors>({});
+	const [errors, setErrors] = useState<SignInErrors>({});
 	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const router = useRouter();
@@ -60,7 +60,7 @@ const SignIn: React.FC = () => {
 
 		const validationErrors = validateForm(formData, undefined, undefined, false);
 		if (Object.keys(validationErrors).length > 0) {
-			setErrors(validationErrors as Errors);
+			setErrors(validationErrors as SignInErrors);
 			setLoading(false);
 			return;
 		}
