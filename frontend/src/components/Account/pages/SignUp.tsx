@@ -16,15 +16,8 @@ interface FormData {
 	email: string;
 }
 
-interface Errors {
-	name?: string;
-	surname?: string;
-	username?: string;
-	password?: string;
-	email?: string;
-	confirmPassword?: string;
-	confirmEmail?: string;
-	form?: string;
+interface FormErrors {
+	[key: string]: string;
 }
 
 const SignUp: React.FC = () => {
@@ -32,7 +25,7 @@ const SignUp: React.FC = () => {
 		{ label: "Home", href: "/", dataid: "home-btn" },
 		{ label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
 	];
-	
+
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		surname: "",
@@ -42,20 +35,20 @@ const SignUp: React.FC = () => {
 	});
 	const [confirmPassword, setConfirmPassword] = useState<string>("");
 	const [confirmEmail, setConfirmEmail] = useState<string>("");
-	const [errors, setErrors] = useState<Errors>({});
+	const [errors, setErrors] = useState<FormErrors>({});
 	const [loading, setLoading] = useState<boolean>(false);
 	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [showConfirmPassword, setShowConfirmPassword] =
-	useState<boolean>(false);
-	
+		useState<boolean>(false);
+
 	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
-	
+
 	const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setConfirmPassword(e.target.value);
 	};
@@ -80,12 +73,12 @@ const SignUp: React.FC = () => {
 
 		const validationErrors = validateForm(
 			formData,
-			confirmPassword, 
-			confirmEmail, 
+			confirmPassword,
+			confirmEmail,
 			true
 		);
 		if (Object.keys(validationErrors).length > 0) {
-			setErrors(validationErrors);
+			setErrors(validationErrors as FormErrors);
 			setLoading(false);
 			return;
 		}
@@ -218,6 +211,10 @@ const SignUp: React.FC = () => {
 					btnText="Registrati"
 					hrefLink="/account/pages/signin"
 					linkText="Hai già un account? Accedi!"
+					hrefLink2=""
+					linkText2=""
+					hrefLink3=""
+					linkText3=""
 				/>
 			</form>
 			<Header isLoggedIn={false} username="" options={options} />
