@@ -74,21 +74,21 @@ const AccountVerification: React.FC = () => {
 					Controlla il tuo indirizzo di posta elettronica
 				</h2>
 				<p className={style.desc} data-id="av-desc">
-					Abbiamo inviato un'email di conferma all'account che hai usato per
-					iscriverti, segui le istruzioni indicate nell'email! <br /> Se non
-					vedi l'email controlla nello spam!
+					Abbiamo inviato un&#39;email di conferma all&#39;account che hai usato per
+					iscriverti, segui le istruzioni indicate nell&#39;email! <br /> Se non
+					vedi l&#39;email controlla nello spam!
 				</p>
 				<div
-				data-id="av-resend"
+					data-id="av-resend"
 					className={style.errorMessage}
 					onClick={handleResendVerification}
 					style={{ cursor: "pointer" }}
 				>
-					Non hai ricevuto l'email? Richiedine una nuova premendo QUI e
+					Non hai ricevuto l&#39;email? Richiedine una nuova premendo QUI e
 					controlla la tua casella di posta!
 				</div>
 				<Link
-				data-id="av-link"
+					data-id="av-link"
 					className={style.errorMessage}
 					style={{ cursor: "pointer" }}
 					href="/"

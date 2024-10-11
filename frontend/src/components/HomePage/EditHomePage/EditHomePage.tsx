@@ -7,12 +7,7 @@ import Card from "../../Sections/Cards/Card";
 import PriorityButton from "../../shared/PriorityButton";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import styleBtn from "../../../Styles/HomePage/EditButton.module.css"
 import DeleteBtn from "./DeleteBtn";
-
-// al click sull'immagine bisogna far si che l'immagine nella schermata home cambi
-// bisogna aggiungere bottoni per eliminarla dalla lista
-// aggiungere un bottone per aggiungere
 
 interface Image {
 	_id: number;
@@ -33,7 +28,7 @@ function EditHomePage() {
 			icon: <FaPlus size={30} />,
 			style: {
 				position: "fixed" as const,
-				bottom: "20px", // Mantieni questa posizione
+				bottom: "20px",
 			left: "20px",
 			},
 		},
@@ -63,10 +58,8 @@ function EditHomePage() {
 	}, []);
 
 	const handleCardClick = async (id: number) => {
-		// Imposta l'ID dell'immagine attiva
 		setActiveImageId(id);
 
-		// Aggiorna lo stato dell'immagine nel database
 		await imageServices.updateImage(String(id), { active: true });
 
 		// Aggiorna lo stato locale
@@ -84,7 +77,7 @@ function EditHomePage() {
 	return (
 		<>
 			<div className={style.editHomePageWrapper}>
-				<h2 className={style.editHomePageTitle}>
+				<h2 data-id="edit-home-img-title" className={style.editHomePageTitle}>
 					Fai click su una delle Card per impostarla come immagine della
 					schermata home
 				</h2>
@@ -94,6 +87,7 @@ function EditHomePage() {
 							key={card._id}
 							className={style.cardWrapper}
 							onClick={() => handleCardClick(card._id)}
+							data-id="card-wrapper"
 						>
 							<Card
 								cardName={card.title}

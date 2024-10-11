@@ -4,7 +4,7 @@ import { getCookie, deleteCookie } from "../utils/cookieUtils";
 export function useAuthentication() {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 	const [username, setUsername] = useState<string | null>(null);
-	const [userPriority, setUserPriority] = useState<boolean>(false); // Aggiungi questa riga
+	const [userPriority, setUserPriority] = useState<boolean>(false);
 
 	const checkAuth = async () => {
 		const authToken = getCookie("authToken");
@@ -12,7 +12,6 @@ export function useAuthentication() {
 
 		if (authToken && storedUsername) {
 			try {
-				// Verifica la validità del token con il server
 				const response = await fetch(
 					`${process.env.NEXT_PUBLIC_API_URL}/users/verify-token`,
 					{
@@ -30,7 +29,6 @@ export function useAuthentication() {
 					setUsername(storedUsername);
 					setUserPriority(userData.priority || false);
 				} else {
-					// Se il token non è valido, effettua il logout
 					logout();
 				}
 			} catch (error) {
@@ -48,7 +46,7 @@ export function useAuthentication() {
 		checkAuth();
 		const interval = setInterval(checkAuth, 60000); // Verifica ogni minuto
 		return () => clearInterval(interval);
-	}, []);
+	}, [checkAuth]); // Aggiungi checkAuth all'array delle dipendenze
 
 	const login = (token: string, user: string) => {
 		document.cookie = `authToken=${token}; path=/; max-age=86400; samesite=lax`;

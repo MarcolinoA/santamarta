@@ -11,4 +11,16 @@ STYLE:
 FOOTER:	
 	test
 
+DELETE IMAGE:
+	test
+
+EDIT IMAGE:
+	test
+
+IMAGE LIST:
+	da rivedere e testare
+
+IMPORTANTE:
+	togliere la parte iniziale dell'url usando le var d'ambiente
+
 Da implementare il captcha

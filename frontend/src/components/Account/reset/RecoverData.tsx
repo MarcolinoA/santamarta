@@ -31,7 +31,11 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 	const options = [
 		{ label: "Home", href: "/", dataid: "home-btn" },
 		{ label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
-		{ label: "Registrati", href: "/account/pages/signup",dataid: "signup-btn"},
+		{
+			label: "Registrati",
+			href: "/account/pages/signup",
+			dataid: "signup-btn",
+		},
 	];
 
 	const [formData, setFormData] = useState<FormData>({ email: "" });
@@ -86,14 +90,16 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 	return (
 		<div className={stylePage.homePageContainer}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 data-id="rd-title" className={stylePage.title}>{title}</h2>
+			<h2 data-id="rd-title" className={stylePage.title}>
+				{title}
+			</h2>
 			<p data-id="rd-desc" className={stylePage.description}>
-				Inserisci l'email con cui ti sei registrato per ricevere un link per
+				Inserisci l&#39;email con cui ti sei registrato per ricevere un link per
 				reimpostare {description}
 			</p>
 			<form data-id="rd-form" onSubmit={handleSubmit} className={style.form}>
 				<div className={style.formGroup}>
-				<InputField
+					<InputField
 						id="email"
 						dataid="email"
 						name="email"
@@ -103,7 +109,6 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 						label="Email"
 						required
 					/>
-
 				</div>
 				<FormFooter
 					message={message}
