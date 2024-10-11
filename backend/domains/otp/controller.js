@@ -62,7 +62,7 @@ export const sendOTP = async ({ email, subject, message, duration = 1 }) => {
 
 		// Leggi il file HTML e sostituisci eventuali placeholder
 		let htmlContent = fs.readFileSync(
-			path.join(__dirname, "../../util/emailTemplate.html"),
+			path.join(__dirname, "../../templates/emailTemplate.html"),
 			"utf8"
 		);
 		htmlContent = htmlContent.replace("{{OTP}}", otp); // Sostituisci il placeholder con l'OTP generato

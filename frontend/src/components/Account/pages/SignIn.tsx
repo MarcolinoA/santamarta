@@ -63,7 +63,7 @@ const SignIn: React.FC = () => {
 			setErrors(validationErrors as Errors);
 			setLoading(false);
 			return;
-	}
+		}
 		try {
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_API_URL}/users/login`,
@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
 	return (
 		<div className={stylePage.homePageContainer}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 data-id="title" className={stylePage.title}>Effettua l'accesso</h2>
+			<h2 data-id="title" className={stylePage.title}>Effettua l&#39;accesso</h2>
 			<form onSubmit={handleSubmit} className={style.form} data-id="signInForm">
 				<div className={style.formGroup}>
 					<InputField

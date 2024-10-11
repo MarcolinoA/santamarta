@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import styles from "../../Styles/Navbar.module.css";
@@ -16,7 +15,7 @@ const Navbar: React.FC = () => {
 
 	useEffect(() => {
 		checkAuth();
-	}, []);
+	}, [checkAuth]);
 
 	return (
 		<div className={styles.navbar}>
@@ -25,8 +24,6 @@ const Navbar: React.FC = () => {
 			</div>
 			<div className={styles.linksContainer} data-id="nav-links-container">
 				<ul className={styles.horizontalMenu} data-id="nav-links-container">
-					{/*<li><a className={styles.link}>Laboratori</a></li>
-          <li><a className={styles.link}>Servizi</a></li>*/}
 					<li>
 						<a className={styles.link}>La scuola</a>
 					</li>
@@ -40,11 +37,9 @@ const Navbar: React.FC = () => {
 						<a className={styles.link}>Contatti</a>
 					</li>
 					{isAuthenticated && (
-						<div>
-							<li>
-								<a className={styles.link}>Roma</a>
-							</li>
-						</div>
+						<li>
+							<a className={styles.link}>Roma</a>
+						</li>
 					)}
 					<li className={styles.link} onClick={handleIconClick}>
 						Modulistica
