@@ -5,6 +5,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": [
+      "node",
+      "cypress"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -32,8 +36,9 @@
     "**/*.ts",
     "**/*.tsx",
     "frontend/.next/types/**/*.ts",
-    ".next/types/**/*.ts"
-, "src/components/HomePage/EditHomePage"  ],
+    ".next/types/**/*.ts",
+    "src/components/HomePage/EditHomePage"
+  ],
   "exclude": [
     "node_modules"
   ]
