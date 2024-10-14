@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getCookie, deleteCookie } from "../utils/cookieUtils";
 
 export function useAuthentication() {
@@ -6,7 +6,7 @@ export function useAuthentication() {
 	const [username, setUsername] = useState<string | null>(null);
 	const [userPriority, setUserPriority] = useState<boolean>(false);
 
-	const checkAuth = async () => {
+	const checkAuth = useCallback(async () => {
 		const authToken = getCookie("authToken");
 		const storedUsername = getCookie("username");
 
@@ -40,13 +40,13 @@ export function useAuthentication() {
 			setUsername(null);
 			setUserPriority(false);
 		}
-	};
+	}, []); // Empty dependency array ensures checkAuth is memoized
 
 	useEffect(() => {
 		checkAuth();
 		const interval = setInterval(checkAuth, 60000); // Verifica ogni minuto
 		return () => clearInterval(interval);
-	}, [checkAuth]); // Aggiungi checkAuth all'array delle dipendenze
+	}, [checkAuth]); // Now checkAuth is a stable dependency
 
 	const login = (token: string, user: string) => {
 		document.cookie = `authToken=${token}; path=/; max-age=86400; samesite=lax`;

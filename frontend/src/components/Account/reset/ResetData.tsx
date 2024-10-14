@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../../../../public/logo.png";
 import Header from "../../shared/Header";
@@ -39,10 +39,15 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false); // Stato per la visibilità della password
+	const [email, setEmail] = useState<string>("");
 
 	const router = useRouter();
-	const searchParams = useSearchParams();
-	const email = searchParams?.get("email") || "";
+
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		const emailParam = params.get("email");
+		setEmail(emailParam || "");
+	}, []);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;

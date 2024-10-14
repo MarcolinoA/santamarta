@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Suspense } from "react";
 import HomePage from "../components/HomePage/HomePage";
 import styles from "../Styles/HomePage/HomePage.module.css";
-import Script from "next/script";
 import CardTable from "../components/Sections/Cards/CardTable";
 import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
 import Footer from "../components/shared/Footer";
@@ -33,18 +32,13 @@ export const metadata = {
 const Home = () => {
 	return (
 		<div>
-			{/* Sposta <Script /> fuori da <Head> */}
-			<Script
-				src="https://www.google.com/recaptcha/enterprise.js?render=explicit"
-				strategy="beforeInteractive"
-			/>
-
 			<main className={styles.main}>
-				<HomePage />
+				<Suspense fallback={<div>Loading Home...</div>}>
+					<HomePage />
+				</Suspense>
 			</main>
 
 			<CardTable cardTitle="Laboratori" />
-
 			<CardTableTwo cardTitle="Servizi" />
 
 			<footer>
