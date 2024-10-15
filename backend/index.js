@@ -68,8 +68,9 @@ mongoose
 	.connect(mongoDBURL)
 	.then(() => {
 		console.log("App connected to database");
-		app.listen(PORT, () => {
-			console.log(`App is listening to port ${PORT}`);
+		const port = process.env.PORT || 5555;
+		app.listen(port, () => {
+			console.log(`App is listening on port ${port}`);
 		});
 	})
 	.catch((error) => {
