@@ -389,7 +389,7 @@ router.post("/deleteAccount", authMiddleware, async (req, res) => {
 		res.clearCookie("username", {
 			httpOnly: false,
 			secure: process.env.NODE_ENV === "production",
-			sameSite: "lax",
+			sameSite: "None",
 			path: "/",
 		});
 

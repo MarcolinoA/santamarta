@@ -45,6 +45,7 @@ app.use(
 			collectionName: "sessions",
 		}),
 		cookie: {
+			domain: process.env.CLIENT_URL || "https://santamarta-frontend.vercel.app",
 			secure: process.env.NODE_ENV === "production",
 			httpOnly: true,
 			sameSite: "None",
