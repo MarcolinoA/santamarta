@@ -45,10 +45,10 @@ app.use(
 			collectionName: "sessions",
 		}),
 		cookie: {
-			secure: process.env.NODE_ENV === "production", // Assicura che il cookie sia trasmesso solo su HTTPS in produzione
-			httpOnly: true, // Non accessibile tramite JavaScript
-			sameSite: "strict", // Maggiore sicurezza per prevenire attacchi CSRF
-			maxAge: 24 * 60 * 60 * 1000, // 1 giorno
+			secure: process.env.NODE_ENV === "production", 
+			httpOnly: true, 
+			sameSite: "None", 
+			maxAge: 24 * 60 * 60 * 1000, 
 		},
 	})
 );
