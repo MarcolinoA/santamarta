@@ -25,7 +25,8 @@ initScheduledJobs();
 // CORS configuration
 app.use(
 	cors({
-		origin: process.env.CLIENT_URL || "http://localhost:3000", // Cambia con l'URL del tuo client
+		origin: process.env.CLIENT_URL || "http://localhost:3000",
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true, // Permette l'invio di cookie
 	})
 );
