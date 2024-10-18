@@ -6,6 +6,7 @@ import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { initScheduledJobs } from "./util/cronJobs.js";
+import { createProxyMiddleware } from "http-proxy-middleware";
 
 // Carica le variabili d'ambiente
 dotenv.config(); // Assicurati che questo sia eseguito per primo
@@ -47,6 +48,18 @@ app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Proxy middleware per inoltrare le richieste a un altro server (ad esempio un'API)
+app.use(
+  "/api", // Percorso per cui configurare il proxy
+  createProxyMiddleware({
+    target: "https://santamarta-backend.onrender.com", // Indirizzo del server backend (o URL dell'API esterna)
+    changeOrigin: true,
+    pathRewrite: {
+      "^/api": "", // Riscrive l'URL rimuovendo '/api' prima di inoltrarlo
+    },
+  })
+);
 
 // Session configuration
 app.use(
