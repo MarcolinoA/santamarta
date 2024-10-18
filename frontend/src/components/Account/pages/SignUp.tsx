@@ -84,17 +84,19 @@ const SignUp: React.FC = () => {
 		}
 
 		try {
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/users/register`,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(formData),
-					credentials: "include", // Importante per inviare e ricevere cookies
-				}
-			);
+			const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/users/register`;
+			console.log("Invio richiesta a:", apiUrl);
+			console.log("Dati da inviare:", formData);
+
+    const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include", // Importante per inviare e ricevere cookies
+    });
 
 			if (!response.ok) {
+				console.error("Status Code:", response.status);
 				const responseText = await response.text();
 				console.error("Risposta del server:", responseText);
 				try {
