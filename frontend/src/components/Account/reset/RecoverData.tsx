@@ -56,7 +56,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/otp/forgot-data`,
+				`/api/otp/forgot-data`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

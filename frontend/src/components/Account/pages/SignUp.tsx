@@ -84,7 +84,7 @@ const SignUp: React.FC = () => {
 		}
 
 		try {
-			const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/users/register`;
+			const apiUrl = `/api/users/register`;
 			console.log("Invio richiesta a:", apiUrl);
 			console.log("Dati da inviare:", formData);
 
