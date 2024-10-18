@@ -13,7 +13,7 @@ export function useAuthentication() {
 		if (authToken && storedUsername) {
 			try {
 				const response = await fetch(
-					`/api/users/verify-token`,
+					`https://santamarta-backend.onrender.com/users/verify-token`,
 					{
 						method: "GET",
 						headers: {

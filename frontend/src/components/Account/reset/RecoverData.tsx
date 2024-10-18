@@ -56,7 +56,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 
 		try {
 			const response = await fetch(
-				`/api/otp/forgot-data`,
+				`https://santamarta-backend.onrender.com/otp/forgot-data`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

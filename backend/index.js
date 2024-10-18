@@ -49,7 +49,7 @@ app.options("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Proxy middleware per inoltrare le richieste a un altro server (ad esempio un'API)
+/*Proxy middleware per inoltrare le richieste a un altro server (ad esempio un'API)
 app.use(
   "/api", // Percorso per cui configurare il proxy
   createProxyMiddleware({
@@ -60,6 +60,7 @@ app.use(
     },
   })
 );
+*/
 
 // Session configuration
 app.use(

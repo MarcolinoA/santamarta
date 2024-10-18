@@ -14,7 +14,7 @@ const AccountVerification: React.FC = () => {
 		const fetchEmail = async () => {
 			try {
 				const response = await fetch(
-					`/api/users/get-email`,
+					`https://santamarta-backend.onrender.com/users/get-email`,
 					{
 						credentials: "include",
 					}
@@ -43,7 +43,7 @@ const AccountVerification: React.FC = () => {
 		}
 		try {
 			const response = await fetch(
-				`/api/users/resend-verification`,
+				`https://santamarta-backend.onrender.com/users/resend-verification`,
 				{
 					method: "POST",
 					headers: {

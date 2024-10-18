@@ -73,7 +73,7 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
 
 		try {
 			const response = await fetch(
-				`/api/otp/reset-${type}`,
+				`https://santamarta-backend.onrender.com/otp/reset-${type}`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
