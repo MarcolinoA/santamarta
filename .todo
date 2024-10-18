@@ -22,5 +22,6 @@ IMAGE LIST:
 
 IMPORTANTE:
 	togliere la parte iniziale dell'url usando le var d'ambiente
-
+	HTTP ONLY DA IMPOSTARE SU TRUE IN PRODUZIONE
+	
 Da implementare il captcha

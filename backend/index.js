@@ -46,7 +46,7 @@ app.use(
 		}),
 		cookie: {
 			domain: process.env.CLIENT_URL || "https://santamarta-frontend.vercel.app",
-			secure: process.env.NODE_ENV === "production",
+			secure: true,
 			httpOnly: true,
 			sameSite: "None",
 			maxAge: 24 * 60 * 60 * 1000,

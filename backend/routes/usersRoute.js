@@ -161,7 +161,7 @@ router.post("/register", async (req, res) => {
 		// Imposta un cookie con l'email dell'utente
 		res.cookie("userEmail", email, {
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production", // true in produzione
+			secure: true,
 			maxAge: 15 * 60 * 1000, // 15 minuti
 			sameSite: "None",
 		});
@@ -315,7 +315,7 @@ router.post("/login", loginLimiter, async (req, res) => {
 
 			res.cookie("authToken", token, {
 				httpOnly: false, // Manteniamo false per il debug
-				secure: process.env.NODE_ENV === "production",
+				secure: true,
 				sameSite: "None",
 				path: "/",
 				maxAge: 24 * 60 * 60 * 1000, // 24 ore
@@ -323,7 +323,7 @@ router.post("/login", loginLimiter, async (req, res) => {
 
 			res.cookie("username", user.username, {
 				httpOnly: false,
-				secure: process.env.NODE_ENV === "production",
+				secure: true,
 				sameSite: "None",
 				path: "/",
 				maxAge: 24 * 60 * 60 * 1000, // 24 ore
@@ -350,14 +350,14 @@ router.post("/login", loginLimiter, async (req, res) => {
 router.post("/logout", (req, res) => {
 	res.clearCookie("authToken", {
 		httpOnly: true,
-		secure: process.env.NODE_ENV === "production",
+		secure: true,
 		sameSite: "None",
 		path: "/",
 	});
 
 	res.clearCookie("username", {
 		httpOnly: false,
-		secure: process.env.NODE_ENV === "production",
+		secure: true,
 		sameSite: "None",
 		path: "/",
 	});
@@ -381,14 +381,14 @@ router.post("/deleteAccount", authMiddleware, async (req, res) => {
 
 		res.clearCookie("authToken", {
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production",
+			secure: true,
 			sameSite: "None",
 			path: "/",
 		});
 
 		res.clearCookie("username", {
 			httpOnly: false,
-			secure: process.env.NODE_ENV === "production",
+			secure: true,
 			sameSite: "None",
 			path: "/",
 		});
