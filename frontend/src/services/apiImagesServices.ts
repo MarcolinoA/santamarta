@@ -5,7 +5,7 @@ export const imageServices = {
 	// Get all images
 	getAllImages: async () => {
 		try {
-			const response = await fetch(`https://santamarta-backend.onrender.com/homeImage`);
+			const response = await fetch(`${API_URL}/homeImage`);
 			if (!response.ok) throw new Error("Failed to fetch images");
 			return await response.json();
 		} catch (error) {
@@ -17,7 +17,7 @@ export const imageServices = {
 	// Get a single image
 	getImage: async (id: string) => {
 		try {
-			const response = await fetch(`https://santamarta-backend.onrender.com/homeImage/${id}`);
+			const response = await fetch(`${API_URL}/homeImage/${id}`);
 			if (!response.ok) throw new Error("Failed to fetch image");
 			return await response.json();
 		} catch (error) {
@@ -29,7 +29,7 @@ export const imageServices = {
 	// Add a new image
 	addImage: async (imageData: any) => {
 		try {
-			const response = await fetch(`https://santamarta-backend.onrender.com/homeImage`, {
+			const response = await fetch(`${API_URL}/homeImage`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(imageData),
@@ -45,7 +45,7 @@ export const imageServices = {
 	// Update an image
 	updateImage: async (id: string, imageData: any) => {
 		try {
-			const response = await fetch(`https://santamarta-backend.onrender.com/homeImage/${id}`, {
+			const response = await fetch(`${API_URL}/homeImage/${id}`, {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(imageData),
@@ -65,7 +65,7 @@ export const imageServices = {
 	// Delete an image
 	deleteImage: async (id: string) => {
 		try {
-			const response = await fetch(`https://santamarta-backend.onrender.com/homeImage/${id}`, {
+			const response = await fetch(`${API_URL}/homeImage/${id}`, {
 				method: "DELETE",
 			});
 			if (!response.ok) throw new Error("Failed to delete image");

@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"type": "module",
 	"main": "index.js",
+	"proxy": "https://santamarta-backend.onrender.com",
 	"engines": {
 		"node": ">=14.0.0"
 	},

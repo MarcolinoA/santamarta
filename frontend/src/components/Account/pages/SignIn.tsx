@@ -68,7 +68,7 @@ const SignIn: React.FC = () => {
 	
 		try {
 			const response = await fetch(
-				`https://santamarta-backend.onrender.com/users/login`,
+				`api/users/login`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

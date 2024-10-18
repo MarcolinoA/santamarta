@@ -23,7 +23,7 @@ const DeleteAccount: React.FC = () => {
 	
 		try {
 			const response = await fetch(
-				`https://santamarta-backend.onrender.com/users/deleteAccount`,
+				`api/users/deleteAccount`,
 				{
 					method: "POST",
 					headers: {

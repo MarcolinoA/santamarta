@@ -23,7 +23,7 @@ const LogoutC: React.FC = () => {
 
     try {
       const response = await fetch(
-        `https://santamarta-backend.onrender.com/users/logout`,
+        `api/users/logout`,
         {
           method: "POST",
           credentials: "include", // Assicurati che i cookie siano inviati

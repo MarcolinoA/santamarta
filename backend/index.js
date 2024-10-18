@@ -28,23 +28,30 @@ app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        process.env.CLIENT_URL,
+        process.env.CLIENT_URL, // Origine del frontend (es. santamarta.vercel.app)
         "https://santamarta.vercel.app",
+        // Aggiungi altre origini consentite se necessario
       ];
+
+      // Se non c'è 'origin' (ad esempio, richieste fatte dallo stesso dominio)
+      // o se l'origine è consentita, esegui il callback senza errori.
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        // Se l'origine non è consentita, blocca la richiesta
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Metodi consentiti
+    credentials: true, // Permetti l'invio di cookie e altre credenziali
+    allowedHeaders: ["Content-Type", "Authorization"], // Intestazioni consentite
+    preflightContinue: false, // Blocca il passaggio successivo per le richieste preflight (OPTIONS)
+    optionsSuccessStatus: 204, // Risposta per le richieste preflight con successo
   })
 );
 
 // Gestione delle richieste preflight OPTIONS
-app.options("*", cors());
+app.options("*", cors()); // Applica CORS a tutte le rotte per preflight
 
 app.use(express.json());
 app.use(cookieParser());

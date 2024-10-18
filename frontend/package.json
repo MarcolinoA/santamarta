@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-
+  "proxy": "https://santamarta-backend.onrender.com",
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",

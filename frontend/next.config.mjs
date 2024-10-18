@@ -1,4 +1,3 @@
-// frontend/next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -16,6 +15,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://santamarta-backend.onrender.com/:path*', // Proxy all'API backend
+      },
+    ]
+  }
 };
 
 export default nextConfig;
