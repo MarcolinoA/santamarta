@@ -94,6 +94,10 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to Santamarta site");
 });
 
+app.get("/test", (req, res) => {
+  res.status(200).send("Server is up and running!");
+});
+
 // Database connection and server start
 mongoose
   .connect(mongoDBURL)
