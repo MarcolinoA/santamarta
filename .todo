@@ -24,4 +24,6 @@ IMPORTANTE:
 	togliere la parte iniziale dell'url usando le var d'ambiente
 	HTTP ONLY DA IMPOSTARE SU TRUE IN PRODUZIONE
 	
+API:
+	Potrei creare una pagina come apiImageService anche per users?
 Da implementare il captcha

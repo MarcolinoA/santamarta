@@ -13,7 +13,7 @@ export function useAuthentication() {
 		if (authToken && storedUsername) {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_URL}/users/verify-token`,
+					`${process.env.NEXT_PUBLIC_API_URL}/api/users/verify-token`,
 					{
 						method: "GET",
 						headers: {

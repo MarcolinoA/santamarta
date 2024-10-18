@@ -14,7 +14,7 @@ const AccountVerification: React.FC = () => {
 		const fetchEmail = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_URL}/users/get-email`,
+					`${process.env.NEXT_PUBLIC_API_URL}/api/users/get-email`,
 					{
 						credentials: "include",
 					}
@@ -43,7 +43,7 @@ const AccountVerification: React.FC = () => {
 		}
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/users/resend-verification`,
+				`${process.env.NEXT_PUBLIC_API_URL}/api/users/resend-verification`,
 				{
 					method: "POST",
 					headers: {

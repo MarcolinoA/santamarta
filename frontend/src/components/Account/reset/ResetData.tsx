@@ -73,7 +73,7 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
 
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/otp/reset-${type}`,
+				`${process.env.NEXT_PUBLIC_API_URL}/api/otp/reset-${type}`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
