@@ -24,34 +24,50 @@ initScheduledJobs();
 
 // CORS configuration
 app.use(
-	cors({
-		origin: process.env.CLIENT_URL || "https://santamarta.vercel.app",
-		methods: ['GET', 'POST', 'PUT', 'DELETE'],
-		credentials: true, // Permette l'invio di cookie
-	})
+  cors({
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        process.env.CLIENT_URL,
+        "https://santamarta.vercel.app",
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
 );
+
+// Gestione delle richieste preflight OPTIONS
+app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
 
 // Session configuration
 app.use(
-	session({
-		secret: process.env.SECRET_KEY || "default-secret-key",
-		resave: false,
-		saveUninitialized: false,
-		store: MongoStore.create({
-			mongoUrl: mongoDBURL,
-			collectionName: "sessions",
-		}),
-		cookie: {
-			domain: process.env.CLIENT_URL || "https://santamarta.vercel.app",
-			secure: true,
-			httpOnly: true,
-			sameSite: "None",
-			maxAge: 24 * 60 * 60 * 1000,
-		},
-	})
+  session({
+    secret: process.env.SECRET_KEY || "default-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: mongoDBURL,
+      collectionName: "sessions",
+    }),
+    cookie: {
+      domain: process.env.CLIENT_URL
+        ? new URL(process.env.CLIENT_URL).hostname
+        : "santamarta.vercel.app",
+      secure: process.env.NODE_ENV === "production", // Usa solo HTTPS in produzione
+      httpOnly: true, // Il cookie non è accessibile via JS nel client
+      sameSite: "None", // Necessario per inviare i cookie con CORS
+      maxAge: 24 * 60 * 60 * 1000, // Durata cookie: 24 ore
+    },
+  })
 );
 
 // Route configuration
@@ -62,19 +78,19 @@ app.use("/dev", devRoutes);
 
 // Root endpoint
 app.get("/", (req, res) => {
-	res.status(200).send("Welcome to Santamarta site");
+  res.status(200).send("Welcome to Santamarta site");
 });
 
 // Database connection and server start
 mongoose
-	.connect(mongoDBURL)
-	.then(() => {
-		console.log("App connected to database");
-		const port = PORT || 5555;
-		app.listen(port, () => {
-			console.log(`App is listening on port ${port}`);
-		});
-	})
-	.catch((error) => {
-		console.error("Database connection error:", error.message);
-	});
+  .connect(mongoDBURL)
+  .then(() => {
+    console.log("App connected to database");
+    const port = PORT || 5555;
+    app.listen(port, () => {
+      console.log(`App is listening on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection error:", error.message);
+  });
