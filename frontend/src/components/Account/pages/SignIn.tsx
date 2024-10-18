@@ -57,13 +57,15 @@ const SignIn: React.FC = () => {
 		setLoading(true);
 		setErrors({});
 		setMessage(null);
-
+	
+		// Validazione del modulo
 		const validationErrors = validateForm(formData, undefined, undefined, false);
 		if (Object.keys(validationErrors).length > 0) {
 			setErrors(validationErrors as SignInErrors);
 			setLoading(false);
 			return;
 		}
+	
 		try {
 			const response = await fetch(
 				`https://santamarta-backend.onrender.com/users/login`,
@@ -71,43 +73,40 @@ const SignIn: React.FC = () => {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(formData),
-					credentials: "include",
+					credentials: "include", // Includi i cookie nella richiesta
 				}
 			);
-
+	
+			// Gestione della risposta
 			if (!response.ok) {
 				if (response.status === 429) {
 					throw new Error("Troppi tentativi di accesso. Riprova più tardi.");
 				}
-
+	
 				let errorMessage;
 				try {
 					const errorData = await response.json();
 					errorMessage = errorData.message;
-				} catch {
+				} catch (err) {
 					errorMessage = await response.text();
 				}
 				throw new Error(errorMessage || "Errore durante il login");
 			}
-
+	
 			const data = await response.json();
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-
-			const allCookies = Cookies.get();
-
-			const authToken =
-				allCookies.authToken || localStorage.getItem("authToken");
-			if (!authToken) {            
-				throw new Error(
-					"Il cookie di autenticazione non è stato impostato correttamente"
-				);
+			await new Promise((resolve) => setTimeout(resolve, 1000)); // Ritardo per l'esperienza utente
+	
+			// Controllo del token di autenticazione
+			const authToken = Cookies.get('authToken') || localStorage.getItem("authToken");
+			if (!authToken) {
+				throw new Error("Il cookie di autenticazione non è stato impostato correttamente");
 			}
-
+	
 			if (data.username) {
 				login(authToken, data.username);
 				router.push("/");
 			} else {
-				throw new Error("Token not received from server");
+				throw new Error("Token non ricevuto dal server");
 			}
 		} catch (error: any) {
 			setErrors({ form: error.message });
@@ -115,7 +114,6 @@ const SignIn: React.FC = () => {
 			setLoading(false);
 		}
 	};
-
 	return (
 		<div className={stylePage.homePageContainer}>
 			<Image src={logo} alt="Logo" width={150} />

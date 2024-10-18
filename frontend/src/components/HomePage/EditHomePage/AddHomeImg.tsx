@@ -51,7 +51,6 @@ function AddHomeImg() {
             }
         } catch (error) {
             setError("Errore durante il salvataggio.");
-            console.error("Error fetching images:", error);
         } finally {
             setLoading(false);
         }

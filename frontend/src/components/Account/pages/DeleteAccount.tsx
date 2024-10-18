@@ -12,14 +12,15 @@ const DeleteAccount: React.FC = () => {
 	const router = useRouter();
 
 	const handleDeleteAccount = async () => {
+		// Controllo dell'autenticazione e del nome utente
 		if (!isAuthenticated || !username) {
-			setError("Devi essere autenticato per eliminare l'account");
+			setError("Devi essere autenticato per eliminare l'account.");
 			return;
 		}
-
+	
 		setLoading(true);
-		setError(null);
-
+		setError(null); // Resetta l'errore prima di procedere
+	
 		try {
 			const response = await fetch(
 				`https://santamarta-backend.onrender.com/users/deleteAccount`,
@@ -28,27 +29,26 @@ const DeleteAccount: React.FC = () => {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					credentials: "include",
+					credentials: "include", // Includi i cookie
 				}
 			);
-
-			const data = await response.json();
-
+	
+			// Verifica se la risposta è ok
 			if (!response.ok) {
-				throw new Error(
-					data.message || "Errore durante la cancellazione dell'account"
-				);
+				const data = await response.json(); // Prova a estrarre i dati dal server
+				throw new Error(data.message || "Errore durante la cancellazione dell'account.");
 			}
-
+	
+			// Reindirizza dopo la cancellazione
 			router.push(`/`);
 		} catch (error: any) {
-			setError(error.message);
-			console.error("Errore durante la cancellazione dell'account", error);
+			setError(error.message); // Imposta il messaggio di errore
+			console.error("Errore durante la cancellazione dell'account:", error);
 		} finally {
-			setLoading(false);
+			setLoading(false); // Ferma il caricamento
 		}
 	};
-
+	
 	if (isAuthenticated === false) {
 		return <AccessDenied />;
 	}

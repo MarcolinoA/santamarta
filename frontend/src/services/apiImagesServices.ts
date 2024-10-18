@@ -5,7 +5,7 @@ export const imageServices = {
 	// Get all images
 	getAllImages: async () => {
 		try {
-			const response = await fetch(`/api/homeImage`);
+			const response = await fetch(`https://santamarta-backend.onrender.com/homeImage`);
 			if (!response.ok) throw new Error("Failed to fetch images");
 			return await response.json();
 		} catch (error) {

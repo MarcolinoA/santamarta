@@ -16,15 +16,21 @@ const AccountVerification: React.FC = () => {
 				const response = await fetch(
 					`https://santamarta-backend.onrender.com/users/get-email`,
 					{
-						credentials: "include",
+						method: "GET", // Specifica il metodo GET
+						credentials: "include", // Includi i cookie
+						headers: {
+							"Content-Type": "application/json", // Aggiungi Content-Type per chiarezza
+						},
 					}
 				);
+	
 				if (response.ok) {
 					const data = await response.json();
 					setEmail(data.email);
 				} else {
+					const errorData = await response.json();
 					setMessage(
-						"Errore: email non trovata. Per favore, registrati di nuovo."
+						errorData.message || "Errore: email non trovata. Per favore, registrati di nuovo."
 					);
 				}
 			} catch (error) {
@@ -32,13 +38,13 @@ const AccountVerification: React.FC = () => {
 				setMessage("Si è verificato un errore. Per favore, riprova più tardi.");
 			}
 		};
-
+	
 		fetchEmail();
 	}, []);
 
 	const handleResendVerification = async () => {
 		if (!email) {
-			setMessage("Errore: email non trovata. Registrati di nuovo");
+			setMessage("Errore: email non trovata. Registrati di nuovo.");
 			return;
 		}
 		try {
@@ -50,15 +56,19 @@ const AccountVerification: React.FC = () => {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({ email }),
-					credentials: "include",
+					credentials: "include", // Assicurati che sia qui
 				}
 			);
+	
 			if (response.ok) {
 				setMessage(
 					"Email di verifica reinviata con successo. Controlla la tua casella di posta."
 				);
 			} else {
-				setMessage("Si è verificato un errore. Per favore, riprova più tardi.");
+				const errorData = await response.json();
+				setMessage(
+					errorData.message || "Si è verificato un errore. Per favore, riprova più tardi."
+				);
 			}
 		} catch (error) {
 			console.error("Errore durante il reinvio dell'email di verifica:", error);
