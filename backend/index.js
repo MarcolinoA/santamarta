@@ -25,7 +25,7 @@ initScheduledJobs();
 // CORS configuration
 app.use(
 	cors({
-		origin: process.env.CLIENT_URL || "https://santamarta-frontend.vercel.app",
+		origin: process.env.CLIENT_URL || "https://santamarta.vercel.app",
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true, // Permette l'invio di cookie
 	})
@@ -45,7 +45,7 @@ app.use(
 			collectionName: "sessions",
 		}),
 		cookie: {
-			domain: process.env.CLIENT_URL || "https://santamarta-frontend.vercel.app",
+			domain: process.env.CLIENT_URL || "https://santamarta.vercel.app",
 			secure: true,
 			httpOnly: true,
 			sameSite: "None",
