@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import logo from "../../../../public/logo.png";
+import logo from "../../../../public/logo.png"
 import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import Image from "next/image";
@@ -14,7 +14,7 @@ const AccountVerification: React.FC = () => {
 		const fetchEmail = async () => {
 			try {
 				const response = await fetch(
-					`api/users/get-email`,
+					`/api/users/get-email`,
 					{
 						method: "GET", // Specifica il metodo GET
 						credentials: "include", // Includi i cookie
@@ -49,7 +49,7 @@ const AccountVerification: React.FC = () => {
 		}
 		try {
 			const response = await fetch(
-				`api/users/resend-verification`,
+				`/api/users/resend-verification`,
 				{
 					method: "POST",
 					headers: {

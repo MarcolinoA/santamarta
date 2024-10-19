@@ -4,10 +4,10 @@ import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import logo from "../../../../public/logo.png";
 import Header from "../../shared/Header";
 import InputField from "../../shared/InputFieldProps";
 import FormFooter from "../../shared/FormFooter";
+import logo from "../../../../public/logo.png"
 
 interface FormData {
   email: string;
@@ -57,7 +57,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
     try {
       // Invio della richiesta al server
       const response = await fetch(
-        `api/otp/forgot-data`,
+        `/api/otp/forgot-data`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -68,7 +68,7 @@ const SignIn: React.FC = () => {
 	
 		try {
 			const response = await fetch(
-				`api/users/login`,
+				`/api/users/login`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },

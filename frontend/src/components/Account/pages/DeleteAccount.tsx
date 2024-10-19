@@ -23,7 +23,7 @@ const DeleteAccount: React.FC = () => {
 	
 		try {
 			const response = await fetch(
-				`api/users/deleteAccount`,
+				`/api/users/deleteAccount`,
 				{
 					method: "POST",
 					headers: {

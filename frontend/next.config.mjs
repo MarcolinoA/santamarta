@@ -19,7 +19,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://santamarta-backend.onrender.com/:path*', // Proxy all'API backend
+        destination: 'https://santamarta-backend.onrender.com/:path*',
       },
     ]
   }
