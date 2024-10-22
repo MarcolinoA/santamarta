@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation"; // Importa useSearchParams
-import styles from "../../Styles/HomePage/HomePage.module.css";
+import { useSearchParams } from "next/navigation"; 
+import styles from "../../Styles/HomePage/Header.module.css";
 import Navbar from "./Navbar";
 import PriorityButton from "../shared/PriorityButton";
 import { FaPen } from "react-icons/fa";
 import { imageServices } from "../../services/apiImagesServices";
 import Header from "../shared/Header";
-import dynamic from "next/dynamic";
 
 const FALLBACK_IMAGE =
 	"https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png";
@@ -69,7 +68,7 @@ const HomePage = () => {
 	}
 
 	return (
-		<div className={styles.homePageContainer}>
+		<div className={styles.headerContainer}>
 			<Navbar />
 			{loading ? (
 				<div data-id="loading-spinner" className={styles.loader}></div>

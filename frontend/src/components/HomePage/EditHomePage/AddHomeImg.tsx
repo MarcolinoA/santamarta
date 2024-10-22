@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/Header.module.css";
 import style from "../../../Styles/Login.module.css";
 import logo from "../../../../public/logo.png";
 import Image from "next/image";
@@ -57,7 +57,7 @@ function AddHomeImg() {
     };
 
     return (
-        <div className={stylePage.homePageContainer}>
+        <div className={stylePage.headerContainer}>
             <Image src={logo} alt="Logo" width={150} />
             <h2 className={stylePage.title}>Aggiungi un&apos;immagine al database</h2>
             <form onSubmit={handleSubmit} className={style.form}>

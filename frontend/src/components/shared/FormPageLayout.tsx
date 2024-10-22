@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Header from './Header';
 import logo from "../../../public/logo.png";
 import style from "../../Styles/Login.module.css";
-import stylePage from "../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../Styles/HomePage/Header.module.css";
 
 interface FormPageLayoutProps {
     title: string;
@@ -35,7 +35,7 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({
     errorDataId,
 }) => {
     return (
-        <div className={stylePage.homePageContainer}>
+        <div className={stylePage.headerContainer}>
             <Image src={logo} alt="Logo" width={150} />
             <h2 data-id="page-title" className={style.formTitle}>{title}</h2>
             {error && <div data-id={errorDataId} className={style.errorMessage}>{error}</div>}

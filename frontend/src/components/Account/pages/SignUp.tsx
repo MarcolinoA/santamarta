@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/Header.module.css";
 import style from "../../../Styles/Login.module.css";
 import Header from "../../shared/Header";
 import InputField from "../../shared/InputFieldProps";
@@ -130,7 +130,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className={stylePage.homePageContainer}>
+    <div className={stylePage.headerContainer}>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <InputField

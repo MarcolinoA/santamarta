@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../shared/Header';
 import Image, { StaticImageData } from 'next/image';
 import logo from "../../../../public/logo.png"
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/Header.module.css";
 import { imageServices } from '../../../services/apiImagesServices';
 import ImageList from './ImageList';
 import { useRouter } from 'next/navigation';
@@ -64,7 +64,7 @@ function DeleteHomeImg() {
 	};
 
 	return (
-		<div data-id="delete-img-container" className={stylePage.homePageContainer}>
+		<div data-id="delete-img-container" className={stylePage.headerContainer}>
 			<Image src={logo} alt="Logo" width={150} />
 			<h2 data-id="delete-img-title" className={stylePage.title}>Elimina un&apos;immagine dal database</h2>
 			<ImageList images={imagesArr} onDelete={handleSubmit} loading={loading} error={error} />

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import logo from "../../../../public/logo.png";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/Header.module.css";
 import style from "../../../Styles/Login.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,7 +77,7 @@ const AccountVerification: React.FC = () => {
 	};
 
 	return (
-		<div className={stylePage.homePageContainer}>
+		<div className={stylePage.headerContainer}>
 			<form className={style.form} data-id="av-form">
 				<Image src={logo} alt="Logo" width={150} />
 				<h2 className={style.formTitle} data-id="av-title">

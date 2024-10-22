@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import HomePage from "../components/HomePage/HomePage";
-import styles from "../Styles/HomePage/HomePage.module.css";
+import styles from "../Styles/HomePage/Header.module.css";
 import CardTable from "../components/Sections/Cards/CardTable";
 import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
 import Footer from "../components/shared/Footer";
@@ -28,6 +28,14 @@ export const metadata = {
 		},
 	],
 };
+/**
+			<CardTable cardTitle="Laboratori" />
+			<CardTableTwo cardTitle="Servizi" />
+
+			<footer>
+				<Footer />
+			</footer>
+ */
 
 const Home = () => {
 	return (
@@ -38,12 +46,7 @@ const Home = () => {
 				</Suspense>
 			</main>
 
-			<CardTable cardTitle="Laboratori" />
-			<CardTableTwo cardTitle="Servizi" />
-
-			<footer>
-				<Footer />
-			</footer>
+		
 		</div>
 	);
 };

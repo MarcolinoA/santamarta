@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/Header.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -114,7 +114,7 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
     }
   };
   return (
-    <div className={stylePage.homePageContainer}>
+    <div className={stylePage.headerContainer}>
       <Image src={logo} alt="Logo" width={150} />
       <h2 data-id="rv-title" className={stylePage.title}>
         Reimposta {type === "password" ? "la tua password" : "il tuo username"}

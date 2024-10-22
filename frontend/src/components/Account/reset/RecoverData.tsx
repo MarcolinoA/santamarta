@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
+import stylePage from "../../../Styles/HomePage/Header.module.css";
 import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -97,7 +97,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
   };
 
   return (
-    <div className={stylePage.homePageContainer}>
+    <div className={stylePage.headerContainer}>
       <Image src={logo} alt="Logo" width={150} />
       <h2 data-id="rd-title" className={stylePage.title}>
         {title}

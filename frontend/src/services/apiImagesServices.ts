@@ -78,7 +78,7 @@ export const imageServices = {
 
 	getActiveImage: async () => {
     try {
-        const response = await fetch(`https://santamarta-backend.onrender.com/homeImage/active`); // Assicurati che questo sia corretto
+        const response = await fetch(`${API_URL}/homeImage/active`); // Assicurati che questo sia corretto
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return await response.json();
     } catch (error) {
