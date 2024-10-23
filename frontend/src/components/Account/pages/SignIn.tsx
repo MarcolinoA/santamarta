@@ -5,12 +5,12 @@ import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
 import logo from "../../../../public/logo.png";
 import Image from "next/image";
-import Header from "../../shared/Header";
 import Cookies from "js-cookie";
 import { useAuthentication } from "../../../hooks/useAuthentications";
 import InputField from "../../shared/InputFieldProps";
 import FormFooter from "../../shared/FormFooter";
 import { validateForm } from "../../../utils/validation";
+import HeaderBtn from "../../shared/btns/HeaderBtn";
 
 interface FormData {
 	username: string;
@@ -68,7 +68,8 @@ const SignIn: React.FC = () => {
 	
 		try {
 			const response = await fetch(
-				`api/users/login`,
+				//ATTENZIONE CAMBIARE CON API IN PRODUZIONE
+				`http://localhost:5555/users/login`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -159,7 +160,7 @@ const SignIn: React.FC = () => {
 					linkText3="Hai dimenticato lo username? Recuperalo!"
 				/>
 			</form>
-			<Header isLoggedIn={false} username="" options={options} />
+			<HeaderBtn isLoggedIn={false} username="" options={options} />
 		</div>
 	);
 };

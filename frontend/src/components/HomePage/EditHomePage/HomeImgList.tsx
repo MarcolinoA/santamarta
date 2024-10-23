@@ -4,10 +4,9 @@ import style from "../../../Styles/Card.module.css";
 import { imageServices } from "../../../services/apiImagesServices";
 import { StaticImageData } from "next/image";
 import Card from "../../Sections/Cards/Card";
-import PriorityButton from "../../shared/PriorityButton";
-import { FaPlus, FaTrash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import DeleteBtn from "./DeleteBtn";
+import DeleteBtn from "../../shared/btns/DeleteBtn";
+import AddBtn from "../../shared/btns/AddBtn";
 
 interface Image {
 	_id: number;
@@ -16,7 +15,7 @@ interface Image {
 	desc: string;
 }
 
-function EditHomePage() {
+function HomeImgList() {
 	const [images, setImages] = useState<Image[]>([]);
 	const [activeImageId, setActiveImageId] = useState<number | null>(null);
 	const [loading, setLoading] = useState(false);
@@ -25,7 +24,6 @@ function EditHomePage() {
 	const optionPlus = [
 		{
 			href: "/home/homePageAddImg",
-			icon: <FaPlus size={30} />,
 			style: {
 				position: "fixed" as const,
 				bottom: "20px",
@@ -37,7 +35,6 @@ function EditHomePage() {
 	const optionDelete = [
 		{
 			href: "/home/homePageDeleteImg",
-			icon: <FaTrash size={30} />,
 		},
 	];
 
@@ -101,7 +98,7 @@ function EditHomePage() {
 							/>
 						</div>
 					))}
-					<PriorityButton option={optionPlus} />
+					<AddBtn option={optionPlus} />
 					<DeleteBtn option={optionDelete} />
 				</div>
 			</div>
@@ -109,4 +106,4 @@ function EditHomePage() {
 	);
 }
 
-export default EditHomePage;
+export default HomeImgList;

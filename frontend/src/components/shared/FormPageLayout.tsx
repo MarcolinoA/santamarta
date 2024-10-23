@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import Header from './Header';
 import logo from "../../../public/logo.png";
 import style from "../../Styles/Login.module.css";
 import stylePage from "../../Styles/HomePage/Header.module.css";
+import HeaderBtn from './btns/HeaderBtn';
 
 interface FormPageLayoutProps {
     title: string;
@@ -49,7 +49,7 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({
                     {loading ? loadingText : buttonText}
                 </button>
             </form>
-            <Header
+            <HeaderBtn
                 isLoggedIn={isAuthenticated}
                 username={username}
                 options={options}

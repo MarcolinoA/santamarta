@@ -4,10 +4,9 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation"; 
 import styles from "../../Styles/HomePage/Header.module.css";
 import Navbar from "./Navbar";
-import PriorityButton from "../shared/PriorityButton";
-import { FaPen } from "react-icons/fa";
 import { imageServices } from "../../services/apiImagesServices";
-import Header from "../shared/Header";
+import PriorityBtn from "../shared/btns/PriorityBtn";
+import HeaderBtn from "../shared/btns/HeaderBtn";
 
 const FALLBACK_IMAGE =
 	"https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png";
@@ -33,8 +32,7 @@ const HomePage = () => {
 
 	const option = [
 		{
-			href: "/home/homePageEdit",
-			icon: <FaPen size={30} />,
+			href: "/home/homeImgList",
 			style: {
 				position: "absolute" as const,
 			},
@@ -83,12 +81,12 @@ const HomePage = () => {
 					data-id="home-page-img"
 				/>	
 			)}
-			<Header
+			<HeaderBtn
 				isLoggedIn={true}
 				username={(username as string) || ""}
 				options={options}
 			/>
-			<PriorityButton option={option} />
+			<PriorityBtn option={option} />
 		</div>
 	);
 };

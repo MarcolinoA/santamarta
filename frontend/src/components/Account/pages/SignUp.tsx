@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import stylePage from "../../../Styles/HomePage/Header.module.css";
 import style from "../../../Styles/Login.module.css";
-import Header from "../../shared/Header";
 import InputField from "../../shared/InputFieldProps";
 import { validateForm } from "../../../utils/validation";
 import FormFooter from "../../shared/FormFooter";
+import HeaderBtn from "../../shared/btns/HeaderBtn";
 
 interface FormData {
   name: string;
@@ -225,7 +225,7 @@ const SignUp: React.FC = () => {
           linkText3=""
         />
       </form>
-      <Header isLoggedIn={false} username="" options={options} />
+      <HeaderBtn isLoggedIn={false} username="" options={options} />
     </div>
   );
 };

@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
-import style from "../../../Styles/HomePage/DeleteBtn.module.css";
+import style from "../../../Styles/HomePage/Btns/DeleteBtn.module.css";
 import { useAuthentication } from "../../../hooks/useAuthentications";
 import Link from "next/link";
+import { FaTrash } from "react-icons/fa";
 
 interface ButtonOptions {
 	href: string;
-	icon: React.ReactNode;
 }
 
 interface ButtonProps {
@@ -27,7 +27,7 @@ const DeleteBtn: React.FC<ButtonProps> = ({ option }) => {
 					<div
 						className={`${style.deleteIcon}`}
 					>
-						{option.icon}
+						<FaTrash size={30} />
 					</div>
 				</Link>
 			))}

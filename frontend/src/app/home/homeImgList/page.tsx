@@ -1,5 +1,5 @@
 import React from "react";
-import EditHomePage from "../../../components/HomePage/EditHomePage/EditHomePage";
+import HomeImgList from "../../../components/HomePage/EditHomePage/HomeImgList";
 
 // Esporta il metadata
 export const metadata = {
@@ -25,14 +25,14 @@ export const metadata = {
 	],
 };
 
-const EditHome = () => {
+const HomeImagesEdit = () => {
 	return (
 		<div>
 			<main>
-				<EditHomePage />
+				<HomeImgList />
 			</main>
 		</div>
 	);
 };
 
-export default EditHome;
+export default HomeImagesEdit;

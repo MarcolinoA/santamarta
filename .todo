@@ -27,3 +27,9 @@ IMPORTANTE:
 API:
 	Potrei creare una pagina come apiImageService anche per users?
 Da implementare il captcha
+
+STYLES:
+	Navbar modificare gli stili in base alla grandezza dello schermo
+	DeleteBtn modificare gli stili in base alla grandezza dello schermo
+	PlusBtn modificare gli stili in base alla grandezza dello schermo
+	ImageList modificare gli stili in base alla grandezza dello schermo

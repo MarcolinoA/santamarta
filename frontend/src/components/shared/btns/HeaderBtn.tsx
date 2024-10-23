@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import style from "../../Styles/HomePage/HeaderBtn.module.css";
+import style from "../../../Styles/HomePage/Btns/HeaderBtn.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../public/logo.png";
-import { useAuthentication } from "../../hooks/useAuthentications";
+import logo from "../../../../public/logo.png";
+import { useAuthentication } from "../../../hooks/useAuthentications";
 
 interface HeaderOption {
 	label: string;
@@ -19,7 +19,7 @@ interface HeaderProps {
 	options: HeaderOption[];
 }
 
-const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
+const HeaderBtn: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 	const { isAuthenticated, username, checkAuth } = useAuthentication();
 
@@ -83,4 +83,4 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
 	);
 };
 
-export default Header;
+export default HeaderBtn;

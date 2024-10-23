@@ -94,3 +94,43 @@
 	text-decoration: none;
 	color: #000;
 }
+
+@media (max-width: 640px) { /* sm */
+	.deleteButtonContainer {
+		padding: 5px;
+	}
+
+	.deleteIcon {
+		width: 25px;
+		height: 25px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) { /* md */
+	.deleteButtonContainer {
+		padding: 5px;
+	}
+
+	.deleteIcon {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) { /* lg */
+	.deleteIcon {
+		width: 35px;
+		height: 35px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) { /* xl */
+	.deleteIcon {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (min-width: 1281px) { /* 2xl */
+	
+}

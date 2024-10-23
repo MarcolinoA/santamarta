@@ -1,6 +1,6 @@
 import React from "react";
 import style from "../../../Styles/HomePage/ImageList.module.css";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 
 type ImageType = {
 	_id: string;
@@ -16,7 +16,7 @@ interface ImageListProps {
 	error: string | null;
 }
 
-const ImageList: React.FC<ImageListProps> = ({
+const HomeImagesList: React.FC<ImageListProps> = ({
 	images,
 	onDelete,
 	loading,
@@ -49,4 +49,4 @@ const ImageList: React.FC<ImageListProps> = ({
 	);
 };
 
-export default ImageList;
+export default HomeImagesList;
