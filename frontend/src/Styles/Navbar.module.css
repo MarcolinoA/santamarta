@@ -41,30 +41,37 @@
 	transition: all 0.3s ease;
 }
 
+
 .link:hover {
 	cursor: pointer;
 	text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
 	color: #000;
 }
 
+.links {
+	color: #000;
+	text-decoration: none;
+}
+
 .dropdownMenu {
 	position: absolute;
-	top: 100%; /* Place the dropdown directly below the navbar */
-	left: 88.5%; /* Center it horizontally below the navbar */
-	transform: translateX(-50%); /* Adjust for centering */
+	top: 100%; 
+	left: 88.5%; 
+	transform: translateX(-50%); 
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 10px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 	padding: 10px;
 	width: 150px;
 	text-align: center;
-	z-index: 11; /* Ensure it appears above other elements */
+	z-index: 11; 
 }
+ 
 
 .dropdownArrow {
 	position: absolute;
-	top: -10px; /* Position arrow above the dropdown */
-	left: 50%; /* Center it horizontally */
+	top: -10px; 
+	left: 50%;
 	transform: translateX(-50%);
 	width: 0;
 	height: 0;
@@ -90,45 +97,99 @@
 	font-size: 18px;
 }
 
-.links {
-	text-decoration: none;
-	color: #000;
+.dropdownContent {
+    display: flex;
+    flex-direction: column;
+    max-height: 250px;
+    overflow-y: auto;  
+}
+
+.hamburgerIcon {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.verticalMenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+	min-height: 70vh; /* Limita l'altezza massima della lista */
+    overflow-y: auto;
+}
+
+.verticalMenu li {
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.mobileMenu {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: absolute;
+    top: 120px;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    z-index: 10;
+	overflow-y:auto;
+	max-height: calc(100vh - 100px);
 }
 
 @media (max-width: 640px) { /* sm */
-	.deleteButtonContainer {
-		padding: 5px;
-	}
+	.horizontalMenu {
+        display: none;
+    }
 
-	.deleteIcon {
-		width: 25px;
-		height: 25px;
+    .hamburgerIcon {
+        display: block;
+		color: #fff;
+    }
+
+    .mobileMenu {
+        display: block;
+    }
+
+	.logoContainer {
+		display: none;
 	}
 }
 
 @media (min-width: 641px) and (max-width: 768px) { /* md */
-	.deleteButtonContainer {
-		padding: 5px;
-	}
+	.horizontalMenu {
+        display: none;
+    }
 
-	.deleteIcon {
-		width: 30px;
-		height: 30px;
+    .hamburgerIcon {
+        display: block;
+		color: #fff;
+    }
+
+    .mobileMenu {
+        display: block;
+    }
+
+	.logoContainer {
+		display: none;
 	}
 }
 
 @media (min-width: 769px) and (max-width: 1024px) { /* lg */
-	.deleteIcon {
-		width: 35px;
-		height: 35px;
+	.logo {
+		width: 130px;
+	}
+
+	.navbar {
+		height: 70px;
+	}
+
+	.dropdownMenu {
+		width: 100px;
 	}
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) { /* xl */
-	.deleteIcon {
-		width: 40px;
-		height: 40px;
-	}
+	
 }
 
 @media (min-width: 1281px) { /* 2xl */
