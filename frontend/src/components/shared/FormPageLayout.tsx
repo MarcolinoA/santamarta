@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import logo from "../../../public/logo.png";
-import style from "../../Styles/Login.module.css";
+import style from "../../Styles/Form.module.css";
 import stylePage from "../../Styles/HomePage/Header.module.css";
 import HeaderBtn from './btns/HeaderBtn';
 

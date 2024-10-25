@@ -1,7 +1,7 @@
 // components/shared/FormFooter.tsx
 import React from "react";
 import Link from "next/link";
-import style from "../../Styles/Login.module.css";
+import style from "../../Styles/Form.module.css";
 
 interface FormErrors {
 	[key: string]: string; // Permette di avere chiavi dinamiche con valori stringa
@@ -37,7 +37,7 @@ const FormFooter: React.FC<FormFooterProps> = ({
 	btnDataId,
 }) => {
 	return (
-		<div>
+		<div className={style.formFooterContainer}>
 			{(message || Object.keys(errors).length > 0) && (
 				<p className={style.errorMessage} data-id="error-message">
 					{message && <span>{message}</span>}

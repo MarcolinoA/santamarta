@@ -1,7 +1,7 @@
 "use client";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import stylePage from "../../../Styles/HomePage/Header.module.css";
-import style from "../../../Styles/Login.module.css";
+import style from "../../../Styles/Form.module.css";
 import logo from "../../../../public/logo.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

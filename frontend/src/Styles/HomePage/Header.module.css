@@ -41,6 +41,10 @@
 		height: auto;
 		min-height: 50vh;
 	}
+
+	.title {
+		font-size: 20px;
+	}
 }
 
 @media (min-width: 641px) and (max-width: 768px) { /* md */
@@ -49,6 +53,10 @@
 		margin: 20px auto;
 		height: auto;
 		min-height: 60vh; 
+	}
+
+	.title {
+		font-size: 22px;
 	}
 }
 
@@ -59,6 +67,10 @@
 		height: auto;
 		min-height: 70vh;
 	}
+
+	.title {
+		font-size: 24px;
+	}
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) { /* xl */
@@ -67,5 +79,16 @@
 		margin: 20px auto;
 		height: auto;
 		min-height: 90vh;
+	}
+
+	.title {
+		font-size: 26px;
+	}
+}
+
+@media (min-width: 1281px) {
+	.title {
+		margin: 0;
+		font-size: 26px;
 	}
 }

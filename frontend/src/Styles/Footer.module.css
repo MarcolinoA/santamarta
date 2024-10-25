@@ -89,8 +89,80 @@
 
 .footerBottom {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
   border-top: 1px solid #444;
   padding-top: 10px;
   width: 100%;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 10px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+  }
+  
+  .footerSection div {
+    flex: 1;
+    padding: 0 15px;
+  }
+
+  .footer h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+  }
+
+  .newsletter input {
+    border-radius: 10px;
+  }
+
+  .newsletter button {
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .footer {
+    padding: 10px;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+  }
+
+  .footer h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+  }
+
+  .newsletter input {
+    border-radius: 10px;
+  }
+
+  .newsletter button {
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer {
+    padding: 15px;
+
+  }
+
+  .footer h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .newsletter {
+    width: 400px;
+  }
+}
+
+@media (min-width: 1281px) {
+
 }

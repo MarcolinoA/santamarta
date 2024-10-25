@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import logo from "../../../../public/logo.png";
 import stylePage from "../../../Styles/HomePage/Header.module.css";
-import style from "../../../Styles/Login.module.css";
+import style from "../../../Styles/Form.module.css";
 import Image from "next/image";
 import Link from "next/link";
 

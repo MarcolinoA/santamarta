@@ -5,11 +5,9 @@ HEADER:
 LOADING:
 	aggiungere l'icona di caricamento
 
-STYLE: 
-	Sistemare le pagine di stile
-
 FOOTER:	
 	test
+	aggiungere le icone in social icons
 
 DELETE IMAGE:
 	test
@@ -26,7 +24,14 @@ IMPORTANTE:
 	
 API:
 	Potrei creare una pagina come apiImageService anche per users?
-Da implementare il captcha
+	Da implementare il captcha
+
+NAVBAR: 
+	Non scorre
+	Aggiungere delle animazioni
+
+FORM:
+	Delle volte escono degli errori che rompono il sito, troppo grandi, si blocca
 
 STYLES:
 	Navbar modificare gli stili in base alla grandezza dello schermo

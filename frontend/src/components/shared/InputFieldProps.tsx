@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../Styles/Login.module.css";
+import style from "../../Styles/Form.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface InputFieldProps {

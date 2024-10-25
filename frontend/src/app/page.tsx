@@ -32,9 +32,6 @@ export const metadata = {
 			<CardTable cardTitle="Laboratori" />
 			<CardTableTwo cardTitle="Servizi" />
 
-			<footer>
-				<Footer />
-			</footer>
  */
 
 const Home = () => {
@@ -46,7 +43,9 @@ const Home = () => {
 				</Suspense>
 			</main>
 
-		
+			<footer>
+				<Footer />
+			</footer>
 		</div>
 	);
 };

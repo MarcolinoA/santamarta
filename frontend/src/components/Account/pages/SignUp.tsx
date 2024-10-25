@@ -2,11 +2,13 @@
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import stylePage from "../../../Styles/HomePage/Header.module.css";
-import style from "../../../Styles/Login.module.css";
+import style from "../../../Styles/Form.module.css";
 import InputField from "../../shared/InputFieldProps";
 import { validateForm } from "../../../utils/validation";
 import FormFooter from "../../shared/FormFooter";
 import HeaderBtn from "../../shared/btns/HeaderBtn";
+import logo from "../../../../public/logo.png";
+import Image from "next/image";
 
 interface FormData {
   name: string;
@@ -131,6 +133,8 @@ const SignUp: React.FC = () => {
 
   return (
     <div className={stylePage.headerContainer}>
+      <Image className={style.logo} src={logo} alt="Logo" width={150} />
+			<h2 data-id="title" className={stylePage.title}>Compila i campi per registrarti</h2>
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.formGroup}>
           <InputField
