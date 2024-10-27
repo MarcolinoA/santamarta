@@ -58,28 +58,34 @@ const FormFooter: React.FC<FormFooterProps> = ({
 			>
 				{loading ? btnLoadingText : btnText}
 			</button>
-			<div>
-				<Link data-id="textLink" href={hrefLink} className={style.errorMessage}>
-					{linkText}
-				</Link>
-			</div>
-			<div>
-				<Link
-					data-id="textLink2"
-					href={hrefLink2}
-					className={style.errorMessage}
-				>
-					{linkText2}
-				</Link>
-			</div>
-			<div>
-				<Link
-					data-id="textLink3"
-					href={hrefLink3}
-					className={style.errorMessage}
-				>
-					{linkText3}
-				</Link>
+			<div className={style.messagesContainer}>
+				<div>
+					<Link
+						data-id="textLink"
+						href={hrefLink}
+						className={style.errorMessage}
+					>
+						{linkText}
+					</Link>
+				</div>
+				<div>
+					<Link
+						data-id="textLink2"
+						href={hrefLink2}
+						className={style.errorMessage}
+					>
+						{linkText2}
+					</Link>
+				</div>
+				<div>
+					<Link
+						data-id="textLink3"
+						href={hrefLink3}
+						className={style.errorMessage}
+					>
+						{linkText3}
+					</Link>
+				</div>
 			</div>
 		</div>
 	);

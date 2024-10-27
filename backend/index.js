@@ -29,7 +29,7 @@ app.use(
     origin: (origin, callback) => {
       const allowedOrigins = [
         process.env.CLIENT_URL, // Origine del frontend (es. santamarta.vercel.app)
-        "https://santamarta.vercel.app",
+        "http://localhost:3000",
         // Aggiungi altre origini consentite se necessario
       ];
 
@@ -82,7 +82,7 @@ app.use(
     cookie: {
       domain: process.env.CLIENT_URL
         ? new URL(process.env.CLIENT_URL).hostname
-        : "santamarta.vercel.app",
+        : "http://localhost:3000",
       secure: process.env.NODE_ENV === "production", // Usa solo HTTPS in produzione
       httpOnly: true, // Il cookie non è accessibile via JS nel client
       sameSite: "None", // Necessario per inviare i cookie con CORS

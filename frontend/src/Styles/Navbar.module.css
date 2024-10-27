@@ -41,7 +41,6 @@
 	transition: all 0.3s ease;
 }
 
-
 .link:hover {
 	cursor: pointer;
 	text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
@@ -55,22 +54,21 @@
 
 .dropdownMenu {
 	position: absolute;
-	top: 100%; 
-	left: 88.5%; 
-	transform: translateX(-50%); 
+	top: 100%;
+	left: 88.5%;
+	transform: translateX(-50%);
 	background-color: rgba(255, 255, 255, 0.6);
 	border-radius: 10px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 	padding: 10px;
 	width: 150px;
 	text-align: center;
-	z-index: 11; 
+	z-index: 11;
 }
- 
 
 .dropdownArrow {
 	position: absolute;
-	top: -10px; 
+	top: -10px;
 	left: 50%;
 	transform: translateX(-50%);
 	width: 0;
@@ -98,83 +96,102 @@
 }
 
 .dropdownContent {
-    display: flex;
-    flex-direction: column;
-    max-height: 250px;
-    overflow-y: auto;  
+	display: flex;
+	flex-direction: column;
+	max-height: 250px;
+	overflow-y: auto;
 }
 
 .hamburgerIcon {
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
+	display: none;
+	font-size: 35px;
+	cursor: pointer;
+	transition: transform 1s ease;
+}
+
+.hamburgerIcon.rotate {
+	transform: rotate(360deg);
 }
 
 .verticalMenu {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-	min-height: 70vh; /* Limita l'altezza massima della lista */
-    overflow-y: auto;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 .verticalMenu li {
-    padding: 15px 0;
-    border-bottom: 1px solid #ddd;
+	padding: 15px 0;
+	border-bottom: 1px solid #ddd;
 }
 
 .mobileMenu {
-    display: none;
-    background-color: rgba(255, 255, 255, 0.9);
-    position: absolute;
-    top: 120px;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    z-index: 10;
-	overflow-y:auto;
-	max-height: calc(100vh - 100px);
+	background-color: rgba(255, 255, 255, 0.8);
+	position: absolute;
+	width: 100%;
+	top: 100px;
+	left: 0;
+	text-align: center;
+	z-index: 10;
+	overflow-y: auto;
+	transform: translateY(0);
+	opacity: 0; 
+	transition: transform 0.3s ease, opacity 0.3s ease;
+	max-height: calc(100vh - 150px);
 }
 
-@media (max-width: 640px) { /* sm */
+.mobileMenu.visible {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+@media (max-width: 640px) {
+	/* sm */
+	.navbar {
+		background-color: rgba(255, 255, 255, 0.8);
+		color: #000;
+	}
+
 	.horizontalMenu {
-        display: none;
-    }
+		display: none;
+	}
 
-    .hamburgerIcon {
-        display: block;
-		color: #fff;
-    }
+	.hamburgerIcon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-    .mobileMenu {
-        display: block;
-    }
+	.logoContainer {
+		display: none;
+	}
+
+
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+	/* md */
+	.navbar {
+		background-color: rgba(255, 255, 255, 0.8);
+		color: #000;
+	}
+
+	.horizontalMenu {
+		display: none;
+	}
+
+	.hamburgerIcon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
 	.logoContainer {
 		display: none;
 	}
 }
 
-@media (min-width: 641px) and (max-width: 768px) { /* md */
-	.horizontalMenu {
-        display: none;
-    }
-
-    .hamburgerIcon {
-        display: block;
-		color: #fff;
-    }
-
-    .mobileMenu {
-        display: block;
-    }
-
-	.logoContainer {
-		display: none;
-	}
-}
-
-@media (min-width: 769px) and (max-width: 1024px) { /* lg */
+@media (min-width: 769px) and (max-width: 1024px) {
+	/* lg */
 	.logo {
 		width: 130px;
 	}
@@ -188,10 +205,10 @@
 	}
 }
 
-@media (min-width: 1025px) and (max-width: 1280px) { /* xl */
-	
+@media (min-width: 1025px) and (max-width: 1280px) {
+	/* xl */
 }
 
-@media (min-width: 1281px) { /* 2xl */
-	
+@media (min-width: 1281px) {
+	/* 2xl */
 }

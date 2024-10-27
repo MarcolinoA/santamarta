@@ -15,30 +15,35 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 			title: "Centro Estivo",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione della Fattoria Didattica.",
+			dataid: "data-1",
 		},
 		{
 			index: 2,
 			title: "Doposcuola",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Psicomotricità.",
+			dataid: "data-1",
 		},
 		{
 			index: 3,
 			title: "Sportello Logopedico",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Inglese.",
+			dataid: "data-1",
 		},
 		{
 			index: 4,
 			title: "Sportello Pediatrico",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Religione.",
+			dataid: "data-1",
 		},
 		{
 			index: 5,
 			title: "Sportello Psicologico",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio Musicale.",
+			dataid: "data-1",
 		},
 	]);
 
@@ -93,27 +98,29 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 						.filter((card) => card.index !== activeCardIndex)
 						.map((card) => (
 							<Card
+								dataid={card.dataid}
 								key={card.index}
 								onClick={() => handleCardClick(card.index)}
 								cardName={card.title}
-								cardNameWidth="200px"
-								cardNameHeight="30px"
-								width="250px"
-								height="300px"
 								img={card.img}
 								alt={card.title}
 								desc={card.desc}
 								className={
 									card.index === activeCardIndex ? styles.activeCard : ""
 								}
-								isFlipped={flippedCards.includes(card.index)} // Passa lo stato della rotazione
-								onFlip={() => handleFlipCard(card.index)} // Funzione per gestire la rotazione
+								isLarge={card.index === activeCardIndex}
+								isFlipped={flippedCards.includes(card.index)}
+								onFlip={() => handleFlipCard(card.index)}
 							/>
 						))}
 				</div>
 				<div className={styles.cardLarge}>
 					{cardArr.find((card) => card.index === activeCardIndex) && (
 						<Card
+							dataid={
+								cardArr.find((card) => card.index === activeCardIndex)
+									?.dataid || " "
+							}
 							key={
 								cardArr.find((card) => card.index === activeCardIndex)?.index
 							}
@@ -122,10 +129,6 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 								cardArr.find((card) => card.index === activeCardIndex)?.title ||
 								""
 							}
-							cardNameWidth="200px"
-							cardNameHeight="30px"
-							width="500px"
-							height="620px"
 							img={
 								cardArr.find((card) => card.index === activeCardIndex)?.img ||
 								fattoriaDidattica
@@ -144,8 +147,9 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 									? styles.activeCard
 									: ""
 							}
-							isFlipped={flippedCards.includes(activeCardIndex)}
+							isFlipped={flippedCards.includes(activeCardIndex)} // Passa lo stato della rotazione
 							onFlip={() => handleFlipCard(activeCardIndex)} // Funzione per gestire la rotazione
+							isLarge={true}
 						/>
 					)}
 				</div>

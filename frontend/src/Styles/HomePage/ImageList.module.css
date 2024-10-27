@@ -16,7 +16,7 @@
 	justify-content: center;
 	text-align: center;
 	flex: 0 0 30%; 
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi un'ombra per migliorare l'aspetto */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -55,15 +55,15 @@
 }
 
 .scrollableContainer {
-	max-height: 600px; /* Imposta l'altezza massima desiderata */
-	overflow-y: auto; /* Abilita lo scorrimento verticale */
-	display: flex; /* Utilizza flexbox per l'allineamento */
-	flex-wrap: wrap; /* Permette di andare a capo */
+	max-height: 600px; 
+	overflow-y: auto; 
+	display: flex; 
+	flex-wrap: wrap;
 	align-items: flex-start;
 }
 
 .imageItem {
-	flex: 1 1 30%; /* Imposta la larghezza delle colonne (3 colonne) */
-	margin: 10px; /* Margine tra le colonne */
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi un'ombra per migliorare l'aspetto */
+	flex: 1 1 30%; 
+	margin: 10px; 
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

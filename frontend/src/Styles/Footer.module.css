@@ -51,6 +51,10 @@
   text-decoration: underline;
 }
 
+.newsletter {
+  width: 500px;
+}
+
 .newsletter form {
   display: flex;
   margin-top: 10px;
@@ -89,10 +93,13 @@
 
 .footerBottom {
   text-align: center;
-  margin-top: 10px;
   border-top: 1px solid #444;
   padding-top: 10px;
   width: 100%;
+}
+
+.messagesContainer {
+  margin-top: 10px;
 }
 
 @media (max-width: 640px) {
@@ -120,6 +127,10 @@
   .newsletter button {
     border-radius: 10px;
   }
+
+  .newsletter {
+    width: 300px;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
@@ -142,6 +153,10 @@
   .newsletter button {
     border-radius: 10px;
   }
+
+  .newsletter {
+    width: 400px;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -155,11 +170,15 @@
     margin-bottom: 8px;
     margin-top: 15px;
   }
+
+  .newsletter {
+    width: 500px;
+  }
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
   .newsletter {
-    width: 400px;
+    width: 500px;
   }
 }
 

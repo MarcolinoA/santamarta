@@ -28,13 +28,11 @@ API:
 
 NAVBAR: 
 	Non scorre
-	Aggiungere delle animazioni
 
 FORM:
 	Delle volte escono degli errori che rompono il sito, troppo grandi, si blocca
 
 STYLES:
 	Navbar modificare gli stili in base alla grandezza dello schermo
-	DeleteBtn modificare gli stili in base alla grandezza dello schermo
-	PlusBtn modificare gli stili in base alla grandezza dello schermo
 	ImageList modificare gli stili in base alla grandezza dello schermo
+	Cards modificare gli stili in base alla grandezza dello schermo

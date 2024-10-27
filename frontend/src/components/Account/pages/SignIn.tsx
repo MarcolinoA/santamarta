@@ -57,15 +57,20 @@ const SignIn: React.FC = () => {
 		setLoading(true);
 		setErrors({});
 		setMessage(null);
-	
+
 		// Validazione del modulo
-		const validationErrors = validateForm(formData, undefined, undefined, false);
+		const validationErrors = validateForm(
+			formData,
+			undefined,
+			undefined,
+			false
+		);
 		if (Object.keys(validationErrors).length > 0) {
 			setErrors(validationErrors as SignInErrors);
 			setLoading(false);
 			return;
 		}
-	
+
 		try {
 			const response = await fetch(
 				//ATTENZIONE CAMBIARE CON API IN PRODUZIONE
@@ -77,13 +82,13 @@ const SignIn: React.FC = () => {
 					credentials: "include", // Includi i cookie nella richiesta
 				}
 			);
-	
+
 			// Gestione della risposta
 			if (!response.ok) {
 				if (response.status === 429) {
 					throw new Error("Troppi tentativi di accesso. Riprova più tardi.");
 				}
-	
+
 				let errorMessage;
 				try {
 					const errorData = await response.json();
@@ -93,16 +98,19 @@ const SignIn: React.FC = () => {
 				}
 				throw new Error(errorMessage || "Errore durante il login");
 			}
-	
+
 			const data = await response.json();
 			await new Promise((resolve) => setTimeout(resolve, 1000)); // Ritardo per l'esperienza utente
-	
+
 			// Controllo del token di autenticazione
-			const authToken = Cookies.get('authToken') || localStorage.getItem("authToken");
+			const authToken =
+				Cookies.get("authToken") || localStorage.getItem("authToken");
 			if (!authToken) {
-				throw new Error("Il cookie di autenticazione non è stato impostato correttamente");
+				throw new Error(
+					"Il cookie di autenticazione non è stato impostato correttamente"
+				);
 			}
-	
+
 			if (data.username) {
 				login(authToken, data.username);
 				router.push("/");
@@ -116,10 +124,14 @@ const SignIn: React.FC = () => {
 		}
 	};
 	return (
-		<div className={stylePage.headerContainer}>
-			<Image src={logo} alt="Logo" width={150} />
-			<h2 data-id="title" className={stylePage.title}>Effettua l&#39;accesso</h2>
-			<form onSubmit={handleSubmit} className={style.form} data-id="signInForm">
+		<div className={`${stylePage.headerContainer} ${stylePage.login}`}>
+			<div className={style.loginHeader}>
+				<Image src={logo} alt="Logo" width={150} />
+				<h2 data-id="title" className={stylePage.title}>
+					Effettua l&#39;accesso
+				</h2>
+			</div>
+			<form onSubmit={handleSubmit} className={style.formLogin} data-id="signInForm">
 				<div className={style.formGroup}>
 					<InputField
 						id="username"

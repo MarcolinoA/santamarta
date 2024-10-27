@@ -6,53 +6,44 @@ import Image, { StaticImageData } from "next/image";
 interface CardProps {
 	img: string | StaticImageData;
 	alt: string;
-	width?: number | string;
-	height?: number | string;
-	cardNameWidth?: string;
-	cardNameHeight?: string;
 	cardName: string;
 	desc?: string;
 	onClick?: () => void;
 	className?: string;
-	isFlipped?: boolean; 
+	isFlipped?: boolean;
 	onFlip?: () => void;
 	dataid?: string;
+	isLarge?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
 	img,
 	alt,
-	width,
-	height,
-	cardNameWidth,
-	cardNameHeight,
 	cardName,
 	desc,
 	onClick,
 	className,
 	isFlipped = false,
 	onFlip,
-	dataid
+	dataid,
+	isLarge = false,
 }) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const cardRef = useRef<HTMLDivElement>(null);
 
-	const cardNameStyle = {
-		width: cardNameWidth,
-		height: cardNameHeight,
-	};
-
 	const handleClick = () => {
-		if (onFlip) onFlip(); // Chiama la funzione onFlip per gestire la rotazione
+		if (onFlip) onFlip();
 		if (onClick) onClick();
 	};
 
+	const cardClasses = `${styles.CardContainer} ${isVisible ? styles.visible : ""} ${isFlipped ? styles.flipped : ""} ${className} ${isLarge ? styles.largeCard : styles.smallCard}`;
+	const cardNameClasses = `${styles.cardName} ${isLarge ? styles.cardNameLarge : styles.cardNameSmall}`;
+
 	return (
 		<div
-		data-id={`card-container-${dataid}`}
+			data-id={`card-container-${dataid}`}
 			ref={cardRef}
-			className={`${styles.CardContainer} ${isVisible ? styles.visible : ""} ${isFlipped ? styles.flipped : ""} ${className}`}
-			style={{ width, height }}
+			className={cardClasses}
 			onClick={handleClick}
 		>
 			<div className={styles.cardInner}>
@@ -64,13 +55,9 @@ const Card: React.FC<CardProps> = ({
 						objectFit="cover"
 						quality={100}
 						priority={true}
-						data-id={dataid || 'default-data-id'} 
+						data-id={dataid || "default-data-id"}
 					/>
-					<div
-						className={styles.cardName}
-						style={cardNameStyle}
-						data-id={`card-name-${dataid}`}
-					>
+					<div className={cardNameClasses} data-id={`card-name-${dataid}`}>
 						{cardName}
 					</div>
 				</div>

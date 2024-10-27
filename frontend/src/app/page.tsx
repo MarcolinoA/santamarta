@@ -28,11 +28,6 @@ export const metadata = {
 		},
 	],
 };
-/**
-			<CardTable cardTitle="Laboratori" />
-			<CardTableTwo cardTitle="Servizi" />
-
- */
 
 const Home = () => {
 	return (
@@ -42,7 +37,8 @@ const Home = () => {
 					<HomePage />
 				</Suspense>
 			</main>
-
+			<CardTable cardTitle="Laboratori" />
+			<CardTableTwo cardTitle="Servizi" />
 			<footer>
 				<Footer />
 			</footer>

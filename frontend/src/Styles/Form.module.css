@@ -10,8 +10,12 @@
   margin: -20px;
 }
 
+.loginHeader {
+  margin: 15px;
+}
+
 .formGroup {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   width: 300px;
 }
 
@@ -40,7 +44,7 @@
 
 .errorMessage {
   color: #ff4d4f;
-  margin: 10px 0 10px 0;
+  margin: 5px 0 5px 0;
   font-size: 16px;
   text-decoration: underline;
 }
@@ -103,6 +107,22 @@
   outline: none;
 }
 
+.messagesContainer {
+  margin-top: 15px;
+}
+
+.formLogin {
+  width: 400px;
+  margin-top: 30px;
+  display: contents;
+  flex-direction: column;
+  height: 700px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  margin: -20px;
+}
+
 @media (max-width: 640px) {
   /* sm */
   .logo {
@@ -110,6 +130,16 @@
   }
 
   .form {
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    margin: -20px;
+  }
+
+  .formLogin {
     display: flex;
     flex-direction: column;
     height: 700px;
@@ -129,6 +159,8 @@
   }
 }
 
+
+
 @media (min-width: 641px) and (max-width: 768px) {
   /* md */
   .logo {
@@ -139,8 +171,13 @@
     height: 700px;
   }
 
+  .formLogin {
+    height: 700px;
+  }
+
+
   .formGroup {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: 350px;
   }
 
@@ -158,8 +195,12 @@
     height: 700px;
   }
 
+  .formLogin {
+    height: 700px;
+  }
+
   .formGroup {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: 400px;
   }
 
@@ -176,9 +217,13 @@
 	  .form {
 		height: 700px;
 	  }
+
+	  .formLogin {
+		height: 700px;
+	  }
 	
 	  .formGroup {
-		margin-bottom: 15px;
+		margin-bottom: 5px;
 		width: 450px;
 	  }
 	
@@ -195,6 +240,10 @@
 	  .form {
 		height: 700px;
 	  }
+
+    .formLogin {
+      height: 700px;
+      }
 	
 	  .formGroup {
 		margin-bottom: 10px;
