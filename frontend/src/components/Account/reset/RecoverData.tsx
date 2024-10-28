@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import stylePage from "../../../Styles/HomePage/Header.module.css";
-import style from "../../../Styles/Form.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../../../../public/logo.png";
 import InputField from "../../shared/InputFieldProps";
 import FormFooter from "../../shared/FormFooter";
 import HeaderBtn from "../../shared/btns/HeaderBtn";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 interface FormData {
   email: string;
@@ -97,17 +97,17 @@ const RecoverData: React.FC<RecoverDataProps> = ({
   };
 
   return (
-    <div className={stylePage.headerContainer}>
+    <div className={stylesHeader.headerContainer}>
       <Image src={logo} alt="Logo" width={150} />
-      <h2 data-id="rd-title" className={stylePage.title}>
+      <h2 data-id="rd-title" className={stylesHeader.title}>
         {title}
       </h2>
-      <p data-id="rd-desc" className={stylePage.description}>
+      <p data-id="rd-desc" className={stylesHeader.description}>
         Inserisci l&#39;email con cui ti sei registrato per ricevere un link per
         reimpostare {description}
       </p>
-      <form data-id="rd-form" onSubmit={handleSubmit} className={style.form}>
-        <div className={style.formGroup}>
+      <form data-id="rd-form" onSubmit={handleSubmit} className={stylesForm.form}>
+        <div className={stylesForm.formGroup}>
           <InputField
             id="email"
             dataid="email"
@@ -121,7 +121,6 @@ const RecoverData: React.FC<RecoverDataProps> = ({
         </div>
         <FormFooter
           message={message}
-          errors={{ error: error || "" }}
           loading={loading}
           btnDataId="rd-btn"
           btnLoadingText="Invio..."

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import style from "../../../Styles/HomePage/Btns/DeleteBtn.module.css";
+import stylesBtn from "../../../Styles/HomePage/Btns/DeleteBtn.module.css";
 import { useAuthentication } from "../../../hooks/useAuthentications";
 import Link from "next/link";
 import { FaTrash } from "react-icons/fa";
@@ -21,11 +21,11 @@ const DeleteBtn: React.FC<ButtonProps> = ({ option }) => {
 	}
 
 	return (
-		<div className={style.deleteButtonContainer}>
+		<div className={stylesBtn.deleteButtonContainer}>
 			{option.map((option, index) => (
 				<Link key={index} href={option.href}>
 					<div
-						className={`${style.deleteIcon}`}
+						className={`${stylesBtn.deleteIcon}`}
 					>
 						<FaTrash size={30} />
 					</div>

@@ -3,13 +3,8 @@ import React from "react";
 import Link from "next/link";
 import style from "../../Styles/Form.module.css";
 
-interface FormErrors {
-	[key: string]: string; // Permette di avere chiavi dinamiche con valori stringa
-}
-
 interface FormFooterProps {
 	message: string | null;
-	errors: FormErrors; // Usa il tipo Errors definito in SignIn
 	loading: boolean;
 	btnDataId: string;
 	btnLoadingText: string;
@@ -32,21 +27,14 @@ const FormFooter: React.FC<FormFooterProps> = ({
 	btnLoadingText,
 	btnText,
 	message,
-	errors,
 	loading,
 	btnDataId,
 }) => {
 	return (
 		<div className={style.formFooterContainer}>
-			{(message || Object.keys(errors).length > 0) && (
+			{message && (
 				<p className={style.errorMessage} data-id="error-message">
-					{message && <span>{message}</span>}
-					{Object.entries(errors).map(([key, error]) => (
-						<span key={key}>
-							{error}
-							<br />
-						</span>
-					))}
+					<span>{message}</span>
 				</p>
 			)}
 

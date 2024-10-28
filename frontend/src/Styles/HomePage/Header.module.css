@@ -38,6 +38,14 @@
 	height: 600px;
 }
 
+.headerContainer.formPageLayout {
+	height: 600px;
+}
+
+.headerContainer.addImgDB {
+	height: 600px;
+}
+
 @media (max-width: 640px) { /* sm */
 	.headerContainer {
 		width: 90%;
@@ -78,7 +86,7 @@
 	.headerContainer {
 		width: 75%;
 		height: auto;
-		min-height: 90vh;
+		min-height: 80vh;
 	}
 
 	.title {
@@ -87,6 +95,12 @@
 }
 
 @media (min-width: 1281px) {
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		min-height: 90vh;
+	}
+
 	.title {
 		margin: 0;
 		font-size: 26px;

@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import styles from "../../../Styles/Card.module.css";
+import stylesCard from "../../../Styles/Card.module.css";
 import Image, { StaticImageData } from "next/image";
 
 interface CardProps {
@@ -36,8 +36,8 @@ const Card: React.FC<CardProps> = ({
 		if (onClick) onClick();
 	};
 
-	const cardClasses = `${styles.CardContainer} ${isVisible ? styles.visible : ""} ${isFlipped ? styles.flipped : ""} ${className} ${isLarge ? styles.largeCard : styles.smallCard}`;
-	const cardNameClasses = `${styles.cardName} ${isLarge ? styles.cardNameLarge : styles.cardNameSmall}`;
+	const cardClasses = `${stylesCard.CardContainer} ${isVisible ? stylesCard.visible : ""} ${isFlipped ? stylesCard.flipped : ""} ${className} ${isLarge ? stylesCard.largeCard : stylesCard.smallCard}`;
+	const cardNameClasses = `${stylesCard.cardName} ${isLarge ? stylesCard.cardNameLarge : stylesCard.cardNameSmall}`;
 
 	return (
 		<div
@@ -46,8 +46,8 @@ const Card: React.FC<CardProps> = ({
 			className={cardClasses}
 			onClick={handleClick}
 		>
-			<div className={styles.cardInner}>
-				<div className={styles.cardFront} data-id={`card-front-${dataid}`}>
+			<div className={stylesCard.cardInner}>
+				<div className={stylesCard.cardFront} data-id={`card-front-${dataid}`}>
 					<Image
 						src={img}
 						alt={alt || "Default Alt Text"}
@@ -61,7 +61,7 @@ const Card: React.FC<CardProps> = ({
 						{cardName}
 					</div>
 				</div>
-				<div className={styles.cardBack} data-id={`card-back-${dataid}`}>
+				<div className={stylesCard.cardBack} data-id={`card-back-${dataid}`}>
 					<p>{desc}</p>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import style from "../../../Styles/HomePage/Btns/PriorityBtn.module.css";
+import stylesBtn from "../../../Styles/HomePage/Btns/PriorityBtn.module.css";
 import { useAuthentication } from "../../../hooks/useAuthentications";
 import Link from "next/link";
 import { FaPen } from "react-icons/fa";
@@ -27,13 +27,13 @@ const PriorityBtn: React.FC<ButtonProps> = ({ option, customClass }) => {
   }
 
   return (
-    <div className={style.editButtonContainer} data-id="priority-btn">
+    <div className={stylesBtn.editButtonContainer} data-id="priority-btn">
       {option.map((option, index) => (
         <Link key={index} href={option.href}>
           <button
-            className={`${style.editIcon} ${option.style.position === "fixed" ? style.fixedPosition : ""} ${index === 1 ? customClass : ""}`}
+            className={`${stylesBtn.editIcon} ${option.style.position === "fixed" ? stylesBtn.fixedPosition : ""} ${index === 1 ? customClass : ""}`}
           >
-            <FaPen className={style.editIcon} size={30} />
+            <FaPen className={stylesBtn.editIcon} size={30} />
           </button>
         </Link>
       ))}

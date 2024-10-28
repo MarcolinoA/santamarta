@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import style from "../../../Styles/Card.module.css";
 import { imageServices } from "../../../services/apiImagesServices";
-import { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Card from "../../Sections/Cards/Card";
 import { useRouter } from "next/navigation";
 import DeleteBtn from "../../shared/btns/DeleteBtn";
 import AddBtn from "../../shared/btns/AddBtn";
+import logo from "../../../../public/logo.png";
+import styleHeader from "../../../Styles/HomePage/ImageList.module.css";
+import stylesCard from "../../../Styles/Card.module.css";
 
 interface Image {
 	_id: number;
@@ -27,7 +29,7 @@ function HomeImgList() {
 			style: {
 				position: "fixed" as const,
 				bottom: "20px",
-			left: "20px",
+				left: "20px",
 			},
 		},
 	];
@@ -73,25 +75,24 @@ function HomeImgList() {
 
 	return (
 		<>
-			<div className={style.editHomePageWrapper}>
-				<h2 data-id="edit-home-img-title" className={style.editHomePageTitle}>
-					Fai click su una delle Card per impostarla come immagine della
-					schermata home
-				</h2>
-				<div className={style.imagesCardSection}>
+			<div className={styleHeader.imageListContainer}>
+				<div className={styleHeader.headerContainer}>
+					<Image src={logo} alt="Logo" width={150} className={styleHeader.logo} />
+					<h2 data-id="" className={styleHeader.title}>
+						Fai click su una delle Card per impostarla come immagine della
+						schermata home
+					</h2>
+				</div>
+				<div className={styleHeader.imagesSection}>
 					{images.map((card: Image) => (
 						<div
 							key={card._id}
-							className={style.cardWrapper}
+							className={stylesCard.cardWrapper}
 							onClick={() => handleCardClick(card._id)}
 							data-id="card-wrapper"
 						>
 							<Card
 								cardName={card.title}
-								cardNameWidth="200px"
-								cardNameHeight="30px"
-								width="250px"
-								height="300px"
 								img={card.image}
 								alt={card.title || "image"}
 								desc={card.desc}

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation"; 
-import styles from "../../Styles/HomePage/Header.module.css";
+import stylesHeader from "../../Styles/HomePage/Header.module.css";
 import Navbar from "./Navbar";
 import { imageServices } from "../../services/apiImagesServices";
 import PriorityBtn from "../shared/btns/PriorityBtn";
@@ -66,10 +66,10 @@ const HomePage = () => {
 	}
 
 	return (
-		<div className={styles.headerContainer}>
+		<div className={stylesHeader.headerContainer}>
 			<Navbar />
 			{loading ? (
-				<div data-id="loading-spinner" className={styles.loader}></div>
+				<div data-id="loading-spinner" className={stylesHeader.loader}></div>
 			) : (
 				<Image
 					src={imageSrc}

@@ -1,7 +1,8 @@
+/* Navbar styling */
 .navbar {
 	background-color: transparent;
 	color: #000;
-	display: block;
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -22,15 +23,14 @@
 	justify-content: center;
 }
 
+/* Horizontal menu for larger screens */
 .horizontalMenu {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.8);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	text-align: center;
 	list-style-type: none;
-	position: relative;
 	padding: 0;
 	border-radius: 30px;
 	height: 90px;
@@ -39,12 +39,12 @@
 .link {
 	padding: 15px;
 	transition: all 0.3s ease;
+	color: #000;
+	text-decoration: none;
 }
 
 .link:hover {
 	cursor: pointer;
-	text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
-	color: #000;
 }
 
 .links {
@@ -52,56 +52,7 @@
 	text-decoration: none;
 }
 
-.dropdownMenu {
-	position: absolute;
-	top: 100%;
-	left: 88.5%;
-	transform: translateX(-50%);
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 10px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	padding: 10px;
-	width: 150px;
-	text-align: center;
-	z-index: 11;
-}
-
-.dropdownArrow {
-	position: absolute;
-	top: -10px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid rgba(255, 255, 255, 0.3); /* Adjust arrow direction */
-}
-
-.dropdownContent p {
-	margin: 0;
-	padding: 5px 0;
-	font-size: 18px;
-}
-
-.dropdownContent button {
-	width: 100%;
-	padding: 5px 0;
-	margin-top: 5px;
-	border: none;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 3px;
-	cursor: pointer;
-	font-size: 18px;
-}
-
-.dropdownContent {
-	display: flex;
-	flex-direction: column;
-	max-height: 250px;
-	overflow-y: auto;
-}
-
+/* Mobile menu */
 .hamburgerIcon {
 	display: none;
 	font-size: 35px;
@@ -122,6 +73,7 @@
 .verticalMenu li {
 	padding: 15px 0;
 	border-bottom: 1px solid #ddd;
+	text-align: center;
 }
 
 .mobileMenu {
@@ -132,23 +84,26 @@
 	left: 0;
 	text-align: center;
 	z-index: 10;
+	opacity: 0;
+	max-height: calc(100vh - 100px); /* Allows scrolling */
 	overflow-y: auto;
-	transform: translateY(0);
-	opacity: 0; 
-	transition: transform 0.3s ease, opacity 0.3s ease;
-	max-height: calc(100vh - 150px);
+	transition: opacity 0.3s ease;
 }
 
 .mobileMenu.visible {
-	transform: translateY(0);
 	opacity: 1;
 }
 
 @media (max-width: 640px) {
 	/* sm */
+	.logoContainer {
+		display: none;
+	}
+
 	.navbar {
 		background-color: rgba(255, 255, 255, 0.8);
 		color: #000;
+		display: block;
 	}
 
 	.horizontalMenu {
@@ -159,20 +114,30 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		cursor: pointer;
+		font-size: 35px;
+		transition: transform 1s ease;
 	}
 
-	.logoContainer {
-		display: none;
+	.mobileMenu {
+		top: 150px;
 	}
 
-
+	.verticalMenu li {
+		padding: 5px 0;
+	}
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
 	/* md */
+	.logoContainer {
+		display: none;
+	}
+
 	.navbar {
 		background-color: rgba(255, 255, 255, 0.8);
 		color: #000;
+		display: block;
 	}
 
 	.horizontalMenu {
@@ -183,10 +148,21 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		cursor: pointer;
+		font-size: 35px;
+		transition: transform 1s ease;
 	}
 
 	.logoContainer {
 		display: none;
+	}
+
+	.mobileMenu {
+		top: 225px;
+	}
+
+	.verticalMenu li {
+		padding: 5px 0;
 	}
 }
 
@@ -198,17 +174,39 @@
 
 	.navbar {
 		height: 70px;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
 	}
 
-	.dropdownMenu {
-		width: 100px;
+	.link {
+		padding: 10px;
+		position: relative;
+	}
+
+	.verticalMenu li {
+		padding: 5px 0;
 	}
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-	/* xl */
+	.navbar {
+		height: 70px;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
+	}
 }
 
 @media (min-width: 1281px) {
-	/* 2xl */
+	.logo {
+		width: 180px;
+	}
+
+	.navbar {
+		height: 70px;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
+	}
 }

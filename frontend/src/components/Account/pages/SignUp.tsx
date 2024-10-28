@@ -1,14 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import stylePage from "../../../Styles/HomePage/Header.module.css";
-import style from "../../../Styles/Form.module.css";
 import InputField from "../../shared/InputFieldProps";
 import { validateForm } from "../../../utils/validation";
 import FormFooter from "../../shared/FormFooter";
 import HeaderBtn from "../../shared/btns/HeaderBtn";
 import logo from "../../../../public/logo.png";
 import Image from "next/image";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 interface FormData {
   name: string;
@@ -37,7 +37,6 @@ const SignUp: React.FC = () => {
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [confirmEmail, setConfirmEmail] = useState<string>("");
-  const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -70,7 +69,6 @@ const SignUp: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setErrors({});
     setMessage(null);
 
     // Validazione dei dati del modulo
@@ -81,7 +79,6 @@ const SignUp: React.FC = () => {
       true
     );
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors as FormErrors);
       setLoading(false);
       return;
     }
@@ -124,19 +121,17 @@ const SignUp: React.FC = () => {
       // Navigazione a pagina di verifica
       router.push(`/account/other/accountVerification`);
     } catch (error: any) {
-      setErrors({ form: error.message });
-      console.error("Errore nella creazione dell'utente", error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className={stylePage.headerContainer}>
-      <Image className={style.logo} src={logo} alt="Logo" width={150} />
-			<h2 data-id="title" className={stylePage.title}>Compila i campi per registrarti</h2>
-      <form onSubmit={handleSubmit} className={style.form}>
-        <div className={style.formGroup}>
+    <div className={stylesHeader.headerContainer}>
+      <Image className={stylesForm.logo} src={logo} alt="Logo" width={150} />
+      <h2 data-id="title" className={stylesHeader.title}>Compila i campi per registrarti</h2>
+      <form onSubmit={handleSubmit} className={stylesForm.form}>
+        <div className={stylesForm.formGroup}>
           <InputField
             id="name"
             dataid="name"
@@ -216,7 +211,6 @@ const SignUp: React.FC = () => {
         </div>
         <FormFooter
           message={message}
-          errors={errors}
           loading={loading}
           btnDataId="submit-btn"
           btnLoadingText="Registrazione in corso..."

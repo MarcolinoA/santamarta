@@ -1,12 +1,45 @@
-.imageList {
+.imageListContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 	flex: 1 1 30%;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	text-align: center;
+}
+
+.headerContainer {
+	margin: 15px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 }
 
+.title {
+	margin: 10px 0;
+	font-size: 24px;
+	width: 70%;
+}
+
+.imagesSection {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	gap: 20px;
+}
+
+/**/
+.scrollableContainer {
+	max-height: 600px;
+	overflow-y: auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+
 .imageItem {
-	height: 70px;
+	height: 50px;
 	width: 80vh;
 	border: 1px solid #ccc;
 	padding: 10px;
@@ -15,7 +48,7 @@
 	margin: 20px 0;
 	justify-content: center;
 	text-align: center;
-	flex: 0 0 30%; 
+	flex: 0 0 30%;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
@@ -26,17 +59,11 @@
 .imageInfo {
 	display: flex;
 	flex-direction: row;
-	justify-content:center;
+	justify-content: space-evenly;
 	align-items: center;
 }
 
-.imageTitle {
-	margin: 0px 20px;
-	width: 100px;
-}
-
 .imageStatus {
-	margin: 0px 20px; /* Spaziatura verticale */
 	color: #000; /* Colore del testo dello stato */
 	width: 100px;
 }
@@ -44,26 +71,158 @@
 .deleteButton {
 	width: 100px;
 	height: 40px;
-	margin: 0px 20px;
 	background-color: #ff4d4f;
-	color: white; 
+	color: white;
 	border: none;
 	border-radius: 5px;
-	padding: 5px 10px;
-	cursor: pointer; 
+	cursor: pointer;
 	font-size: 16px;
 }
 
-.scrollableContainer {
-	max-height: 600px; 
-	overflow-y: auto; 
-	display: flex; 
-	flex-wrap: wrap;
-	align-items: flex-start;
+.imageItem {
+	flex: 1 1 30%;
+	margin: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.imageItem {
-	flex: 1 1 30%; 
-	margin: 10px; 
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+@media (max-width: 640px) {
+	.imagesSection {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		gap: 20px;
+	}
+
+	.scrollableContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.imageItem {
+		width: 250px;
+		max-height: 50px;
+	}
+
+	.imageInfo h3 {
+		margin: 0;
+		font-size: 16px;
+	}
+
+	.deleteButton {
+		width: 100px;
+		height: 30px;
+		margin: 0px;
+	}
+
+	.imageStatus {
+		font-size: 16px;
+		margin: 0 10px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+	.imagesSection {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		gap: 20px;
+	}
+
+	.scrollableContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.imageItem {
+		width: 90%;
+		height: 50px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.imagesSection {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		gap: 20px;
+		padding: 10px;
+	}
+
+	.scrollableContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.imageItem {
+		width: 400px;
+		height: 40px;
+		padding: 0;
+		margin: 10px 0;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	.imagesSection {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(4, 1fr);
+		gap: 20px;
+		padding: 10px;
+	}
+
+	.logo {
+		width: 170px;
+	}
+
+	.title {
+		margin: 10px 0;
+		font-size: 26px;
+		width: 70%;
+	}
+
+	.scrollableContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.imageItem {
+		width: 550px;
+		height: 40px;
+		margin: 10px;
+		padding: 0;
+	}
+}
+
+@media (min-width: 1281px) {
+	.logo {
+		width: 170px;
+	}
+
+	.title {
+		margin: 10px 0;
+		font-size: 26px;
+		width: 70%;
+	}
+
+	.scrollableContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.imageItem {
+		width: 650px;
+		height: 50px;
+		margin: 10px;
+		padding: 0;
+	}
 }
