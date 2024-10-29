@@ -1,7 +1,8 @@
+/* Navbar styling */
 .navbar {
 	background-color: transparent;
 	color: #000;
-	display: block;
+	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
@@ -22,15 +23,14 @@
 	justify-content: center;
 }
 
+/* Horizontal menu for larger screens */
 .horizontalMenu {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.8);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	text-align: center;
 	list-style-type: none;
-	position: relative;
 	padding: 0;
 	border-radius: 30px;
 	height: 90px;
@@ -39,58 +39,174 @@
 .link {
 	padding: 15px;
 	transition: all 0.3s ease;
+	color: #000;
+	text-decoration: none;
 }
 
 .link:hover {
 	cursor: pointer;
-	text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
-	color: #000;
-}
-
-.dropdownMenu {
-	position: absolute;
-	top: 100%; /* Place the dropdown directly below the navbar */
-	left: 88.5%; /* Center it horizontally below the navbar */
-	transform: translateX(-50%); /* Adjust for centering */
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 10px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-	padding: 10px;
-	width: 150px;
-	text-align: center;
-	z-index: 11; /* Ensure it appears above other elements */
-}
-
-.dropdownArrow {
-	position: absolute;
-	top: -10px; /* Position arrow above the dropdown */
-	left: 50%; /* Center it horizontally */
-	transform: translateX(-50%);
-	width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid rgba(255, 255, 255, 0.3); /* Adjust arrow direction */
-}
-
-.dropdownContent p {
-	margin: 0;
-	padding: 5px 0;
-	font-size: 18px;
-}
-
-.dropdownContent button {
-	width: 100%;
-	padding: 5px 0;
-	margin-top: 5px;
-	border: none;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 3px;
-	cursor: pointer;
-	font-size: 18px;
 }
 
 .links {
-	text-decoration: none;
 	color: #000;
+	text-decoration: none;
+}
+
+/* Mobile menu */
+.hamburgerIcon {
+	display: none;
+	font-size: 35px;
+	cursor: pointer;
+	transition: transform 1s ease;
+}
+
+.hamburgerIcon.rotate {
+	transform: rotate(360deg);
+}
+
+.verticalMenu {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.verticalMenu li {
+	padding: 15px 0;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+.mobileMenu {
+	background-color: rgba(255, 255, 255, 0.8);
+	position: absolute;
+	width: 100%;
+	top: 100px;
+	left: 0;
+	text-align: center;
+	z-index: 10;
+	opacity: 0;
+	max-height: calc(100vh - 100px); /* Allows scrolling */
+	overflow-y: auto;
+	transition: opacity 0.3s ease;
+}
+
+.mobileMenu.visible {
+	opacity: 1;
+}
+
+@media (max-width: 640px) {
+	/* sm */
+	.logoContainer {
+		display: none;
+	}
+
+	.navbar {
+		background-color: rgba(255, 255, 255, 0.8);
+		color: #000;
+		display: block;
+	}
+
+	.horizontalMenu {
+		display: none;
+	}
+
+	.hamburgerIcon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		font-size: 35px;
+		transition: transform 1s ease;
+	}
+
+	.mobileMenu {
+		top: 150px;
+	}
+
+	.verticalMenu li {
+		padding: 5px 0;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+	/* md */
+	.logoContainer {
+		display: none;
+	}
+
+	.navbar {
+		background-color: rgba(255, 255, 255, 0.8);
+		color: #000;
+		display: block;
+	}
+
+	.horizontalMenu {
+		display: none;
+	}
+
+	.hamburgerIcon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		font-size: 35px;
+		transition: transform 1s ease;
+	}
+
+	.logoContainer {
+		display: none;
+	}
+
+	.mobileMenu {
+		top: 225px;
+	}
+
+	.verticalMenu li {
+		padding: 5px 0;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	/* lg */
+	.logo {
+		width: 130px;
+	}
+
+	.navbar {
+		height: 70px;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
+	}
+
+	.link {
+		padding: 10px;
+		position: relative;
+	}
+
+	.verticalMenu li {
+		padding: 5px 0;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	.navbar {
+		height: 70px;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
+	}
+}
+
+@media (min-width: 1281px) {
+	.logo {
+		width: 180px;
+	}
+
+	.navbar {
+		height: 70px;
+		flex-direction: column;
+		height: auto;
+		width: 90%;
+	}
 }

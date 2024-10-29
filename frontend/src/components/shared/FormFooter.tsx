@@ -1,15 +1,10 @@
 // components/shared/FormFooter.tsx
 import React from "react";
 import Link from "next/link";
-import style from "../../Styles/Login.module.css";
-
-interface FormErrors {
-	[key: string]: string; // Permette di avere chiavi dinamiche con valori stringa
-}
+import style from "../../Styles/Form.module.css";
 
 interface FormFooterProps {
 	message: string | null;
-	errors: FormErrors; // Usa il tipo Errors definito in SignIn
 	loading: boolean;
 	btnDataId: string;
 	btnLoadingText: string;
@@ -32,21 +27,14 @@ const FormFooter: React.FC<FormFooterProps> = ({
 	btnLoadingText,
 	btnText,
 	message,
-	errors,
 	loading,
 	btnDataId,
 }) => {
 	return (
-		<div>
-			{(message || Object.keys(errors).length > 0) && (
+		<div className={style.formFooterContainer}>
+			{message && (
 				<p className={style.errorMessage} data-id="error-message">
-					{message && <span>{message}</span>}
-					{Object.entries(errors).map(([key, error]) => (
-						<span key={key}>
-							{error}
-							<br />
-						</span>
-					))}
+					<span>{message}</span>
 				</p>
 			)}
 
@@ -58,28 +46,34 @@ const FormFooter: React.FC<FormFooterProps> = ({
 			>
 				{loading ? btnLoadingText : btnText}
 			</button>
-			<div>
-				<Link data-id="textLink" href={hrefLink} className={style.errorMessage}>
-					{linkText}
-				</Link>
-			</div>
-			<div>
-				<Link
-					data-id="textLink2"
-					href={hrefLink2}
-					className={style.errorMessage}
-				>
-					{linkText2}
-				</Link>
-			</div>
-			<div>
-				<Link
-					data-id="textLink3"
-					href={hrefLink3}
-					className={style.errorMessage}
-				>
-					{linkText3}
-				</Link>
+			<div className={style.messagesContainer}>
+				<div>
+					<Link
+						data-id="textLink"
+						href={hrefLink}
+						className={style.errorMessage}
+					>
+						{linkText}
+					</Link>
+				</div>
+				<div>
+					<Link
+						data-id="textLink2"
+						href={hrefLink2}
+						className={style.errorMessage}
+					>
+						{linkText2}
+					</Link>
+				</div>
+				<div>
+					<Link
+						data-id="textLink3"
+						href={hrefLink3}
+						className={style.errorMessage}
+					>
+						{linkText3}
+					</Link>
+				</div>
 			</div>
 		</div>
 	);

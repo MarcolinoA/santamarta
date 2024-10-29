@@ -1,0 +1,78 @@
+.plusButtonContainer {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 30px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.plusIcon {
+	position: relative;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.plusIcon {
+	width: 45px;
+	height: 45px;
+	color: #000;
+	background-color: transparent;
+	border: none;
+	padding: 0px;
+}
+
+.fixedPosition {
+	position: fixed !important;
+	bottom: 20px;
+	left: 20px;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 30px;
+	padding: 10px;
+	cursor: pointer;
+	border: none;
+}
+
+@media (max-width: 640px) { /* sm */
+	.fixedPosition {
+		padding: 5px;
+	}
+
+	.plusIcon {
+		width: 25px;
+		height: 25px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) { /* md */
+	.fixedPosition {
+		padding: 5px;
+	}
+
+	.plusIcon {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) { /* lg */
+	.plusIcon {
+		width: 35px;
+		height: 35px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) { /* xl */
+	.plusIcon {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (min-width: 1281px) { /* 2xl */
+	
+}

@@ -1,16 +1,21 @@
 import Image from "next/image";
 import logo from "../../../public/logo.png";
-import styles from "../../Styles/Navbar.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuthentication } from "../../hooks/useAuthentications";
+import stylesNavbar from "../../Styles/Navbar.module.css";
 
 const Navbar: React.FC = () => {
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+	const [isMenuVisible, setIsMenuVisible] = useState(false);
 	const { isAuthenticated, checkAuth } = useAuthentication();
 
-	const handleIconClick = () => {
-		setIsDropdownVisible((prev) => !prev);
+  const handleIconClick = () => {
+    setIsDropdownVisible(!isDropdownVisible);
+  };
+
+	const handleMenuClick = () => {
+		setIsMenuVisible((prev) => !prev);
 	};
 
 	useEffect(() => {
@@ -18,56 +23,82 @@ const Navbar: React.FC = () => {
 	}, [checkAuth]);
 
 	return (
-		<div className={styles.navbar}>
-			<div className={styles.logoContainer}>
-				<Image src={logo} alt="Logo" width={150} />
-			</div>
-			<div className={styles.linksContainer} data-id="nav-links-container">
-				<ul className={styles.horizontalMenu} data-id="nav-links-container">
+		<div className={stylesNavbar.navbar}>
+			{!isMenuVisible && (
+				<div className={stylesNavbar.logoContainer}>
+					<Image src={logo} alt="Logo" width={150} className="logo" />
+				</div>
+			)}
+			<div className={stylesNavbar.linksContainer}>
+				<ul className={stylesNavbar.horizontalMenu}>
 					<li>
-						<a className={styles.link}>La scuola</a>
+						<a className={stylesNavbar.link}>La scuola</a>
 					</li>
 					<li>
-						<a className={styles.link}>Orari</a>
+						<a className={stylesNavbar.link}>Orari</a>
 					</li>
 					<li>
-						<a className={styles.link}>Area riservata</a>
+						<a className={stylesNavbar.link}>Area riservata</a>
 					</li>
 					<li>
-						<a className={styles.link}>Contatti</a>
+						<a className={stylesNavbar.link}>Contatti</a>
 					</li>
 					{isAuthenticated && (
 						<li>
-							<a className={styles.link}>Roma</a>
+							<a className={stylesNavbar.link}>Roma</a>
 						</li>
 					)}
-					<li className={styles.link} onClick={handleIconClick}>
-						Modulistica
-						{isDropdownVisible && (
-							<div className={styles.dropdownMenu}>
-								<div className={styles.dropdownArrow}></div>
-								<div className={styles.dropdownContent}>
-									<button>
-										<Link className={styles.links} href="/">
-											Assenze
-										</Link>
-									</button>
-									<button>
-										<Link className={styles.links} href="/">
-											Iscrizione
-										</Link>
-									</button>
-									<button>
-										<Link className={styles.links} href="/">
-											Doposcuola
-										</Link>
-									</button>
-								</div>
-							</div>
-						)}
+					<li>
+						<a className={stylesNavbar.link}>Modulistica</a>
 					</li>
 				</ul>
 			</div>
+			<div
+				onClick={handleMenuClick}
+				className={`${stylesNavbar.hamburgerIcon} ${isMenuVisible ? stylesNavbar.rotate : ""}`}
+			>
+				&#9776;
+			</div>
+			{isMenuVisible && (
+				<div
+					className={`${stylesNavbar.mobileMenu} ${isMenuVisible ? stylesNavbar.visible : ""}`}
+				>
+					<ul className={stylesNavbar.verticalMenu}>
+						{isAuthenticated && (
+							<li>
+								<a className={stylesNavbar.link}>Roma</a>
+							</li>
+						)}
+						<li>
+							<a className={stylesNavbar.link}>La scuola</a>
+						</li>
+						<li>
+							<a className={stylesNavbar.link}>Orari</a>
+						</li>
+						<li>
+							<a className={stylesNavbar.link}>Area riservata</a>
+						</li>
+						<li>
+							<a className={stylesNavbar.link}>Contatti</a>
+						</li>
+						<li>
+							<Link className={stylesNavbar.link} href="/">
+								Assenze
+							</Link>
+						</li>
+						<li>
+							<Link className={stylesNavbar.link} href="/">
+								Iscrizione
+							</Link>
+						</li>
+						<li>
+							<Link className={stylesNavbar.link} href="/">
+								Doposcuola
+							</Link>
+						</li>
+					</ul>
+				</div>
+			)}
 		</div>
 	);
 };

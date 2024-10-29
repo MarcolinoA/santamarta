@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import style from "../../Styles/Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../../public/logo.png";
-import { useAuthentication } from "../../hooks/useAuthentications";
+import logo from "../../../../public/logo.png";
+import { useAuthentication } from "../../../hooks/useAuthentications";
+import stylesBtn from "../../../Styles/HomePage/Btns/HeaderBtn.module.css";
 
 interface HeaderOption {
 	label: string;
@@ -19,7 +19,7 @@ interface HeaderProps {
 	options: HeaderOption[];
 }
 
-const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
+const HeaderBtn: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 	const { isAuthenticated, username, checkAuth } = useAuthentication();
 
@@ -42,35 +42,35 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
 	};
 
 	return (
-		<div className={style.headerContainer}>
+		<div className={stylesBtn.headerContainer}>
 			<div
-				className={style.userInfo}
+				className={stylesBtn.userInfo}
 				tabIndex={0}
 				onBlur={handleBlur}
 				data-id="header-btn"
 			>
-				{/* Usa tabIndex per abilitare il focus */}
 				<FaUserCircle
-					className={style.userIcon}
+					className={stylesBtn.userIcon}
 					size={30}
 					onClick={toggleDropdown}
 				/>
 				{isDropdownVisible && (
-					<div className={style.dropdownMenu}>
-						<div className={style.dropdownArrow}></div>
-						<div className={style.dropdownContent} data-id="dropdown-content">
+					<div className={stylesBtn.dropdownMenu}>
+						<div className={stylesBtn.dropdownArrow}></div>
+						<div className={stylesBtn.dropdownContent} data-id="dropdown-content">
 							{isAuthenticated ? (
-								<div>{`Ciao, ${username}`}</div>
+								<div className={stylesBtn.greeting}>{`Ciao, ${username}`}</div>
 							) : (
-								<Image src={logo} alt="Logo" width={120} data-id="header-logo" />
+								<Image src={logo} alt="Logo" width={120} data-id="header-logo" className={stylesBtn.dropdownLogo}/>
 							)}
 							{options.map((option, index) => (
 								<button
 									key={index}
 									data-id={option.dataid}
-									onClick={handleClick} // Riconosce il clic e mantiene aperto il dropdown
+									onClick={handleClick}
+									className={stylesBtn.dropdownButton}
 								>
-									<Link className={style.links} href={option.href}>
+									<Link className={stylesBtn.dropdownLinks} href={option.href}>
 										{option.label}
 									</Link>
 								</button>
@@ -83,4 +83,4 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, options }) => {
 	);
 };
 
-export default Header;
+export default HeaderBtn;

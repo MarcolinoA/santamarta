@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../../../Styles/Card.module.css";
+import stylesCard from "../../../Styles/Card.module.css";
 import Card from "./Card";
 import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
 
@@ -95,14 +95,15 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 	};
 
 	return (
-		<div className={styles.cardTable}>
-			<h2 className={styles.cardTitle}>{cardTitle}</h2>
-			<div className={styles.cardSection}>
-				<div className={styles.cardLarge}>
+		<div className={stylesCard.cardTable}>
+			<h2 className={stylesCard.cardTitle}>{cardTitle}</h2>
+			<div className={stylesCard.cardSection}>
+				<div className={stylesCard.cardLarge}>
 					{cardArr.find((card) => card.index === activeCardIndex) && (
 						<Card
 							dataid={
-								cardArr.find((card) => card.index === activeCardIndex)?.dataid || " "
+								cardArr.find((card) => card.index === activeCardIndex)
+									?.dataid || " "
 							}
 							key={
 								cardArr.find((card) => card.index === activeCardIndex)?.index
@@ -112,10 +113,6 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 								cardArr.find((card) => card.index === activeCardIndex)?.title ||
 								""
 							}
-							cardNameWidth="200px"
-							cardNameHeight="30px"
-							width="500px"
-							height="620px"
 							img={
 								cardArr.find((card) => card.index === activeCardIndex)?.img ||
 								fattoriaDidattica
@@ -131,35 +128,33 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 							className={
 								cardArr.find((card) => card.index === activeCardIndex)
 									?.index === activeCardIndex
-									? styles.activeCard
+									? stylesCard.activeCard
 									: ""
 							}
 							isFlipped={flippedCards.includes(activeCardIndex)} // Passa lo stato della rotazione
 							onFlip={() => handleFlipCard(activeCardIndex)} // Funzione per gestire la rotazione
+							isLarge={true}
 						/>
 					)}
 				</div>
-				<div className={styles.cardGrid}>
+				<div className={stylesCard.cardGrid}>
 					{cardArr
 						.filter((card) => card.index !== activeCardIndex)
 						.map((card) => (
 							<Card
+								dataid={card.dataid}
 								key={card.index}
 								onClick={() => handleCardClick(card.index)}
 								cardName={card.title}
-								cardNameWidth="200px"
-								cardNameHeight="30px"
-								width="250px"
-								height="300px"
 								img={card.img}
 								alt={card.title}
 								desc={card.desc}
-								dataid={card.dataid}
 								className={
-									card.index === activeCardIndex ? styles.activeCard : ""
+									card.index === activeCardIndex ? stylesCard.activeCard : ""
 								}
-								isFlipped={flippedCards.includes(card.index)} // Passa lo stato della rotazione
-								onFlip={() => handleFlipCard(card.index)} // Funzione per gestire la rotazione
+								isLarge={card.index === activeCardIndex} 
+								isFlipped={flippedCards.includes(card.index)}
+								onFlip={() => handleFlipCard(card.index)}
 							/>
 						))}
 				</div>

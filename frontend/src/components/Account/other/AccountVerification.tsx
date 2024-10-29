@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import logo from "../../../../public/logo.png"
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
+import logo from "../../../../public/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 const AccountVerification: React.FC = () => {
 	const [message, setMessage] = useState<string>("");
@@ -77,20 +77,20 @@ const AccountVerification: React.FC = () => {
 	};
 
 	return (
-		<div className={stylePage.homePageContainer}>
-			<form className={style.form} data-id="av-form">
+		<div className={stylesHeader.headerContainer}>
+			<form className={stylesForm.form} data-id="av-form">
 				<Image src={logo} alt="Logo" width={150} />
-				<h2 className={style.formTitle} data-id="av-title">
+				<h2 className={stylesForm.formTitle} data-id="av-title">
 					Controlla il tuo indirizzo di posta elettronica
 				</h2>
-				<p className={style.desc} data-id="av-desc">
+				<p className={stylesForm.desc} data-id="av-desc">
 					Abbiamo inviato un&#39;email di conferma all&#39;account che hai usato per
 					iscriverti, segui le istruzioni indicate nell&#39;email! <br /> Se non
 					vedi l&#39;email controlla nello spam!
 				</p>
 				<div
 					data-id="av-resend"
-					className={style.errorMessage}
+					className={stylesForm.errorMessage}
 					onClick={handleResendVerification}
 					style={{ cursor: "pointer" }}
 				>
@@ -99,13 +99,13 @@ const AccountVerification: React.FC = () => {
 				</div>
 				<Link
 					data-id="av-link"
-					className={style.errorMessage}
+					className={stylesForm.errorMessage}
 					style={{ cursor: "pointer" }}
 					href="/"
 				>
 					Torna alla Home!
 				</Link>
-				{message && <p data-id="av-msg" className={style.message}>{message}</p>}
+				{message && <p data-id="av-msg" className={stylesForm.message}>{message}</p>}
 			</form>
 		</div>
 	);

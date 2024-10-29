@@ -1,0 +1,113 @@
+.headerContainer {
+	position: relative;
+	width: 90%;
+	height: 90vh; 
+	margin: 40px auto; 
+	background-color: #fff;
+	border-radius: 20px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	box-sizing: border-box; /* Assicura che padding e bordi siano inclusi nelle dimensioni */
+}
+
+.headerContainer img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+	border-radius: 20px;
+}
+
+.title {
+	margin: 0;
+	margin-top: 10px;
+}
+
+.description {
+	font-size: 16px;
+	margin: 0;
+}
+
+
+.headerContainer.login {
+	height: 600px;
+}
+
+.headerContainer.formPageLayout {
+	height: 600px;
+}
+
+.headerContainer.addImgDB {
+	height: 600px;
+}
+
+@media (max-width: 640px) { /* sm */
+	.headerContainer {
+		width: 90%;
+		height: auto;
+		min-height: 50vh;
+	}
+
+	.title {
+		font-size: 20px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) { /* md */
+	.headerContainer {
+		width: 85%;
+		height: auto;
+		min-height: 60vh; 
+	}
+
+	.title {
+		font-size: 22px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) { /* lg */
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		min-height: 70vh;
+	}
+
+	.title {
+		font-size: 24px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) { /* xl */
+	.headerContainer {
+		width: 75%;
+		height: auto;
+		min-height: 80vh;
+	}
+
+	.title {
+		font-size: 26px;
+	}
+}
+
+@media (min-width: 1281px) {
+	.headerContainer {
+		width: 80%;
+		height: 95vh;
+		overflow-y: scroll;
+		margin: 20px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 24px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}

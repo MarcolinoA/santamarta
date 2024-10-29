@@ -1,0 +1,60 @@
+.deleteButtonContainer {
+	position: fixed; 
+	bottom: 20px;
+	right: 20px;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 30px;
+	padding: 10px;
+	cursor: pointer;
+	margin: 0;
+}
+
+.deleteIcon {
+	display: flex;
+	width: 45px;
+	height: 45px;
+	color: #000;
+	align-items: center;
+	justify-content: center;
+}
+
+@media (max-width: 640px) { /* sm */
+	.deleteButtonContainer {
+		padding: 5px;
+	}
+
+	.deleteIcon {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) { /* md */
+	.deleteButtonContainer {
+		padding: 5px;
+	}
+
+	.deleteIcon {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) { /* lg */
+	.deleteIcon {
+		width: 35px;
+		height: 35px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) { /* xl */
+	.deleteIcon {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (min-width: 1281px) { /* 2xl */
+	
+}
