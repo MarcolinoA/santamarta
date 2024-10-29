@@ -44,13 +44,17 @@ const SignIn: React.FC = () => {
 		setMessage(null);
 
 		try {
-			const response = await fetch(`${process.env.BACKEND_URL}/users/login`, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(formData),
-				credentials: "include", // Includi i cookie nella richiesta
-			});
-
+			const response = await fetch(
+				`/api/users/login`,
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(formData),
+					credentials: "include", // Includi i cookie nella richiesta
+				}
+			);
+	
+			// Gestione della risposta
 			if (!response.ok) {
 				const errorMessage = response.status === 429
 					? "Troppi tentativi di accesso. Riprova più tardi."

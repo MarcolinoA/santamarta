@@ -14,7 +14,7 @@ const AccountVerification: React.FC = () => {
 		const fetchEmail = async () => {
 			try {
 				const response = await fetch(
-					`api/users/get-email`,
+					`/api/users/get-email`,
 					{
 						method: "GET", // Specifica il metodo GET
 						credentials: "include", // Includi i cookie
@@ -49,7 +49,7 @@ const AccountVerification: React.FC = () => {
 		}
 		try {
 			const response = await fetch(
-				`api/users/resend-verification`,
+				`/api/users/resend-verification`,
 				{
 					method: "POST",
 					headers: {

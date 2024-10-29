@@ -85,8 +85,6 @@ const SignUp: React.FC = () => {
 
 		try {
 			const apiUrl = `api/users/register`;
-			console.log("Invio richiesta a:", apiUrl);
-			console.log("Dati da inviare:", formData);
 
 			const response = await fetch(apiUrl, {
 				method: "POST",

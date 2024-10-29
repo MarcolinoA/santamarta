@@ -75,7 +75,7 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
     try {
       // Invio della richiesta di reimpostazione
       const response = await fetch(
-        `api/otp/reset-${type}`,
+        `/api/otp/reset-${type}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
