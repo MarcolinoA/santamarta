@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
 import HomePage from "../components/HomePage/HomePage";
-import styles from "../Styles/HomePage/Header.module.css";
 import CardTable from "../components/Sections/Cards/CardTable";
 import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
 import Footer from "../components/shared/Footer";
+import styles from "../Styles/HomePage/Header.module.css";
 
 // Esporta i metadata
 export const metadata = {

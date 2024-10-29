@@ -2,7 +2,7 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://localhost:5555", // Moved baseUrl here
+    baseUrl: process.env.BACKEND_URL,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

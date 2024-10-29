@@ -15,8 +15,7 @@ export function useAuthentication() {
     if (authToken && storedUsername) {
       try {
         const response = await fetch(
-          //ATTENZIONE CAMBIARE CON API IN PRODUZIONE
-          `http://localhost:5555/users/verify-token`,
+          `${process.env.BACKEND_URL}/users/verify-token`,
           {
             method: "GET",
             headers: {
