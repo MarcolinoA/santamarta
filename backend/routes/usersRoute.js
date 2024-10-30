@@ -123,7 +123,7 @@ router.post("/register", async (req, res) => {
 		await newUser.save();
 
 		// 10. Invia l'email di verifica
-		const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${verificationToken}&email=${email}&type=registration`;
+		const verificationUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/verify-email?token=${verificationToken}&email=${email}&type=registration`;
 
 		await sendEmail({
 			to: email,
@@ -244,7 +244,7 @@ router.post("/resend-verification", async (req, res) => {
 		await user.save();
 
 		// Invia nuovamente l'email di verifica
-		const verificationUrl = `${process.env.BACKEND_URL}/users/verify-email?token=${newVerificationToken}&email=${email}&type=registration`;
+		const verificationUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/verify-email?token=${newVerificationToken}&email=${email}&type=registration`;
 
 		// Prepara le opzioni email
 		await sendEmail({
