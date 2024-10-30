@@ -6,7 +6,6 @@ import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { initScheduledJobs } from "./util/cronJobs.js";
-import { createProxyMiddleware } from "http-proxy-middleware";
 
 // Carica le variabili d'ambiente
 dotenv.config(); // Assicurati che questo sia eseguito per primo
@@ -17,7 +16,7 @@ import usersRoute from "./routes/usersRoute.js";
 import OTPRoutes from "./domains/otp/routes.js";
 import devRoutes from "./routes/DevRoutes.js";
 
-// Il resto del tuo codice rimane invariato
+// Crea un'istanza dell'app Express
 const app = express();
 
 // Inizializza i lavori pianificati
@@ -27,9 +26,7 @@ initScheduledJobs();
 app.use(
   cors({
     origin: (origin, callback) => {
-      const allowedOrigins = [
-        process.env.FRONTEND_URL,
-      ];
+      const allowedOrigins = [process.env.FRONTEND_URL];
 
       // Se non c'è 'origin' (ad esempio, richieste fatte dallo stesso dominio)
       // o se l'origine è consentita, esegui il callback senza errori.
@@ -51,23 +48,11 @@ app.use(
 // Gestione delle richieste preflight OPTIONS
 app.options("*", cors()); // Applica CORS a tutte le rotte per preflight
 
+// Middleware per il parsing del JSON
 app.use(express.json());
 app.use(cookieParser());
 
-/*Proxy middleware per inoltrare le richieste a un altro server (ad esempio un'API)
-app.use(
-  "/api", // Percorso per cui configurare il proxy
-  createProxyMiddleware({
-    target: "https://santamarta-backend.onrender.com", // Indirizzo del server backend (o URL dell'API esterna)
-    changeOrigin: true,
-    pathRewrite: {
-      "^/api": "", // Riscrive l'URL rimuovendo '/api' prima di inoltrarlo
-    },
-  })
-);
-*/
-
-// Session configuration
+// Configurazione della sessione
 app.use(
   session({
     secret: process.env.SECRET_KEY || "default-secret-key",
@@ -89,7 +74,7 @@ app.use(
   })
 );
 
-// Route configuration
+// Configurazione delle route
 app.use("/homeImage", homeImageRoute);
 app.use("/users", usersRoute);
 app.use("/otp", OTPRoutes);
@@ -104,7 +89,7 @@ app.get("/test", (req, res) => {
   res.status(200).send("Server is up and running!");
 });
 
-// Database connection and server start
+// Connessione al database e avvio del server
 mongoose
   .connect(mongoDBURL)
   .then(() => {

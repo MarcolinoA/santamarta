@@ -1,4 +1,4 @@
-const API_URL = process.env.BACKEND_URL;
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const FALLBACK_IMAGE = "https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png"
 
 export const imageServices = {
