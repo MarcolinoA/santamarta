@@ -84,9 +84,7 @@ const SignUp: React.FC = () => {
 		}
 
 		try {
-			const apiUrl = `api/users/register`;
-
-			const response = await fetch(apiUrl, {
+			const response = await fetch(`/api/users/register`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(formData),
