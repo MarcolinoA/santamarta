@@ -1,7 +1,12 @@
-import type { AppProps } from 'next/app';
+import ErrorBoundary from "../components/shared/ErrorBoundary";
+import { AppProps } from 'next/app'; // Import AppProps
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+function MyApp({ Component, pageProps }: AppProps) { // Use AppProps for typing
+  return (
+    <ErrorBoundary>
+      <Component {...pageProps} />
+    </ErrorBoundary>
+  );
 }
 
 export default MyApp;

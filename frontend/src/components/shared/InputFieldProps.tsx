@@ -1,6 +1,6 @@
 import React from "react";
-import style from "../../Styles/Login.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import stylesForm from "../../Styles/Form.module.css";
 
 interface InputFieldProps {
     id: string;
@@ -30,11 +30,11 @@ const InputField: React.FC<InputFieldProps> = ({
     togglePasswordVisibility,
 }) => {
     return (
-        <div className={style.formGroup}>
-            <label htmlFor={id} className={style.formLabel}>
+        <div className={stylesForm.formGroup}>
+            <label htmlFor={id} className={stylesForm.formLabel}>
                 {label}
             </label>
-            <div className={style.passwordInputWrapper}>
+            <div className={stylesForm.passwordInputWrapper}>
                 <input
                     data-id={dataid}
                     type={showPasswordToggle && showPassword ? "text" : type}
@@ -42,7 +42,7 @@ const InputField: React.FC<InputFieldProps> = ({
                     value={value}
                     onChange={onChange}
                     required={required}
-                    className={style.formInput}
+                    className={stylesForm.formInput}
                     autoComplete={type === "password" ? "new-password" : undefined}
                 />
                 {showPasswordToggle && (
@@ -50,7 +50,7 @@ const InputField: React.FC<InputFieldProps> = ({
                         data-id="passwordToggle"
                         type="button"
                         onClick={togglePasswordVisibility}
-                        className={style.passwordToggle}
+                        className={stylesForm.passwordToggle}
                     >
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>

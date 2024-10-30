@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react'
-import Header from './Header';
-import style from "../../Styles/Login.module.css";
-import stylePage from "../../Styles/HomePage/HomePage.module.css";
 import logo from "../../../public/logo.png";
+import HeaderBtn from './btns/HeaderBtn';
+import stylesHeader from "../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../Styles/Form.module.css";
 
 const options = [
 	{ label: "Home", href: "/", dataid: "home-btn" },
@@ -17,11 +17,11 @@ const options = [
 
 function AccessDenied() {
 	return (
-		<div className={stylePage.homePageContainer}>
+		<div className={stylesHeader.headerContainer}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 data-id="access-denied" className={style.formTitle}>Accesso Negato</h2>
+			<h2 data-id="access-denied" className={stylesForm.formTitle}>Accesso Negato</h2>
 			<p data-id="session-expired">Sessione scaduta. Effettua nuovamente il login.</p>
-			<Header isLoggedIn={false} username="" options={options} />
+			<HeaderBtn isLoggedIn={false} username="" options={options} />
 		</div>
 	);
 }

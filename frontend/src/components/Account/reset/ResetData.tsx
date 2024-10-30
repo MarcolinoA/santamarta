@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../../../../public/logo.png";
-import Header from "../../shared/Header";
 import InputField from "../../shared/InputFieldProps";
 import FormFooter from "../../shared/FormFooter";
+import HeaderBtn from "../../shared/btns/HeaderBtn";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 interface FormData {
   otp: string;
@@ -114,19 +114,19 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
     }
   };
   return (
-    <div className={stylePage.homePageContainer}>
+    <div className={stylesHeader.headerContainer}>
       <Image src={logo} alt="Logo" width={150} />
-      <h2 data-id="rv-title" className={stylePage.title}>
+      <h2 data-id="rv-title" className={stylesHeader.title}>
         Reimposta {type === "password" ? "la tua password" : "il tuo username"}
       </h2>
-      <p data-id="rv-desc" className={stylePage.description}>
+      <p data-id="rv-desc" className={stylesHeader.description}>
         Inserisci il codice OTP ricevuto via email e
         {type === "password"
           ? " la tua nuova password"
           : " il tuo nuovo username"}
         .
       </p>
-      <form data-id="rv-form" onSubmit={handleSubmit} className={style.form}>
+      <form data-id="rv-form" onSubmit={handleSubmit} className={stylesForm.form}>
         <InputField
           id="otp"
           dataid="otp"
@@ -168,7 +168,6 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
 
         <FormFooter
           message={message}
-          errors={error ? { generic: error } : {}} // Puoi adattare questa logica
           loading={loading}
           btnDataId="rv-btn"
           btnLoadingText="Invio..."
@@ -181,7 +180,7 @@ const ResetData: React.FC<ResetPageProps> = ({ type }) => {
           linkText3=""
         />
       </form>
-      <Header isLoggedIn={false} username="" options={options} />
+      <HeaderBtn isLoggedIn={false} username="" options={options} />
     </div>
   );
 };

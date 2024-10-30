@@ -1,6 +1,6 @@
 import React from "react";
-import style from "../../../Styles/HomePage/ImageList.module.css";
-import Image, { StaticImageData } from "next/image";
+import stylesImageList from "../../../Styles/HomePage/ImageList.module.css";
+import { StaticImageData } from "next/image";
 
 type ImageType = {
 	_id: string;
@@ -16,23 +16,23 @@ interface ImageListProps {
 	error: string | null;
 }
 
-const ImageList: React.FC<ImageListProps> = ({
+const DeleteImgList: React.FC<ImageListProps> = ({
 	images,
 	onDelete,
 	loading,
 	error,
 }) => {
 	return (
-		<div className={style.imageList}>
-			<div className={style.scrollableContainer}>
+		<div className={stylesImageList.imageList}>
+			<div className={stylesImageList.scrollableContainer}>
 				{images.map((image) => (
-					<div className={style.imageItem} key={image._id}>
+					<div className={stylesImageList.imageItem} key={image._id}>
 						{/*<Image src={image.image} alt={image.title} className={style.image} />*/}
-						<div className={style.imageInfo}>
-							<h3 className={style.imageTitle}>{image.title}</h3>
-							<p className={style.imageStatus}>Stato: {image.active ? "Attivo" : "Non attivo"}</p>
+						<div className={stylesImageList.imageInfo}>
+							<h3 className={stylesImageList.imageTitle}>{image.title}</h3>
+							<p className={stylesImageList.imageStatus}>Stato: {image.active ? "Attivo" : "Non attivo"}</p>
 							<button
-								className={style.deleteButton}
+								className={stylesImageList.deleteButton}
 								onClick={() => onDelete(image._id)}
 							>
 								Elimina
@@ -49,4 +49,4 @@ const ImageList: React.FC<ImageListProps> = ({
 	);
 };
 
-export default ImageList;
+export default DeleteImgList;

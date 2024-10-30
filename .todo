@@ -5,11 +5,9 @@ HEADER:
 LOADING:
 	aggiungere l'icona di caricamento
 
-STYLE: 
-	Sistemare le pagine di stile
-
 FOOTER:	
 	test
+	aggiungere le icone in social icons
 
 DELETE IMAGE:
 	test
@@ -18,7 +16,7 @@ EDIT IMAGE:
 	test
 
 IMAGE LIST:
-	da rivedere e testare
+	test
 
 IMPORTANTE:
 	togliere la parte iniziale dell'url usando le var d'ambiente
@@ -26,4 +24,10 @@ IMPORTANTE:
 	
 API:
 	Potrei creare una pagina come apiImageService anche per users?
-Da implementare il captcha
+	Da implementare il captcha
+
+HEADER BTN:
+	sistema lo stile per schermi piccoli
+
+STYLES:
+	Sistemare i nomi di tutti gli import degli stili in modo da rendere il codice ben leggibile

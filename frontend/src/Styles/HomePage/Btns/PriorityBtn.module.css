@@ -1,0 +1,77 @@
+.editButtonContainer {
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 30px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.editIcon {
+	position: relative;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.editIcon {
+	width: 45px;
+	height: 45px;
+	color: #000;
+	background-color: transparent;
+	border: none;
+	padding: 0px;
+}
+
+.fixedPosition {
+	position: fixed !important;
+	bottom: 20px;
+	left: 20px;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 30px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+@media (max-width: 640px) { /* sm */
+	.editButtonContainer {
+		padding: 5px;
+	}
+
+	.editIcon {
+		width: 25px;
+		height: 25px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) { /* md */
+	.editButtonContainer {
+		padding: 5px;
+	}
+
+	.editIcon {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) { /* lg */
+	.editIcon {
+		width: 35px;
+		height: 35px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) { /* xl */
+	.editIcon {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (min-width: 1281px) { /* 2xl */
+	
+}
