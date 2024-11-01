@@ -5,29 +5,18 @@ HEADER:
 LOADING:
 	aggiungere l'icona di caricamento
 
-FOOTER:	
-	test
-	aggiungere le icone in social icons
+TEST:
+	Image List 
+	Edit Image 
+	Delete Image
+	Footer
 
-DELETE IMAGE:
-	test
-
-EDIT IMAGE:
-	test
-
-IMAGE LIST:
-	test
-
-IMPORTANTE:
-	togliere la parte iniziale dell'url usando le var d'ambiente
-	HTTP ONLY DA IMPOSTARE SU TRUE IN PRODUZIONE
-	
 API:
 	Potrei creare una pagina come apiImageService anche per users?
 	Da implementare il captcha
 
-HEADER BTN:
-	sistema lo stile per schermi piccoli
-
 STYLES:
-	Sistemare i nomi di tutti gli import degli stili in modo da rendere il codice ben leggibile
+	Logout
+
+Footer:
+	Completarlo

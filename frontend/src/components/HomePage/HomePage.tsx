@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation"; 
 import stylesHeader from "../../Styles/HomePage/Header.module.css";
-import Navbar from "./Navbar";
 import { imageServices } from "../../services/apiImagesServices";
 import PriorityBtn from "../shared/btns/PriorityBtn";
 import HeaderBtn from "../shared/btns/HeaderBtn";
@@ -67,7 +66,6 @@ const HomePage = () => {
 
 	return (
 		<div className={stylesHeader.headerContainer}>
-			<Navbar />
 			{loading ? (
 				<div data-id="loading-spinner" className={stylesHeader.loader}></div>
 			) : (

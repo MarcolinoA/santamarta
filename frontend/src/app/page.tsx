@@ -4,6 +4,7 @@ import CardTable from "../components/Sections/Cards/CardTable";
 import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
 import Footer from "../components/shared/Footer";
 import styles from "../Styles/HomePage/Header.module.css";
+import Navbar from "../components/HomePage/Navbar";
 
 // Esporta i metadata
 export const metadata = {
@@ -33,6 +34,7 @@ const Home = () => {
 	return (
 		<div>
 			<main className={styles.main}>
+				<Navbar />
 				<Suspense fallback={<div>Loading Home...</div>}>
 					<HomePage />
 				</Suspense>

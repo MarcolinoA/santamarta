@@ -77,7 +77,7 @@ const AccountVerification: React.FC = () => {
 	};
 
 	return (
-		<div className={stylesHeader.headerContainer}>
+		<div className={`${stylesHeader.headerContainer} ${stylesHeader.FormPageLayout}`}>
 			<form className={stylesForm.form} data-id="av-form">
 				<Image src={logo} alt="Logo" width={150} />
 				<h2 className={stylesForm.formTitle} data-id="av-title">

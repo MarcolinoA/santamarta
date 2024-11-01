@@ -170,7 +170,60 @@
   transform: translateY(-5px);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 408px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.cardTitle {
+		font-size: 20px;
+		margin: 10px 0;
+	}
+
+	.largeCard {
+		width: 100%;
+		max-width: 150px;
+		height: 300px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 100%;
+		max-width: 150px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 120px;
+		height: 15px;
+		font-size: 12px;
+	}
+	
+	.cardNameSmall {
+		width: 50px;
+		height: 12px;
+		font-size: 10px;
+		padding: 6px;
+		border-radius: 10px;
+		font-size: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+}
+
+@media (min-width: 409px) and (max-width: 640px) {
 	.cardTable {
 		padding: 0px;
 		margin: 20px;
