@@ -8,11 +8,10 @@ const Footer: React.FC = () => {
 				<div className={styles.contact}>
 					<h4>Contact</h4>
 					<p>Via Paganico, 29</p>
-					<p>Città: Velletri, RM</p>
-					<p>Stato: Italia</p>
-					<p>Cap: 00049</p>
-					<p>Telefono: +39 06 962 00 55</p>
-					<p>Email: info@santamartavelletri.it</p>
+					<p>Velletri, RM</p>
+					<p>00049</p>
+					<p>+39 06 962 00 55</p>
+					<p>info[at]santamartavelletri.it</p>
 				</div>
 				<div className={styles.menu}>
 					<h4>Menu</h4>

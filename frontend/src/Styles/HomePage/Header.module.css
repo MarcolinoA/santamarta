@@ -97,7 +97,7 @@
 @media (min-width: 1281px) {
 	.headerContainer {
 		width: 80%;
-		height: 95vh;
+		height: 80vh;
 		overflow-y: scroll;
 		margin: 20px auto;
 	}
