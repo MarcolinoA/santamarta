@@ -22,7 +22,6 @@
 	position: relative;
 	transition: transform 0.8s;
 	transform-style: preserve-3d;
-	perspective: 1000px;
 }
 
 .flipped .cardInner {
@@ -33,23 +32,57 @@
 	transform: rotateY(180deg);
 }
 
-.flipped .cardBack {
-	transform: rotateY(0deg);
+.flipped .cardName {
+	display: none;
 }
 
 /* Card sizes */
 .largeCard {
 	width: 500px;
 	height: 620px;
-	min-height: 300px; /* Ensures a minimum height */
+	min-height: 300px;
 }
 
 .smallCard {
 	width: 250px;
 	height: 300px;
-	min-height: 150px;
+	min-height: 300px;
 	flex: 1 1 auto;
 	box-sizing: border-box;
+	aspect-ratio: 5 / 6;
+	overflow: visible; 
+	border-radius: 15px;
+	overflow: hidden; 
+	border-radius: 15px !important;
+}
+
+.cardName {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	color: #000;
+	z-index: 10;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 8px;
+	border-radius: 30px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translateX(-50%); 
+}
+
+.cardNameLarge {
+	width: 300px;
+	height: 30px;
+	font-size: 24px;
+}
+
+.cardNameSmall {
+	width: 200px;
+	height: 30px;
+	font-size: 18px;
+	padding: 8px;
 }
 
 .cardFront,
@@ -60,6 +93,12 @@
 	top: 0;
 	left: 0;
 	backface-visibility: hidden;
+	overflow: hidden;
+	border-radius: inherit;
+}
+
+.cardBack {
+	transform: rotateY(180deg);
 }
 
 .cardFront {
@@ -88,41 +127,13 @@
 	color: #333;
 }
 
-.cardNameLarge {
-	width: 300px;
-	height: 30px;
-	font-size: 24px;
-}
-
-.cardNameSmall {
-	width: 200px;
-	height: 30px;
-	font-size: 18px;
-	padding: 8px;
-}
-
-.cardName {
-	position: absolute;
-	bottom: 10px;
-	left: 50%;
-	color: #000;
-	z-index: 10;
-	background: rgba(255, 255, 255, 0.8);
-	padding: 8px;
-	border-radius: 30px;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transform: translateX(-50%); 
-}
-
 .cardLayout {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
 }
 
+/* CARD TABLE*/
 .cardTable {
 	display: flex;
 	flex-direction: column;
@@ -211,6 +222,7 @@
 		max-width: 150px;
 		height: auto;
 		aspect-ratio: 5 / 6;
+		min-height: 150px;
 	}
 
 	.cardName {
@@ -264,6 +276,7 @@
 		max-width: 150px;
 		height: auto;
 		aspect-ratio: 5 / 6;
+		min-height: 150px;
 	}
 
 	.cardName {
@@ -313,6 +326,7 @@
 		width: 180px;
 		height: 200px;
 		aspect-ratio: 5 / 6;
+		min-height: 200px;
 	}
 
 	.cardName {
@@ -357,6 +371,7 @@
 		width: 200px;
 		height: 220px;
 		aspect-ratio: 5 / 6;
+		min-height: 220px;
 	}
 
 	.cardName {
@@ -401,6 +416,7 @@
 		width: 250px;
 		height: 280px;
 		aspect-ratio: 5 / 6;
+		min-height: 280px;
 	}
 
 	.cardName {
