@@ -8,7 +8,7 @@ import PriorityBtn from "../shared/btns/PriorityBtn";
 import HeaderBtn from "../shared/btns/HeaderBtn";
 
 const FALLBACK_IMAGE =
-	"https://scuola-santamarta.s3.eu-north-1.amazonaws.com/logo.png";
+	"https://scuola-santamarta.s3.eu-north-1.amazonaws.com/OpenDay.jpeg";
 
 const HomePage = () => {
 	const [imageSrc, setImageSrc] = useState<string>(FALLBACK_IMAGE);
@@ -70,7 +70,7 @@ const HomePage = () => {
 				<div data-id="loading-spinner" className={stylesHeader.loader}></div>
 			) : (
 				<Image
-					src={imageSrc}
+					src="https://scuola-santamarta.s3.eu-north-1.amazonaws.com/OpenDay.jpeg"
 					alt="test"
 					layout="fill"
 					objectFit="cover"

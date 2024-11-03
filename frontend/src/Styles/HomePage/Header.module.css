@@ -16,11 +16,19 @@
 }
 
 .headerContainer img {
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+    inset: auto !important;
+    object-fit: contain !important; 
+}
+
+.headerContainer img {
 	max-width: 100%;
-	height: auto;
 	display: block;
 	margin: 0 auto;
 	border-radius: 20px;
+	object-fit: scale-down;
 }
 
 .title {
@@ -38,7 +46,7 @@
 	height: 600px;
 }
 
-.headerContainer.formPageLayout {
+div.headerContainer.formPageLayout {
 	height: 600px;
 }
 
@@ -50,11 +58,14 @@
 	.headerContainer {
 		width: 90%;
 		height: auto;
-		min-height: 50vh;
 	}
 
 	.title {
 		font-size: 20px;
+	}
+
+	.headerContainer.formPageLayout {
+		height: 50vh;
 	}
 }
 
@@ -62,7 +73,6 @@
 	.headerContainer {
 		width: 85%;
 		height: auto;
-		min-height: 60vh; 
 	}
 
 	.title {
@@ -74,7 +84,6 @@
 	.headerContainer {
 		width: 80%;
 		height: auto;
-		min-height: 70vh;
 	}
 
 	.title {
@@ -86,7 +95,6 @@
 	.headerContainer {
 		width: 75%;
 		height: auto;
-		min-height: 80vh;
 	}
 
 	.title {
@@ -96,8 +104,7 @@
 
 @media (min-width: 1281px) {
 	.headerContainer {
-		width: 80%;
-		height: 80vh;
+		height: auto;
 		overflow-y: scroll;
 		margin: 20px auto;
 	}

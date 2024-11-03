@@ -125,6 +125,7 @@
 	align-items: center;
 	justify-content: center;
 	z-index: 10;
+	display: none;
 }
 
 .mobileMenu.open {
@@ -132,6 +133,7 @@
 	transform: translateY(0);
 	animation: slideDown 0.5s ease forwards;
 	margin: -5px;
+	display: block;
 }
 
 .mobileMenu.close {
@@ -139,6 +141,7 @@
 	transform: translateY(-20px);
 	animation: slideUp 0.5s ease forwards;
 	margin: -5px;
+	display: none;
 }
 
 .hidden {
@@ -224,7 +227,7 @@
 	}
 
 	.navbarItem {
-		padding: 10px 5px;
+		padding: 10px 0;
 		width: 120px;
 	}
 
