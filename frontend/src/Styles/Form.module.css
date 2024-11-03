@@ -226,7 +226,7 @@
 	}
 }
 
-@media (min-width: 1281px) {
+@media (min-width: 1281px) and (max-width: 1780px) {
 	.logo {
 		width: 150px;
 	}
@@ -249,3 +249,44 @@
 		width: 450px;
 	}
 }
+
+@media (min-width: 1781px) {
+	.logo {
+		width: 170px;
+	}
+
+	.form {
+		height: 700px;
+	}
+
+	.formLabel {
+		font-size: 20px;
+	}	
+
+	.formInput {
+		font-size: 18px;
+	}
+
+	.formButton {
+		font-size: 20px;
+	}
+
+	.errorMessage {
+		font-size: 20px;
+	}
+
+	.formLogin {
+		height: 700px;
+	}
+
+	.formGroup {
+		margin-bottom: 0px;
+		width: 450px;
+    	padding: 2px 0;
+	}
+
+	.formFooterContainer {
+		width: 450px;
+	}
+}
+

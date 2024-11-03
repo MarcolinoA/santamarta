@@ -16,7 +16,8 @@ API:
 	Da implementare il captcha
 
 STYLES:
-	Logout
+	Sistemare i breakpoint da 1500px in poi
 
 Footer:
 	Completarlo
+

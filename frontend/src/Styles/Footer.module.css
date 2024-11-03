@@ -182,5 +182,35 @@
 }
 
 @media (min-width: 1281px) {
+  .footer {
+    padding: 20px 10px ;
+  }
+  .footerSection a,
+  .footerSection p {
+    font-size: 22px;
+  }
 
+  .footerSection div{
+    padding: 0 100px;
+  }
+}
+
+@media (min-width: 1681px) {
+  .newsletter {
+    width: 700px;
+  }
+
+  .newsletter h4 {
+    font-size: 28px;
+  }
+
+  .newsletter input {
+    height: 30px;
+    font-size: 22px;
+  }
+
+  .newsletter button {
+    width: 120px;
+    font-size: 22px;
+  }
 }

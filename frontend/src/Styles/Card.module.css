@@ -445,6 +445,51 @@
 	}
 }
 
-@media (min-width: 1281px) {
+@media (min-width: 1281px) and (max-width: 1480px) {
 
+}
+
+@media (min-width: 1681px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 450px;
+		height: 770px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 350px;
+		height: 380px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 350px;
+		height: 25px;
+		font-size: 22px;
+	}
+	
+	.cardNameSmall {
+		width: 250px;
+		height: 30px;
+		font-size: 20px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
 }

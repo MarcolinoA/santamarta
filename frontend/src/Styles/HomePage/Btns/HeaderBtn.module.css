@@ -191,6 +191,8 @@
 	}
 }
 
-@media (min-width: 1281px) { /* 2xl */
-	
+@media (min-width: 1581px) { /* 2xl */
+	.dropdownLinks {
+		font-size: 22px;
+	}
 }
