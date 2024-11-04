@@ -7,6 +7,7 @@ import { imageServices } from "../../services/apiImagesServices";
 import PriorityBtn from "../shared/btns/PriorityBtn";
 import HeaderBtn from "../shared/btns/HeaderBtn";
 import uva from "../../../public/festadelluva.jpeg"
+
 const FALLBACK_IMAGE =
   "https://scuola-santamarta.s3.eu-north-1..com/OpenDay.jpeg";
 

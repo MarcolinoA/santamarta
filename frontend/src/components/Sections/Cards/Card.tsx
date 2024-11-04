@@ -7,7 +7,7 @@ interface CardProps {
 	img: string | StaticImageData;
 	alt: string;
 	cardName: string;
-	desc?: string;
+	desc?: React.ReactNode;
 	onClick?: () => void;
 	className?: string;
 	isFlipped?: boolean;
@@ -61,8 +61,14 @@ const Card: React.FC<CardProps> = ({
 						{cardName}
 					</div>
 				</div>
-				<div className={stylesCard.cardBack} data-id={`card-back-${dataid}`}>
-					<p>{desc}</p>
+				<div className={stylesCard.cardBack}>
+					{Array.isArray(desc) ? (
+						desc.map((line, index) => (
+							<p key={index} dangerouslySetInnerHTML={{ __html: line }}></p>
+						))
+					) : (
+						<p>{desc}</p>
+					)}
 				</div>
 			</div>
 		</div>

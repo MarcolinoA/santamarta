@@ -106,6 +106,8 @@
 }
 
 .cardBack {
+	display: flex;
+	flex-direction: column;
 	background-color: #f8f8f8;
 	transform: rotateY(180deg);
 	position: absolute;
@@ -121,9 +123,8 @@
 }
 
 .cardBack p {
-	margin: 0;
+	margin: 10px;
 	font-size: 16px;
-	text-align: center;
 	color: #333;
 }
 
@@ -251,6 +252,15 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
 	}
+
+	.cardBack {
+		padding: 10px;
+	}
+
+	.cardBack p {
+		font-size: 9px;
+		margin: 0;
+	}
 }
 
 @media (min-width: 409px) and (max-width: 640px) {
@@ -303,6 +313,15 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
 	}
+
+	.cardBack {
+		padding: 10px;
+	}
+
+	.cardBack p {
+		font-size: 8px;
+		margin: 5px;
+	}
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
@@ -317,13 +336,13 @@
 	}
 
 	.largeCard {
-		width: 250px;
+		width: 240px;
 		height: 400px;
 		aspect-ratio: 5 / 6;
 	}
 
 	.smallCard {
-		width: 180px;
+		width: 170px;
 		height: 200px;
 		aspect-ratio: 5 / 6;
 		min-height: 200px;
@@ -352,6 +371,15 @@
 	.cardGrid {
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
+	}
+
+	.cardBack {
+		padding: 10px;
+	}
+
+	.cardBack p {
+		font-size: 13px;
+		margin: 5px;
 	}
 }
 
@@ -398,6 +426,10 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
 	}
+
+	.cardBack p {
+		font-size: 15px;
+	}
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
@@ -443,10 +475,16 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
 	}
+
+	.cardBack p {
+		font-size: 18px;
+	}
 }
 
-@media (min-width: 1281px) and (max-width: 1480px) {
-
+@media (min-width: 1281px) and (max-width: 1680px) {
+	.cardBack p {
+		font-size: 23px;
+	}
 }
 
 @media (min-width: 1681px) {
@@ -491,5 +529,9 @@
 	.cardGrid {
 		grid-template-columns: 1fr 1fr;
 		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 25px;
 	}
 }

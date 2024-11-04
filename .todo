@@ -15,9 +15,6 @@ API:
 	Potrei creare una pagina come apiImageService anche per users?
 	Da implementare il captcha
 
-STYLES:
-	Sistemare i breakpoint da 1500px in poi
-
 Footer:
 	Completarlo
 

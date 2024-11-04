@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express-session": "^1.18.0",
+    "html-react-parser": "^5.1.18",
     "js-cookie": "^3.0.5",
     "next": "^14.2.12",
     "punycode": "^2.3.1",
