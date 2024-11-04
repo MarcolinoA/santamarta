@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Card from "./Card";
 import stylesCard from "../../../Styles/Card.module.css";
-import centroEstivo from "../../../../public/servizi/centroEstivo.png";
+import centroEstivo from "../../../../public/servizi/CentroEstivo.png";
 import sportelloLogopedico from "../../../../public/servizi/SportelloLogopedico.jpg";
 import sportelloPediatrico from "../../../../public/servizi/SportelloPediatrico.jpg";
 import sportelloPsicologico from "../../../../public/servizi/SportelloPsicologico.jpg";
