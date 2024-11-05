@@ -223,7 +223,8 @@
 		max-width: 150px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-		min-height: 150px;
+		min-width: 72px;
+		min-height: 100px;
 	}
 
 	.cardName {
@@ -261,6 +262,10 @@
 		font-size: 9px;
 		margin: 0;
 	}
+
+	.cardSection {
+		gap: 10px;
+	}
 }
 
 @media (min-width: 409px) and (max-width: 640px) {
@@ -286,7 +291,8 @@
 		max-width: 150px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-		min-height: 150px;
+		min-height: 100px;
+		min-width: 100px;
 	}
 
 	.cardName {
