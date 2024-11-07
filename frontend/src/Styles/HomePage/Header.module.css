@@ -63,7 +63,22 @@ div.headerContainer.formPageLayout {
     object-position: center;
 }
 
-@media (max-width: 640px) { /* sm */
+@media (max-width: 408px) {
+	.headerContainer {
+		width: 90%;
+		height: auto;
+	}
+
+	.title {
+		font-size: 18px;
+	}
+
+	.headerContainer.formPageLayout {
+		height: 50vh;
+	}
+}
+
+@media (min-width: 409px) and (max-width: 640px) { /* sm */
 	.headerContainer {
 		width: 90%;
 		height: auto;

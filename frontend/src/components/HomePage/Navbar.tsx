@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
 	return (
 		<div className={stylesNavbar.navbar} ref={menuRef}>
 			<div className={stylesNavbar.hamburger} onClick={toggleMenu}>
-				<FiMenu size={30} color="#333" />
+				<FiMenu size={30} color="#000" />
 			</div>
 
 			<MobileMenu

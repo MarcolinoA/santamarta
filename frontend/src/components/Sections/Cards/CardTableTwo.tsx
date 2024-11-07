@@ -7,7 +7,6 @@ import sportelloLogopedico from "../../../../public/servizi/SportelloLogopedico.
 import sportelloPediatrico from "../../../../public/servizi/SportelloPediatrico.jpg";
 import sportelloPsicologico from "../../../../public/servizi/SportelloPsicologico.jpg";
 import doposcuola from "../../../../public/servizi/Doposcuola.jpg";
-import parse from 'html-react-parser'; 
 
 interface cardTableProps {
 	cardTitle: string;
