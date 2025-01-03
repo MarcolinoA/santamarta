@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import stylesCard from "../../../Styles/Card.module.css";
-import Card from "./Card";
-import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
+import stylesCard from "../../Styles/Card.module.css";
+import Card from "../shared/Card";
+import fattoriaDidattica from "../../../public/fattoriaDidattica.jpeg";
 
 interface cardTableProps {
 	cardTitle: string;
 }
 
-const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
+const Laboratori: React.FC<cardTableProps> = ({ cardTitle }) => {
 	const [cardArr, setCardArr] = useState([
 		{
 			index: 1,
@@ -163,4 +163,4 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 	);
 };
 
-export default CardTable;
+export default Laboratori;

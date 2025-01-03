@@ -198,6 +198,12 @@
   transform: translateY(-5px);
 }
 
+/* SQUARE CARD*/
+.squareCard {
+	width: 500px;
+	height: 500px;
+}
+
 @media (max-width: 408px) {
 	.cardTable {
 		padding: 0px;
@@ -266,6 +272,26 @@
 	.cardSection {
 		gap: 10px;
 	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 120px;
+		min-height: 120px;
+	}
+
+	.cardNameSquare {
+		width: 50px;
+		height: 12px;
+		font-size: 10px;
+		padding: 6px;
+		border-radius: 10px;
+		font-size: 8px;
+	}
 }
 
 @media (min-width: 409px) and (max-width: 640px) {
@@ -328,6 +354,24 @@
 		font-size: 8px;
 		margin: 5px;
 	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 135px;
+		min-height: 135px;
+	}
+
+	.cardNameSquare {
+		width: 90px;
+		height: 12px;
+		font-size: 11px;
+		padding: 8px;
+	}
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
@@ -387,6 +431,23 @@
 		font-size: 13px;
 		margin: 5px;
 	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 210px;
+		min-height: 210px;
+	}
+
+	.cardNameSquare {
+		width: 150px;
+		height: 18px;
+		font-size: 15px;
+	}
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -435,6 +496,23 @@
 
 	.cardBack p {
 		font-size: 15px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 255px;
+		min-height: 255px;
+	}
+
+	.cardNameSquare {
+		width: 200px;
+		height: 20px;
+		font-size: 18px;
 	}
 }
 
@@ -485,11 +563,45 @@
 	.cardBack p {
 		font-size: 18px;
 	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 300px;
+		min-height: 300px;
+	}
+
+	.cardNameSquare {
+		width: 250px;
+		height: 25px;
+		font-size: 20px;
+	}
 }
 
 @media (min-width: 1281px) and (max-width: 1680px) {
 	.cardBack p {
 		font-size: 23px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 355px;
+		min-height: 355px;
+	}
+
+	.cardNameSquare {
+		width: 250px;
+		height: 25px;
+		font-size: 22px;
 	}
 }
 
@@ -539,5 +651,22 @@
 
 	.cardBack p {
 		font-size: 25px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 400px;
+		min-height: 400px;
+	}
+
+	.cardNameSquare {
+		width: 250px;
+		height: 25px;
+		font-size: 23px;
 	}
 }

@@ -1,10 +1,12 @@
 import React, { Suspense } from "react";
 import HomePage from "../components/HomePage/HomePage";
-import CardTable from "../components/Sections/Cards/CardTable";
-import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
 import Footer from "../components/shared/Footer";
 import styles from "../Styles/HomePage/Header.module.css";
 import Navbar from "../components/HomePage/Navbar";
+import Servizi from "../components/Sections/Servizi";
+import Laboratori from "../components/Sections/Laboratori";
+import Informazioni from "../components/Sections/Informazioni";
+import OffertaFormativa from "../components/Sections/OffertaFormativa";
 
 // Esporta i metadata
 export const metadata = {
@@ -39,8 +41,10 @@ const Home = () => {
 					<HomePage />
 				</Suspense>
 			</main>
-			<CardTable cardTitle="Laboratori" />
-			<CardTableTwo cardTitle="Servizi" />
+			<Laboratori cardTitle="Laboratori" />
+			<Informazioni cardTitle="Informazioni" />
+			<Servizi cardTitle="Servizi" />
+			<OffertaFormativa cardTitle="OffertaFormativa" />
 			<footer>
 				<Footer />
 			</footer>

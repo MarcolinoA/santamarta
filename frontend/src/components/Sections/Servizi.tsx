@@ -1,18 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import Card from "./Card";
-import stylesCard from "../../../Styles/Card.module.css";
-import centroEstivo from "../../../../public/servizi/CentroEstivo.png";
-import sportelloLogopedico from "../../../../public/servizi/SportelloLogopedico.jpg";
-import sportelloPediatrico from "../../../../public/servizi/SportelloPediatrico.jpg";
-import sportelloPsicologico from "../../../../public/servizi/SportelloPsicologico.jpg";
-import doposcuola from "../../../../public/servizi/Doposcuola.jpg";
+import Card from "../shared/Card";
+import stylesCard from "../../Styles/Card.module.css";
+import centroEstivo from "../../../public/servizi/CentroEstivo.png";
+import sportelloLogopedico from "../../../public/servizi/SportelloLogopedico.jpg";
+import sportelloPediatrico from "../../../public/servizi/SportelloPediatrico.jpg";
+import sportelloPsicologico from "../../../public/servizi/SportelloPsicologico.jpg";
+import doposcuola from "../../../public/servizi/Doposcuola.jpg";
 
 interface cardTableProps {
 	cardTitle: string;
 }
 
-const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
+const Servizi: React.FC<cardTableProps> = ({ cardTitle }) => {
 	const [cardArr, setCardArr] = useState([
 		{
 			index: 1,
@@ -177,4 +177,4 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 	);
 };
 
-export default CardTableTwo;
+export default Servizi;
