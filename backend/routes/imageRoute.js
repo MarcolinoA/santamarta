@@ -95,17 +95,25 @@ router.delete("/:id/", async (request, response) => {
 	} catch (error) {}
 });
 
-// Get the active image
+// Get the active images
 router.get("/active", async (req, res) => {
 	try {
-		const activeImage = await HomeImage.findOne({ active: true });
-		if (!activeImage) {
-			return res.status(404).json({ message: "No active image found" });
+		// Trova tutte le immagini che sono attive
+		const activeImages = await HomeImage.find({ active: true });
+
+		// Se non ci sono immagini attive, restituisci un messaggio 404
+		if (activeImages.length === 0) {
+			return res.status(404).json({ message: "No active images found" });
 		}
-		res.status(200).json(activeImage);
+
+		// Restituisci l'array di immagini
+		res.status(200).json(activeImages);
 	} catch (error) {
-		console.error("Error fetching active image:", error); // Log the error details
-		res.status(500).send({ message: "Error fetching active image", error: error.message }); // Include error message
+		// Log dell'errore sul server
+		console.error("Error fetching active images:", error);
+
+		// Restituisci l'errore al client
+		res.status(500).send({ message: "Error fetching active images", error: error.message });
 	}
 });
 

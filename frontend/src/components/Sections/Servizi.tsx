@@ -30,8 +30,7 @@ const Servizi: React.FC<cardTableProps> = ({ cardTitle }) => {
 			title: "Doposcuola",
 			img: doposcuola,
 			desc: [
-				"Il servizio <strong>Doposcuola</strong> è attivo dal lunedì al venerdì. I bambini, una volta giunti nell’Istituto, usufruiscono di un pranzo, tempo di gioco libero nel giardino attrezzato (dedicato ai bambini della primaria), seguito dal supporto per lo svolgimento dei compiti sotto la supervisione di personale qualificato.",
-				"Sono disponibili i seguenti servizi aggiuntivi:<br /><strong>• Pre e Post Scuola</strong><br /><strong>• Navetta</strong>: Per il plesso “Paganico” è disponibile il servizio navetta all'ingresso e all'uscita della scuola; per il plesso “Collepalazzo” è prevista, all'uscita, la presenza di una responsabile per l’accompagnamento presso la nostra sede, con il servizio fornito dalla ditta Velibus."
+				"Il servizio <strong>Doposcuola</strong> è attivo dal lunedì al venerdì. Prevede: un pranzo, tempo di gioco nel giardino attrezzato (dedicato ai bambini della primaria) e supporto per lo svolgimento dei compiti sotto la supervisione di personale qualificato. <br /> Servizi aggiuntivi:<br /><strong>• Pre e Post Scuola</strong><br /><strong>• Navetta</strong>: Per il plesso “Paganico” servizio all'ingresso e all'uscita della scuola; per il plesso “Collepalazzo” è garantita la presenza di una responsabile per l’accompagnamento presso la nostra sede, supporto fornito da Velibus."
 		],
 			dataid: "data-1",
 		},
@@ -58,9 +57,8 @@ const Servizi: React.FC<cardTableProps> = ({ cardTitle }) => {
 			title: "Sportello Psicologico",
 			img: sportelloPsicologico,
 			desc: [
-				"Nella nostra scuola è attivo uno sportello di consulenza educativa con il <strong>Dott. Giorgio Caponera</strong>, psicologo che da qualche anno accompagna il collegio docenti come consulente esterno.",
-				"Questo servizio è dedicato alle famiglie che desiderano confrontarsi su temi legati alla crescita dei propri figli e alla relazione educativa tra adulti e bambini. Lo sportello offre supporto, sostegno e uno spazio di ascolto per affrontare insieme le sfide educative.",
-				"I colloqui sono svolti con la massima discrezione e nel pieno rispetto della normativa sulla privacy."
+				"Il <strong>Dott. Giorgio Caponera</strong>, da qualche anno accompagna il collegio docenti come consulente esterno.",
+				"Il servizio è a disposizione di chiunque voglia confrontarsi su temi legati alla crescita dei propri figli e alla relazione educativa tra adulti e bambini. Lo sportello offre supporto, sostegno e ascolto per affrontare insieme le sfide educative nel pieno rispetto della normativa sulla privacy.",
 			],
 			dataid: "data-1",
 		},

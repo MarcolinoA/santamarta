@@ -71,6 +71,7 @@ const OffertaFormativa: React.FC<cardTableProps> = ({ cardTitle }) => {
               img={card.img}
               alt={card.title}
               isSquare={true}
+              isFlippable={false}
             />
           ))}
       </div>

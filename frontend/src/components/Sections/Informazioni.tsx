@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import stylesCard from "../../Styles/Card.module.css";
 import Overlay from "../shared/Overlay";
 import fattoriaDidattica from "../../../public/fattoriaDidattica.jpeg";
-import calendario from "../../../public/calendario.png";
 import Card from "../shared/Card";
 
 interface cardTableProps {
@@ -67,6 +66,7 @@ const Informazioni: React.FC<cardTableProps> = ({ cardTitle }) => {
             img={card.img}
             alt={card.alt}
             isSquare={true}
+            isFlippable={false}
           />
         ))}
       </div>

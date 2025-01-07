@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import stylesCard from "../../Styles/Card.module.css";
 import Image, { StaticImageData } from "next/image";
+import Overlay from "./Overlay";
 
 interface CardProps {
   img: string | StaticImageData;
@@ -15,6 +16,7 @@ interface CardProps {
   dataid?: string;
   isLarge?: boolean;
   isSquare?: boolean;
+  isFlippable?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -29,13 +31,18 @@ const Card: React.FC<CardProps> = ({
   dataid,
   isLarge = false,
   isSquare = false,
+  isFlippable = true,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isCardFlipped, setIsCardFlipped] = useState(isLarge || isFlipped);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
-    if (onFlip) onFlip();
-    if (onClick) onClick();
+    if (isFlippable) {
+      if (onFlip) onFlip();
+      setIsCardFlipped((prev) => !prev);
+    }
+    if (onClick) onClick(); // Notifica il genitore del click
   };
 
   const getCardSizeClass = () => {
@@ -53,7 +60,7 @@ const Card: React.FC<CardProps> = ({
   const cardClassesArray = [
     stylesCard.CardContainer,
     isVisible && stylesCard.visible,
-    isFlipped && stylesCard.flipped,
+    isCardFlipped && stylesCard.flipped,
     className,
     getCardSizeClass()
   ];
@@ -61,6 +68,7 @@ const Card: React.FC<CardProps> = ({
   const cardClasses = cardClassesArray.filter(Boolean).join(" ");
 
   const cardNameClasses = `${stylesCard.cardName} ${getCardNameSizeClass()}`;
+  const cardNameClassesBack = `${stylesCard.cardNameBack} ${getCardNameSizeClass()}`;
 
   return (
     <div
@@ -69,7 +77,7 @@ const Card: React.FC<CardProps> = ({
       className={cardClasses}
       onClick={handleClick}
     >
-      <div className={stylesCard.cardInner}>
+      <div className={`${stylesCard.cardInner} ${isCardFlipped && isFlippable ? stylesCard.flipped : ""}`}>
         <div className={stylesCard.cardFront} data-id={`card-front-${dataid}`}>
           <Image
             src={img}
@@ -92,6 +100,9 @@ const Card: React.FC<CardProps> = ({
           ) : (
             <p>{desc}</p>
           )}
+          <div className={cardNameClassesBack} data-id={`card-name-${dataid}`}>
+            {cardName}
+          </div>
         </div>
       </div>
     </div>

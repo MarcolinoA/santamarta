@@ -6,13 +6,17 @@ import stylesHeader from "../../Styles/HomePage/Header.module.css";
 import { imageServices } from "../../services/apiImagesServices";
 import PriorityBtn from "../shared/btns/PriorityBtn";
 import HeaderBtn from "../shared/btns/HeaderBtn";
-import uva from "../../../public/festadelluva.jpeg"
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules"; // Moduli separati in v10+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const FALLBACK_IMAGE =
-  "https://scuola-santamarta.s3.eu-north-1..com/OpenDay.jpeg";
+  "https://scuola-santamarta.s3.eu-north-1.amazonaws.com/OpenDay.jpeg";
 
 const HomePage = () => {
-  const [imageSrc, setImageSrc] = useState<string>(FALLBACK_IMAGE);
+  const [images, setImages] = useState<{ image: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const options = [
@@ -40,22 +44,21 @@ const HomePage = () => {
   ];
 
   useEffect(() => {
-    const fetchActiveImage = async () => {
+    const fetchActiveImages = async () => {
       setLoading(true);
       try {
-        const image = await imageServices.getActiveImage();
-        // Se l'immagine non è disponibile, imposta l'immagine di fallback
-        setImageSrc(image.image ? image.image : FALLBACK_IMAGE);
+        const result = await imageServices.getActiveImages();
+        // Se non ci sono immagini attive, usa l'immagine di fallback
+        setImages(result.images.length > 0 ? result.images : [FALLBACK_IMAGE]);
       } catch (error) {
-        // In caso di errore, imposta l'immagine di fallback
-        console.error("Error fetching active image:", error);
-        setImageSrc(FALLBACK_IMAGE);
+        console.error("Error fetching active images:", error);
+        setImages([{ image: FALLBACK_IMAGE }]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchActiveImage();
+    fetchActiveImages();
   }, []);
 
   const searchParams = useSearchParams();
@@ -67,19 +70,42 @@ const HomePage = () => {
 
   return (
     <div className={stylesHeader.headerContainer}>
-      {loading ? (
-        <div data-id="loading-spinner" className={stylesHeader.loader}></div>
+{loading ? (
+        <div className={stylesHeader.loader}></div>
+      ) : images.length > 1 ? (
+        // Se ci sono più immagini, renderizza il carosello
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+        >
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <Image
+                src={image.image}
+                alt={`Active image ${index + 1}`}
+                layout="responsive"
+                width={800}
+                height={600}
+                quality={100}
+                priority={true}
+                className={stylesHeader.customImage}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       ) : (
+        // Se c'è solo una immagine, la mostra come immagine statica
         <Image
-          src={imageSrc}
-          alt="test"
+          src={images[0].image}
+          alt="Active Image"
           layout="responsive"
-          width={800} 
+          width={800}
           height={600}
           quality={100}
           priority={true}
-          data-id="home-page-img"
-		  className={stylesHeader.customImage}
+          className={stylesHeader.customImage}
         />
       )}
       <HeaderBtn
