@@ -8,21 +8,21 @@ const router = express.Router();
 // Add a new image
 router.post("/", async (req, res) => {
 	try {
-		const { title, image, active } = req.body;
-
-		const newHomeImage = new HomeImage({
-			title,
-			image,
-			active,
-		});
-
-		const savedHomeImage = await newHomeImage.save();
-
-		res.status(201).json(savedHomeImage);
+	  const { title, image, active } = req.body;
+  
+	  // Crea una nuova immagine senza modificare lo stato delle altre
+	  const newHomeImage = new HomeImage({
+		title,
+		image,
+		active: active || false, // default a false se non specificato
+	  });
+	  
+	  const savedHomeImage = await newHomeImage.save();
+	  res.status(201).json(savedHomeImage);
 	} catch (error) {
-		res.status(500).send({ message: error.message });
+	  res.status(500).send({ message: error.message });
 	}
-});
+  });
 
 // Get all images
 router.get("/", async (req, res) => {
@@ -38,44 +38,27 @@ router.get("/", async (req, res) => {
 	}
 });
 
-// Get a single image 
-/*
-router.get("/:id", async (req, res) => {
-	try {
-		const { id } = req.params;
-		const image = await HomeImage.findById(id);
-		if (!image) {
-			return res.status(404).json({ message: "Image not found" });
-		}
-		res.status(200).json(image);
-	} catch (error) {
-		console.error("Error while retrieving image details:", error);
-		res
-			.status(500)
-			.send({ message: "Error while retrieving IMG details" });
-	}
-});
-*/
-
 // Update image data
 router.put("/:id", async (request, response) => {
 	try {
 		const { id } = request.params;
+		const { active } = request.body;
 
-		// Trova l'immagine attiva attuale
-		const currentActiveImage = await HomeImage.findOne({ active: true });
+		// Aggiorna l'immagine con i nuovi dati
+		const result = await HomeImage.findByIdAndUpdate(
+			id, 
+			{ active }, 
+			{ new: true }
+		);
 
-		// Se c'è un'immagine attiva, disattivala
-		if (currentActiveImage) {
-			await HomeImage.findByIdAndUpdate(currentActiveImage._id, { active: false });
-		}
-
-		// Attiva l'immagine selezionata
-		const result = await HomeImage.findByIdAndUpdate(id, { active: true }, { new: true });
 		if (!result) {
 			return response.status(404).json({ message: "Image not found" });
 		}
-		return response.status(200).send({ message: "Image updated successfully" });
+
+		return response.status(200).send({ 
+			message: "Image updated successfully",
+			data: result 
+		});
 	} catch (error) {
 		console.error("Error updating image:", error);
 		response.status(500).send({ message: error.message });
@@ -98,22 +81,58 @@ router.delete("/:id/", async (request, response) => {
 // Get the active images
 router.get("/active", async (req, res) => {
 	try {
+		// Log per debug
+		console.log("Cercando immagini attive...");
+		
 		// Trova tutte le immagini che sono attive
 		const activeImages = await HomeImage.find({ active: true });
+		
+		// Log del risultato
+		console.log("Immagini attive trovate:", activeImages);
+		console.log("Numero di immagini attive:", activeImages.length);
+		
+		// Log della query
+		const query = HomeImage.find({ active: true }).getFilter();
+		console.log("Query utilizzata:", JSON.stringify(query));
 
-		// Se non ci sono immagini attive, restituisci un messaggio 404
-		if (activeImages.length === 0) {
-			return res.status(404).json({ message: "No active images found" });
-		}
+		// Formatta la risposta nel modo atteso dal frontend
+		const response = {
+			images: activeImages.map(img => ({
+				image: img.image,
+				title: img.title,
+				_id: img._id,
+				active: img.active // aggiungiamo questo per debug
+			}))
+		};
 
-		// Restituisci l'array di immagini
-		res.status(200).json(activeImages);
+		console.log("Risposta finale:", JSON.stringify(response));
+
+		return res.status(200).json(response);
+
 	} catch (error) {
-		// Log dell'errore sul server
 		console.error("Error fetching active images:", error);
+		return res.status(500).json({ 
+			message: "Error fetching active images", 
+			error: error.message,
+			images: []
+		});
+	}
+});
 
-		// Restituisci l'errore al client
-		res.status(500).send({ message: "Error fetching active images", error: error.message });
+// Aggiungi temporaneamente questa route per debug
+router.get("/debug", async (req, res) => {
+	try {
+		const allImages = await HomeImage.find({});
+		return res.status(200).json({
+			total: allImages.length,
+			images: allImages.map(img => ({
+				id: img._id,
+				title: img.title,
+				active: img.active
+			}))
+		});
+	} catch (error) {
+		return res.status(500).json({ error: error.message });
 	}
 });
 

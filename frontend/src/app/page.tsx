@@ -2,11 +2,11 @@ import React, { Suspense } from "react";
 import HomePage from "../components/HomePage/HomePage";
 import Footer from "../components/shared/Footer";
 import styles from "../Styles/HomePage/Header.module.css";
-import Navbar from "../components/HomePage/Navbar";
-import Servizi from "../components/Sections/Servizi";
-import Laboratori from "../components/Sections/Laboratori";
-import Informazioni from "../components/Sections/Informazioni";
-import OffertaFormativa from "../components/Sections/OffertaFormativa";
+import Laboratori from "../components/HomePage/Sections/Laboratori";
+import Informazioni from "../components/HomePage/Sections/Informazioni";
+import Servizi from "../components/HomePage/Sections/Servizi";
+import OffertaFormativa from "../components/HomePage/Sections/OffertaFormativa";
+import Navbar from "../components/shared/Navbar";
 
 // Esporta i metadata
 export const metadata = {

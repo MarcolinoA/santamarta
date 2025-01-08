@@ -221,6 +221,21 @@
 	height: 500px;
 }
 
+.customGridClass1 {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.customGridClass2 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(2, 1fr); 
+	gap: 20px;
+}
+
 @media (max-width: 408px) {
 	.cardTable {
 		padding: 0px;

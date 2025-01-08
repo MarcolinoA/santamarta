@@ -1,8 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
-import stylesCard from "../../Styles/Card.module.css";
+import stylesCard from "../../../Styles/Card.module.css";
 import Image, { StaticImageData } from "next/image";
-import Overlay from "./Overlay";
 
 interface CardProps {
   img: string | StaticImageData;

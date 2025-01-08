@@ -90,24 +90,26 @@ export const imageServices = {
   },
 
   getActiveImages: async () => {
-	try {
-	  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/homeImage/active`);
-	  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  
-	  // Supponiamo che la risposta sia un array di oggetti, ognuno con una proprietà "image"
-	  const images = await response.json();
-  
-	  // Se l'array di immagini è vuoto, restituisci un array con un'immagine di fallback
-	  if (!images || images.length === 0) {
-		return [{ image: FALLBACK_IMAGE }];
-	  }
-  
-	  // Se l'array non è vuoto, restituisci tutte le immagini
-	  return images.map((img: any) => ({ image: img.image })); // Mappa l'array per avere la struttura giusta
-	} catch (error) {
-	  console.error("Error fetching active images:", error);
-	  // In caso di errore, restituisci un array con l'immagine di fallback
-	  return [{ image: FALLBACK_IMAGE }];
-	}
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/homeImage/active`);
+      
+      // Gestione esplicita degli errori HTTP
+      if (!response.ok) {
+        console.error(`HTTP error! status: ${response.status}`);
+        return { images: [{ image: FALLBACK_IMAGE }] };
+      }
+
+      const data = await response.json();
+      
+      // Verifica che data.images esista
+      if (!data || !data.images) {
+        return { images: [{ image: FALLBACK_IMAGE }] };
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching active images:", error);
+      return { images: [{ image: FALLBACK_IMAGE }] };
+    }
   }
 };

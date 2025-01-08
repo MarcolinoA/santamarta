@@ -7,7 +7,6 @@ import { imageServices } from "../../services/apiImagesServices";
 import PriorityBtn from "../shared/btns/PriorityBtn";
 import HeaderBtn from "../shared/btns/HeaderBtn";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules"; // Moduli separati in v10+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -48,8 +47,8 @@ const HomePage = () => {
       setLoading(true);
       try {
         const result = await imageServices.getActiveImages();
-        // Se non ci sono immagini attive, usa l'immagine di fallback
-        setImages(result.images.length > 0 ? result.images : [FALLBACK_IMAGE]);
+        // Verifica che result.images esista e abbia elementi
+        setImages(result?.images?.length > 0 ? result.images : [{ image: FALLBACK_IMAGE }]);
       } catch (error) {
         console.error("Error fetching active images:", error);
         setImages([{ image: FALLBACK_IMAGE }]);

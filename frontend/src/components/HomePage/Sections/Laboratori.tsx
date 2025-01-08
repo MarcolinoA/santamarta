@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import stylesCard from "../../Styles/Card.module.css";
-import Card from "../shared/Card";
-import fattoriaDidattica from "../../../public/fattoriaDidattica.jpeg";
+import stylesCard from "../../../Styles/Card.module.css";
+import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
+import Card from "../../shared/card/Card";
 
 interface cardTableProps {
 	cardTitle: string;

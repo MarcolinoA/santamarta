@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { imageServices } from "../../../services/apiImagesServices";
 import Image, { StaticImageData } from "next/image";
-import Card from "../../shared/Card";
+import Card from "../../shared/card";
 import { useRouter } from "next/navigation";
 import DeleteBtn from "../../shared/btns/DeleteBtn";
 import AddBtn from "../../shared/btns/AddBtn";
