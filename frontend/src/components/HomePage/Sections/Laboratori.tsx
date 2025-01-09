@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import stylesCard from "../../../Styles/Card.module.css";
+import stylesText from "../../../Styles/Text.module.css";
 import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
 import Card from "../../shared/card/Card";
 
@@ -96,7 +97,7 @@ const Laboratori: React.FC<cardTableProps> = ({ cardTitle }) => {
 
 	return (
 		<div className={stylesCard.cardTable}>
-			<h2 className={stylesCard.cardTitle}>{cardTitle}</h2>
+			<h2 className={stylesText.titles}>{cardTitle}</h2>
 			<div className={stylesCard.cardSection}>
 				<div className={stylesCard.cardLarge}>
 					{cardArr.find((card) => card.index === activeCardIndex) && (

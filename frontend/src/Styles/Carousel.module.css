@@ -1,71 +1,129 @@
 .carouselContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 400px;
-	width: 600px;
-    margin: auto;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%; 
+  max-width: 600px;
+  height: auto; 
+  aspect-ratio: 3 / 2; 
+  margin: auto;
+  overflow: hidden;
+}
+
+.imageContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out; 
+  will-change: transform;
+}
+
+.image {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.indicators {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.indicator {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #ffffffab;
+}
+
+.indicator.active {
+  background-color: #fff;
+}
+
+@media (max-width: 408px) {
+  .carouselContainer {
+    max-width: 300px; 
+    aspect-ratio: 4 / 3; 
   }
-  
-  .imageContainer {
-    width: 100%;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  .arrowLeft,
-  .arrowRight {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 20px;
-    z-index: 10;
-    border-radius: 50%;
-  }
-  
-  .arrowLeft {
-    left: 10px;
-  }
-  
-  .arrowRight {
-    right: 10px;
-  }
-  
-  .indicators {
-    position: absolute;
-    bottom: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-  }
-  
+
   .indicator {
     width: 10px;
     height: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
-  
-  .indicator.active {
-    background-color: white;
+}
+
+@media (min-width: 409px) and (max-width: 640px) {
+  .carouselContainer {
+    max-width: 400px;
+    aspect-ratio: 4 / 3;
   }
-  
+
+  .indicator {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .carouselContainer {
+    max-width: 500px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .indicator {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .carouselContainer {
+    max-width: 600px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .indicator {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .carouselContainer {
+    max-width: 700px;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1680px) {
+  .carouselContainer {
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+@media (min-width: 1681px) {
+  .carouselContainer {
+    max-width: 1200px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .indicator {
+    width: 12px;
+    height: 12px;
+  }
+}

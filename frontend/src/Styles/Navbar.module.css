@@ -320,7 +320,7 @@
 	}
 }
 
-@media (min-width: 1481px) {
+@media (min-width: 1481px) and (max-width: 2600px) {
 	.navbar {
 		padding: 25px 0;
 	}
@@ -357,3 +357,41 @@
 		font-size: 26px;
 	}
 }
+
+@media (min-width: 2600px) and (max-width: 2900px){
+	.navbar {
+		padding: 25px 0;
+	}
+
+	.hamburger {
+		display: none;
+	}
+
+	.mobileMenu {
+		display: none;
+	}
+
+	.navbarItem {
+		padding: 10px;
+		width: 180px;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.navbarActiveIndicator {
+		width: 200px;
+	}
+
+	.spanContainer {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.navbarText {
+		font-size: 28px;
+	}
+} 

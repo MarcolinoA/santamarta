@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import stylesCard from "../../../Styles/Card.module.css";
+import stylesText from "../../../Styles/Text.module.css";
 import centroEstivo from "../../../../public/servizi/CentroEstivo.png";
 import sportelloLogopedico from "../../../../public/servizi/SportelloLogopedico.jpg";
 import sportelloPediatrico from "../../../../public/servizi/SportelloPediatrico.jpg";
@@ -108,7 +109,7 @@ const Servizi: React.FC<cardTableProps> = ({ cardTitle }) => {
 
 	return (
 		<div className={stylesCard.cardTable}>
-			<h2 className={stylesCard.cardTitle}>{cardTitle}</h2>
+			<h2 className={stylesText.titles}>{cardTitle}</h2>
 			<div className={stylesCard.cardSection}>
 				<div className={stylesCard.cardGrid}>
 					{cardArr

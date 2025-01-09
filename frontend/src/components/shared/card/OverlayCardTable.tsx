@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import stylesCard from "../../../Styles/Card.module.css";
+import stylesText from "../../../Styles/Text.module.css";
 import Card from "./Card";
 import Overlay from "./Overlay";
 import { StaticImageData } from "next/image";
@@ -37,7 +38,7 @@ const OverlayCardTable: React.FC<OverlayCardTableProps> = ({ cardTitle, cardItem
 
   return (
     <div className={stylesCard.cardTable}>
-      <h2 className={stylesCard.cardTitle}>{cardTitle}</h2>
+      <h2 className={stylesText.titles}>{cardTitle}</h2>
       <div className={gridClassName}>
         {cardItems
           .filter((card) => card.index) // Facoltativo: se hai bisogno di filtrare per l'indice

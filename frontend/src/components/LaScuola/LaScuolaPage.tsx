@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import OverlayCardTable from "../shared/card/OverlayCardTable";
-import Navbar from "../shared/Navbar";
 import stylesCard from "../../Styles/Card.module.css";
+import stylesText from "../../Styles/Text.module.css";
 import Carousel from "../shared/Carousel";
-import img1 from "../../../public/festadelluva.jpeg"
-import img2 from "../../../public/logo.png"
-import img3 from "../../../public/fattoriaDidattica.jpeg"
+import img1 from "../../../public/festadelluva.jpeg";
+import img2 from "../../../public/logo.png";
+import img3 from "../../../public/fattoriaDidattica.jpeg";
 
 const LaScuolaPage: React.FC = () => {
   const [cardArr, setCardArr] = useState([
@@ -118,16 +118,18 @@ const LaScuolaPage: React.FC = () => {
   ];
   return (
     <div>
-      <h1>Cos'è Santa Marta</h1>
-      <p>
-        Santa Marta è una scuola parificata dell’Infanzia accoglie bambini dai 3
-        ai 5 anni e promuove la formazione integrale del bambino/a nella sua
-        unicità. Per questo, si pone come da indicazioni ministeriale le
-        seguenti finalità: sviluppo dell’identità, sviluppo dell’autonomia,
-        sviluppo delle competenze, sviluppo della cittadinanza.
-      </p>
+      <div className={stylesText.laScuolaDesc}>
+        <h1  className={stylesText.laScuolaTitle}>Cos'è Santa Marta</h1>
+        <p className={stylesText.laScuolaP}>
+          Santa Marta è una scuola parificata dell’Infanzia accoglie bambini dai
+          3 ai 5 anni e promuove la formazione integrale del bambino/a nella sua
+          unicità. Per questo, si pone come da indicazioni ministeriale le
+          seguenti finalità: sviluppo dell’identità, sviluppo dell’autonomia,
+          sviluppo delle competenze, sviluppo della cittadinanza.
+        </p>
+      </div>
 
-      <Carousel images={images}/>
+      <Carousel images={images} />
 
       <OverlayCardTable
         cardTitle="La scuola è attrezzata di: "

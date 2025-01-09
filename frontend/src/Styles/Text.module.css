@@ -1,0 +1,146 @@
+.laScuolaDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.laScuolaTitle {
+    font-size: 50px;
+}
+
+.laScuolaP{
+    width: 70%;
+    font-size: 32px;
+}
+
+.titles {
+    font-size: 44px;
+}
+
+@media (max-width: 408px){
+    .laScuolaTitle{
+        font-size: 24px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 90%;
+        font-size: 18px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 20px;
+        margin: 15px;
+    }
+}
+
+@media (min-width: 409px) and (max-width: 640px){
+    .laScuolaTitle{
+        font-size: 28px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 90%;
+        font-size: 20px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 22px;
+        margin: 15px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 768px){
+    .laScuolaTitle{
+        font-size: 34px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 90%;
+        font-size: 22px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 28px;
+        margin: 15px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px){
+    .laScuolaTitle{
+        font-size: 34px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 75%;
+        font-size: 22px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 28px;
+        margin: 15px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px){
+    .laScuolaTitle{
+        font-size: 40px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 75%;
+        font-size: 24px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 32px;
+        margin: 15px;
+    }
+}
+
+@media (min-width: 1281px) and (max-width: 1680px){
+    .laScuolaTitle{
+        font-size: 42px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 70%;
+        font-size: 26px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 32px;
+        margin: 15px;
+    }
+}
+
+@media (min-width: 2581px){
+    .laScuolaTitle{
+        font-size: 52px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 70%;
+        font-size: 34px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 46px;
+        margin: 15px;
+    }
+}
