@@ -7,6 +7,7 @@ import Carousel from "../shared/Carousel";
 import img1 from "../../../public/festadelluva.jpeg";
 import img2 from "../../../public/logo.png";
 import img3 from "../../../public/fattoriaDidattica.jpeg";
+import Footer from "../shared/Footer";
 
 const LaScuolaPage: React.FC = () => {
   const [cardArr, setCardArr] = useState([
@@ -142,6 +143,8 @@ const LaScuolaPage: React.FC = () => {
         cardItems={cardArrStaff}
         gridClassName={stylesCard.customGridClass2}
       />
+
+      <Footer />
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation"; // Usa il router specifico per il client
+import { usePathname } from "next/navigation"; // Per ottenere la rotta corrente
 import stylesNavbar from "../../Styles/Navbar.module.css";
 import { FiMenu } from "react-icons/fi";
 
@@ -48,6 +49,8 @@ const Navbar: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const rawPathname = usePathname(); // Ottieni la rotta corrente
+  const pathname = rawPathname ?? "/"; // Usa "/" come valore di fallback se pathname è null
   const router = useRouter();
 
   const menuItems: MenuItem[] = [
@@ -58,6 +61,17 @@ const Navbar: React.FC = () => {
     { name: "Calendar", route: "/calendar" },
     { name: "Charts", route: "/charts" },
   ];
+
+  // Funzione per trovare l'indice corrispondente alla rotta corrente
+  const findActiveIndex = (path: string): number => {
+    const index = menuItems.findIndex((item) => item.route === path);
+    return index >= 0 ? index : 0; // Torna a 0 (Home) se la rotta non è trovata
+  };
+
+  useEffect(() => {
+    // Aggiorna l'indice attivo in base alla rotta corrente
+    setActiveIndex(findActiveIndex(pathname));
+  }, [pathname]); // Aggiorna quando cambia pathname
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);

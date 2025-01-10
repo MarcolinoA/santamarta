@@ -217,8 +217,8 @@
 
 /* SQUARE CARD*/
 .squareCard {
-	width: 500px;
-	height: 500px;
+	width: 700px;
+	height: 700px;
 }
 
 .customGridClass1 {
@@ -226,7 +226,7 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	gap: 20px;
+	gap: 40px;
 }
 
 .customGridClass2 {
@@ -322,7 +322,13 @@
 		font-size: 10px;
 		padding: 6px;
 		border-radius: 10px;
-		font-size: 8px;
+		font-size: 11px;
+	}
+
+	.customGridClass2 {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 1fr); 
+		gap: 10px;
 	}
 }
 
@@ -404,6 +410,16 @@
 		font-size: 11px;
 		padding: 8px;
 	}
+
+	.cardNameSquare {
+		font-size: 12px;
+	}
+
+	.customGridClass2 {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 1fr); 
+		gap: 10px;
+	}
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
@@ -468,17 +484,21 @@
 		flex: 1 1 auto;
 		box-sizing: border-box;
 		width: 100%;
-		max-width: 250px;
+		max-width: 200px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-		min-width: 210px;
-		min-height: 210px;
+		min-width: 200px;
+		min-height: 200px;
 	}
 
 	.cardNameSquare {
 		width: 150px;
 		height: 18px;
 		font-size: 15px;
+	}
+
+	.customGridClass2 {
+		gap: 10px;
 	}
 }
 
@@ -534,17 +554,21 @@
 		flex: 1 1 auto;
 		box-sizing: border-box;
 		width: 100%;
-		max-width: 250px;
+		max-width: 240px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-		min-width: 255px;
-		min-height: 255px;
+		min-width: 240px;
+		min-height: 240px;
 	}
 
 	.cardNameSquare {
 		width: 200px;
 		height: 20px;
 		font-size: 18px;
+	}
+
+	.customGridClass2 {
+		gap: 10px;
 	}
 }
 
@@ -603,8 +627,8 @@
 		max-width: 250px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-		min-width: 300px;
-		min-height: 300px;
+		min-width: 250px;
+		min-height: 250px;
 	}
 
 	.cardNameSquare {
@@ -623,11 +647,10 @@
 		flex: 1 1 auto;
 		box-sizing: border-box;
 		width: 100%;
-		max-width: 250px;
 		height: auto;
 		aspect-ratio: 5 / 6;
-		min-width: 355px;
-		min-height: 355px;
+		min-width: 300px;
+		min-height: 300px;
 	}
 
 	.cardNameSquare {
@@ -637,7 +660,7 @@
 	}
 }
 
-@media (min-width: 1681px) {
+@media (min-width: 1681px) and (max-width: 2000px) {
 	.cardTable {
 		padding: 0px;
 		margin: 20px;
@@ -689,7 +712,27 @@
 		flex: 1 1 auto;
 		box-sizing: border-box;
 		width: 100%;
-		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 370px;
+		min-height: 370px;
+	}
+
+	.cardNameSquare {
+		width: 250px;
+		font-size: 26px;
+	}
+
+	.customGridClass2 {
+		gap: 25px;
+	}
+}
+
+@media (min-width: 2001px) and (max-width: 2300px) {
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
 		height: auto;
 		aspect-ratio: 5 / 6;
 		min-width: 400px;
@@ -697,8 +740,75 @@
 	}
 
 	.cardNameSquare {
-		width: 250px;
-		height: 25px;
-		font-size: 23px;
+		width: 350px;
+		font-size: 30px;
+	}
+
+	.customGridClass2 {
+		gap: 25px;
 	}
 }
+
+@media (min-width: 2301px) and (max-width: 2600px) {
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 430px;
+		min-height: 430px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		font-size: 32px;
+	}
+
+	.customGridClass2 {
+		gap: 30px;
+	}
+}
+
+@media (min-width: 2601px) and (max-width: 2900px) {
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 460px;
+		min-height: 460px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		font-size: 32px;
+	}
+
+	.customGridClass2 {
+		gap: 35px;
+	}
+}
+
+@media (min-width: 2901px){
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 600px;
+		min-height: 600px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		font-size: 34px;
+	}
+
+	.customGridClass2 {
+		gap: 40px;
+	}
+}
+

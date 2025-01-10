@@ -8,6 +8,7 @@
 
 .laScuolaTitle {
     font-size: 50px;
+    text-align: center;
 }
 
 .laScuolaP{
@@ -17,11 +18,12 @@
 
 .titles {
     font-size: 44px;
+    text-align: center;
 }
 
 @media (max-width: 408px){
     .laScuolaTitle{
-        font-size: 24px;
+        font-size: 22px;
         margin: 10px;
     }
 

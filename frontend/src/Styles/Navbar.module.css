@@ -358,7 +358,7 @@
 	}
 }
 
-@media (min-width: 2600px) and (max-width: 2900px){
+@media (min-width: 2600px) and (max-width: 3000px){
 	.navbar {
 		padding: 25px 0;
 	}
