@@ -117,6 +117,7 @@ const LaScuolaPage: React.FC = () => {
     { src: img2, alt: "Immagine 2" },
     { src: img3, alt: "Immagine 3" },
   ];
+
   return (
     <div>
       <div className={stylesText.laScuolaDesc}>

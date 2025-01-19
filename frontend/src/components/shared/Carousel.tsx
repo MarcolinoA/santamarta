@@ -76,6 +76,12 @@ const Carousel: React.FC<CarouselProps> = ({
     };
   }, [currentIndex, autoScroll, interval]);
 
+  const handleIndicatorClick = (index: number) => {
+    if (isTransitioning) return; // Blocca transizioni multiple
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+  };
+
   return (
     <div
       className={styles.carouselContainer}
@@ -90,28 +96,33 @@ const Carousel: React.FC<CarouselProps> = ({
         }}
       >
         {/* Aggiunta immagine clonata finale all'inizio */}
-        <img
-          src={getImageSrc(images[totalImages - 1].src)}
-          alt={images[totalImages - 1].alt}
-          className={styles.image}
-        />
+        <div className={styles.imageWrapper}>
+          <img
+            src={getImageSrc(images[totalImages - 1].src)}
+            alt={images[totalImages - 1].alt}
+            className={styles.image}
+          />
+        </div>
 
         {/* Immagini principali */}
         {images.map((image, index) => (
-          <img
-            key={index}
-            src={getImageSrc(image.src)}
-            alt={image.alt}
-            className={styles.image}
-          />
+          <div key={index} className={styles.imageWrapper}>
+            <img
+              src={getImageSrc(image.src)}
+              alt={image.alt}
+              className={styles.image}
+            />
+          </div>
         ))}
 
         {/* Aggiunta immagine clonata iniziale alla fine */}
-        <img
-          src={getImageSrc(images[0].src)}
-          alt={images[0].alt}
-          className={styles.image}
-        />
+        <div className={styles.imageWrapper}>
+          <img
+            src={getImageSrc(images[0].src)}
+            alt={images[0].alt}
+            className={styles.image}
+          />
+        </div>
       </div>
 
       {/* Indicatori */}
@@ -122,10 +133,7 @@ const Carousel: React.FC<CarouselProps> = ({
             className={`${styles.indicator} ${
               index === currentIndex ? styles.active : ""
             }`}
-            onClick={() => {
-              setCurrentIndex(index);
-              resetAutoScroll(); // Resetta il timer in seguito a interazione manuale
-            }}
+            onClick={() => handleIndicatorClick(index)}
           ></span>
         ))}
       </div>

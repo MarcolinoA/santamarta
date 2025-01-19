@@ -6,10 +6,10 @@ import stylesHeader from "../../Styles/HomePage/Header.module.css";
 import { imageServices } from "../../services/apiImagesServices";
 import PriorityBtn from "../shared/btns/PriorityBtn";
 import HeaderBtn from "../shared/btns/HeaderBtn";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import Carousel from "../shared/Carousel";
+import img1 from "../../../public/festadelluva.jpeg";
+import img3 from "../../../public/fattoriaDidattica.jpeg";
+import img4 from "../../../public/homePage.jpeg";
 
 const FALLBACK_IMAGE =
   "https://scuola-santamarta.s3.eu-north-1.amazonaws.com/OpenDay.jpeg";
@@ -42,13 +42,22 @@ const HomePage = () => {
     },
   ];
 
+  const Arrimages = [
+    { src: img1, alt: "Immagine 1" },
+    { src: img4, alt: "Immagine 2" },
+  ];
+
   useEffect(() => {
     const fetchActiveImages = async () => {
       setLoading(true);
       try {
         const result = await imageServices.getActiveImages();
         // Verifica che result.images esista e abbia elementi
-        setImages(result?.images?.length > 0 ? result.images : [{ image: FALLBACK_IMAGE }]);
+        setImages(
+          result?.images?.length > 0
+            ? result.images
+            : [{ image: FALLBACK_IMAGE }]
+        );
       } catch (error) {
         console.error("Error fetching active images:", error);
         setImages([{ image: FALLBACK_IMAGE }]);
@@ -68,45 +77,8 @@ const HomePage = () => {
   }
 
   return (
-    <div className={stylesHeader.headerContainer}>
-{loading ? (
-        <div className={stylesHeader.loader}></div>
-      ) : images.length > 1 ? (
-        // Se ci sono più immagini, renderizza il carosello
-        <Swiper
-          spaceBetween={50}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-        >
-          {images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <Image
-                src={image.image}
-                alt={`Active image ${index + 1}`}
-                layout="responsive"
-                width={800}
-                height={600}
-                quality={100}
-                priority={true}
-                className={stylesHeader.customImage}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        // Se c'è solo una immagine, la mostra come immagine statica
-        <Image
-          src={images[0].image}
-          alt="Active Image"
-          layout="responsive"
-          width={800}
-          height={600}
-          quality={100}
-          priority={true}
-          className={stylesHeader.customImage}
-        />
-      )}
+    <div className={stylesHeader.container}>
+      <Carousel images={Arrimages} />
       <HeaderBtn
         isLoggedIn={true}
         username={(username as string) || ""}
