@@ -12,6 +12,7 @@ body {
 	padding: 0;
 	font-size: 20px;
 	background-color: #3dd5fe;
+	overflow-x: hidden;
 }
 
 .exo-2-100 {
