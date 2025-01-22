@@ -5,6 +5,12 @@ import stylesText from "../../../Styles/Text.module.css";
 import Card from "./Card";
 import Overlay from "./Overlay";
 import { StaticImageData } from "next/image";
+import { Wendy_One } from '@next/font/google';
+
+const wendyOne = Wendy_One({
+  subsets: ['latin'], 
+  weight: '400', 
+});
 
 interface CardItem {
   index: number;
@@ -38,7 +44,7 @@ const OverlayCardTable: React.FC<OverlayCardTableProps> = ({ cardTitle, cardItem
 
   return (
     <div className={stylesCard.cardTable}>
-      <h2 className={stylesText.titles}>{cardTitle}</h2>
+      <h2 className={`${stylesText.titles} ${wendyOne.className}`}>{cardTitle}</h2>
       <div className={gridClassName}>
         {cardItems
           .filter((card) => card.index) // Facoltativo: se hai bisogno di filtrare per l'indice

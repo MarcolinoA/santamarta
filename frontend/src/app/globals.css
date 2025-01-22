@@ -8,55 +8,136 @@
  #FF5C8D
 */
 body {
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	background-color: #3dd5fe;
-	overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #3dd5fe;
+  overflow-x: hidden;
 }
 
 .exo-2-100 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 100;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 100;
 }
 
 .exo-2-200 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 200;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 200;
 }
 
 /* Repeat for other weights */
 .exo-2-300 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 300;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 300;
 }
 
 .exo-2-400 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 400;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 400;
 }
 
 .exo-2-500 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 500;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 500;
 }
 
 .exo-2-600 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 600;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 600;
 }
 
 .exo-2-700 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 700;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 700;
 }
 
 .exo-2-800 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 800;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 800;
 }
 
 .exo-2-900 {
-	font-family: "Exo 2", sans-serif;
-	font-weight: 900;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 900;
+}
+
+:root {
+  --navbar-text-font-size: 32px;
+  --navbar-item-width: 150px;
+  --navbar-item-padding: 20px;
+  --navbar-dropdown-width: 190px
+}
+
+@media (max-width: 640px) {
+  :root {
+    --navbar-text-font-size: 22px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+	:root {
+		--navbar-text-font-size: 24px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	:root {
+		--navbar-text-font-size: 26px;
+		--navbar-item-width: 140px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 180px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	:root {
+		--navbar-text-font-size: 26px;
+		--navbar-item-width: 160px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 200px;
+	}
+}
+
+@media (min-width: 1281px) and (max-width: 1480px) {
+	:root {
+		--navbar-text-font-size: 28px;
+		--navbar-item-width: 180px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 220px;
+	}
+}
+
+@media (min-width: 1481px) and (max-width: 1800px) {
+	:root {
+		--navbar-text-font-size: 30px;
+		--navbar-item-width: 180px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 220px;
+	}
+}
+
+@media (min-width: 1801px) and (max-width: 2200px) {
+	:root {
+		--navbar-text-font-size: 32px;
+		--navbar-item-width: 220px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 260px;
+	}
+}
+
+@media (min-width: 2201px) and (max-width: 2600px) {
+	:root {
+		--navbar-text-font-size: 34px;
+		--navbar-item-width: 250px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 290px;
+	}
+}
+
+@media (min-width: 2601px){
+	:root {
+		--navbar-text-font-size: 36px;
+		--navbar-item-width: 300px;
+		--navbar-item-padding: 20px;
+		--navbar-dropdown-width: 340px;
+	}
 }

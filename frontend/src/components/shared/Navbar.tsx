@@ -3,10 +3,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import stylesNavbar from "../../Styles/Navbar.module.css";
-import stylesBtn from "../../Styles/HomePage/Btns/HeaderBtn.module.css";
 import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import { useAuthentication } from "../../hooks/useAuthentications";
+import { Wendy_One } from '@next/font/google';
+
+const wendyOne = Wendy_One({
+  subsets: ['latin'], 
+  weight: '400', 
+});
 
 interface MenuItem {
   name: string;
@@ -46,18 +51,18 @@ const Navbar: React.FC = () => {
 
   const toggleProfileDropdown = () => {
     if (isMobile) {
-      // Gestione del dropdown per la versione mobile
+      // Logica per il menu mobile
       if (isProfileDropdownVisible) {
-        setIsDropdownClosing(true); // Inizia l'animazione di chiusura
+        setIsDropdownClosing(true);
         setTimeout(() => {
-          setIsProfileDropdownVisible(false); // Nascondi il menu dopo l'animazione
-          setIsDropdownClosing(false); // Resetta lo stato di chiusura
-        }, 300); // Durata dell'animazione (300ms)
+          setIsProfileDropdownVisible(false);
+          setIsDropdownClosing(false);
+        }, 500);
       } else {
-        setIsProfileDropdownVisible(true); // Mostra il menu
+        setIsProfileDropdownVisible(true);
       }
     } else {
-      // Gestione del dropdown per la versione desktop
+      // Logica per il desktop
       setIsDropdownVisible((prev) => !prev);
     }
   };
@@ -99,7 +104,10 @@ const Navbar: React.FC = () => {
   }, [pathname]);
 
   return (
-    <div className={stylesNavbar.navbar} ref={menuRef}>
+    <div
+      className={`${stylesNavbar.navbar} ${wendyOne.className}`} 
+      ref={menuRef}
+    >
       <div className={stylesNavbar.hamburger} onClick={toggleMenu}>
         <FiMenu size={30} color="#000" />
       </div>
@@ -116,11 +124,11 @@ const Navbar: React.FC = () => {
               activeIndex === index ? stylesNavbar.active : ""
             }`}
             onClick={() => {
-              setActiveIndex(index);
               if (item.name === "Profilo") {
                 toggleProfileDropdown();
               } else {
-                toggleMenu();
+                setActiveIndex(index);
+                setIsMenuOpen(false);
                 setIsProfileDropdownVisible(false);
                 router.push(item.route);
               }
@@ -130,19 +138,20 @@ const Navbar: React.FC = () => {
           </div>
         ))}
 
-        {/* Mostra gli elementi della tendina sotto "Profilo" */}
         <div
           className={`${stylesNavbar.dropdownSubMenu} ${
-            isProfileDropdownVisible ? stylesNavbar.open : ""
+            isProfileDropdownVisible
+              ? stylesNavbar.open
+              : isDropdownClosing
+                ? stylesNavbar.closing
+                : stylesNavbar.close
           }`}
         >
           {dropdownOptions.map((option, index) => (
             <div key={index} className={stylesNavbar.navbarItem}>
-              <button className={stylesBtn.dropdownButton}>
-                <Link className={stylesBtn.dropdownLinks} href={option.href}>
+                <Link className={stylesNavbar.dropdownLinks} href={option.href}>
                   {option.label}
                 </Link>
-              </button>
             </div>
           ))}
         </div>
@@ -170,11 +179,17 @@ const Navbar: React.FC = () => {
 
         {/* Dropdown desktop per "Profilo" */}
         {isDropdownVisible && (
-          <div className={stylesBtn.dropdownMenu}>
+          <div
+            className={`${stylesNavbar.dropdownMenu} ${stylesNavbar.visible}`}
+          >
+            <div className={stylesNavbar.dropdownArrow}></div>
             {dropdownOptions.map((option, index) => (
-              <div key={index} className={stylesBtn.drop}>
-                <button className={stylesBtn.dropdownButton}>
-                  <Link className={stylesBtn.dropdownLinks} href={option.href}>
+              <div key={index} className={stylesNavbar.drop}>
+                <button className={stylesNavbar.dropdownButton}>
+                  <Link
+                    className={stylesNavbar.dropdownLinks}
+                    href={option.href}
+                  >
                     {option.label}
                   </Link>
                 </button>

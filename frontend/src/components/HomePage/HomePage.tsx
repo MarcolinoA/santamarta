@@ -17,7 +17,7 @@ const FALLBACK_IMAGE =
 const HomePage = () => {
   const [images, setImages] = useState<{ image: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
+/*
   const options = [
     {
       label: "Registrati",
@@ -32,6 +32,7 @@ const HomePage = () => {
       dataid: "delete-account-btn",
     },
   ];
+  */
 
   const option = [
     {
@@ -79,11 +80,6 @@ const HomePage = () => {
   return (
     <div className={stylesHeader.container}>
       <Carousel images={Arrimages} />
-      <HeaderBtn
-        isLoggedIn={true}
-        username={(username as string) || ""}
-        options={options}
-      />
       <PriorityBtn option={option} />
     </div>
   );

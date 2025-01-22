@@ -1,22 +1,25 @@
 .dropdownMenu {
   position: absolute;
-  top: 106%;
-  left: 50%;
-  transform: translateX(0%) translateY(-10px);
+  top: 100%;
+  left: 0;
   background-color: #fff;
   border-radius: 8px;
   z-index: 10;
   padding: 10px 0;
   min-width: 200px;
   opacity: 0;
+  visibility: hidden; /* Nasconde l'elemento inizialmente */
+  transform: translateY(-10px);
   transition:
     opacity 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .dropdownMenu.visible {
   opacity: 1;
-  transform: translateX(0%) translateY(0);
+  visibility: visible; /* Mostra l'elemento */
+  transform: translateY(0);
 }
 
 .dropdownArrow {

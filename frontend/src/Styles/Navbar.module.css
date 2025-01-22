@@ -25,38 +25,6 @@
   color: #000;
 }
 
-.hamburger.openIcon {
-  animation: rotateOpen 0.8s forwards;
-}
-
-.hamburger.closeIcon {
-  animation: rotateClose 0.8s forwards;
-}
-
-@keyframes rotateOpen {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes rotateClose {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.hamburger:hover {
-  transform: scale(1.2);
-  transition: transform 0.3s ease;
-}
-
-/* Menu Desktop */
 .navbarMenu {
   display: flex;
   align-items: center;
@@ -64,18 +32,23 @@
 }
 
 .navbarItem {
-  position: relative; /* Rende il bottone "Profilo" il riferimento per il dropdown */
+  position: relative; 
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
-  padding: 10px 0;
   cursor: pointer;
-  font-size: 18px;
-  width: 150px;
+  font-size: var(--navbar-text-font-size);
+  width: var(--navbar-item-width);
+  padding: var(--navbar-item-padding);
   transition:
     color 0.3s,
     background-color 0.3s;
+}
+
+.spanContainer {
+  display: flex;
+  justify-content: center;
 }
 
 .navbarIcon {
@@ -84,20 +57,72 @@
 
 .navbarText {
   font-weight: 500;
-  font-size: 20px;
+  font-size: var(--text-font-size);
 }
 
-.navbarActiveIndicator {
+/* TENDINA */
+.dropdownMenu {
   position: absolute;
-  bottom: 0;
-  height: 4px;
-  width: 170px;
-  background-color: #000;
-  border-radius: 2px 2px 0 0;
-  transition: transform 0.3s ease;
+  top: 100%;
+  left: 50%;
+  background-color: #fff;
+  border-radius: 8px;
+  z-index: 10;
+  padding: 10px 0;
+  width: var(--navbar-dropdown-width);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
 }
 
-/* Menu Mobile */
+.dropdownMenu.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Menu scende */
+}
+
+.dropdownMenu.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px); /* Menu risale */
+}
+
+.dropdownArrow {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  z-index: 9;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdownButton {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdownLinks {
+  text-decoration: none;
+  color: #000;
+  font-size: var(--navbar-text-font-size);
+}
+
+/* MENU MOBILE */
 @keyframes slideDown {
   0% {
     opacity: 0;
@@ -121,82 +146,78 @@
 }
 
 .mobileMenu {
-	position: absolute;
-	top: 60px;
-	width: 100%;
-	background-color: #70e0ff;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	opacity: 0;
-	transform: translateY(-20px);
-	transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  
-  .mobileMenu.open {
-	opacity: 1;
-	transform: translateY(0);
-  }
-  
-  .mobileMenu.close {
-	opacity: 0;
-	transform: translateY(-20px);
-  }
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  background-color: #70e0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.mobileMenu.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileMenu.close {
+  opacity: 0;
+  transform: translateY(-20px);
+}
 
 .hidden {
   display: none;
 }
 
+/* DROPDOWN SUB MENU*/
 .dropdownSubMenu {
-	background-color: rgba(0, 0, 0, 0.05);
-	height: 0; /* Altezza iniziale a 0 */
-	overflow: hidden; /* Nasconde il contenuto in eccesso */
-	opacity: 0; /* Invisibile */
-	transform: translateY(-10px); /* Inizialmente spostato */
-	transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-	padding: 0; /* Nessun padding iniziale */
-	display: block; /* Mantieni sempre visibile il contenitore */
-	visibility: hidden; /* Non visibile inizialmente */
-  }
-  
-  .dropdownSubMenu.open {
-	height: auto; /* Altezza dinamica in base al contenuto */
-	opacity: 1; /* Visibile */
-	transform: translateY(0); /* Posizione normale */
-	visibility: visible; /* Mostra il dropdown */
-	animation: slideDown 0.3s forwards; /* Usa l'animazione di apertura */
-  }
-  
-  .dropdownSubMenu.close {
-	animation: slideUp 0.3s forwards; /* Usa l'animazione di chiusura */
-	opacity: 0; /* Rende invisibile */
-	transform: translateY(-10px); /* Ritorna nella posizione iniziale */
-	height: 0; /* Altezza a 0 durante la chiusura */
-	padding: 0; /* Rimuovi il padding */
-  }
-  
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(-20px);
+  height: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    height 0.5s ease;
+}
 
-/* Stile per i singoli item nel dropdown */
-.dropdownSubMenu .navbarItem {
-	padding: 8px 0;
-  }
-  
-  .dropdownSubMenu .dropdownButton {
-	width: 100%;
-  }
+.dropdownSubMenu.open {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+}
+
+.dropdownSubMenu.close {
+  opacity: 0;
+  transform: translateY(-20px);
+  height: 0;
+}
+
+.dropdownSubMenu .dropdownButton {
+  width: 100%;
+}
 
 @media (max-width: 640px) {
   .navbar {
     justify-content: center;
     padding: 10px 0;
   }
+
   .hamburger {
-    display: block; /* Mostra l'icona hamburger sui piccoli schermi */
+    display: block; 
   }
 
   .navbarMenu {
-    display: none; /* Nasconde il menu desktop sui piccoli schermi */
+    display: none; 
   }
 
   .navbarItem {
@@ -206,12 +227,16 @@
     width: 100%;
   }
 
-  .navbarActiveIndicator {
+  .navbarIcon {
     display: none;
   }
 
-  .navbarIcon {
+  .dropdownMenu {
     display: none;
+  }
+
+  .dropdownLinks {
+    font-size: var(--text-font-size);
   }
 }
 
@@ -222,11 +247,11 @@
   }
 
   .hamburger {
-    display: block; /* Mostra l'icona hamburger sui piccoli schermi */
+    display: block; 
   }
 
   .navbarMenu {
-    display: none; /* Nasconde il menu desktop sui piccoli schermi */
+    display: none;
   }
 
   .navbarItem {
@@ -235,18 +260,26 @@
     border-bottom: 1px solid #1e88a5;
     width: 100%;
   }
-
-  .navbarActiveIndicator {
-    display: none;
-  }
-
   .navbarIcon {
     display: none;
   }
 
   .navbarText {
     width: 150px;
-    font-size: 20px;
+  }
+
+  .dropdownMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none;
   }
 }
 
@@ -255,34 +288,15 @@
     padding: 10px 0;
   }
 
-  .hamburger {
-    display: none;
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
   }
 
-  .mobileMenu {
-    display: none;
-  }
-
-  .navbarItem {
-    padding: 10px 0;
-    width: 120px;
-  }
-
-  .spanContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 0px 10px;
-    max-width: 100px;
-  }
-
-  .navbarActiveIndicator {
-    width: 120px;
-  }
-
-  .navbarText {
-    font-size: 20px;
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-5%) translateY(0);
   }
 }
 
@@ -291,36 +305,15 @@
     padding: 10px 0;
   }
 
-  .hamburger {
-    display: none;
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
   }
 
-  .mobileMenu {
-    display: none;
-  }
-
-  .navbarItem {
-    padding: 10px;
-    width: 140px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .navbarActiveIndicator {
-    width: 160px;
-  }
-
-  .spanContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .navbarText {
-    font-size: 20px;
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
   }
 }
 
@@ -329,111 +322,48 @@
     padding: 10px 0;
   }
 
-  .hamburger {
-    display: none;
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
   }
 
-  .mobileMenu {
-    display: none;
-  }
-
-  .navbarItem {
-    padding: 10px;
-    width: 160px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .navbarActiveIndicator {
-    width: 180px;
-  }
-
-  .spanContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .navbarText {
-    font-size: 20px;
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
   }
 }
 
 @media (min-width: 1481px) and (max-width: 2600px) {
   .navbar {
-    padding: 25px 0;
+    padding: 20px 0;
   }
 
-  .hamburger {
-    display: none;
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
   }
 
-  .mobileMenu {
-    display: none;
-  }
-
-  .navbarItem {
-    padding: 10px;
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .navbarActiveIndicator {
-    width: 200px;
-  }
-
-  .spanContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .navbarText {
-    font-size: 26px;
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
   }
 }
 
 @media (min-width: 2600px) and (max-width: 3000px) {
   .navbar {
-    padding: 25px 0;
+    padding: 20px 0;
   }
 
-  .hamburger {
-    display: none;
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
   }
 
-  .mobileMenu {
-    display: none;
-  }
-
-  .navbarItem {
-    padding: 10px;
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .navbarActiveIndicator {
-    width: 200px;
-  }
-
-  .spanContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .navbarText {
-    font-size: 28px;
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
   }
 }
