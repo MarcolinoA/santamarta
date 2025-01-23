@@ -22,6 +22,12 @@
   max-width: 500px;
 }
 
+.overlayImage {
+  width: 50%;
+  height: 100%;
+  border-radius: 20px;
+}
+
 .closeButton {
   position: absolute;
   top: 10px;
@@ -33,17 +39,25 @@
   color: black; 
 }
 
+.overlayTitle {
+  font-size: 44px
+}
+
+.overlayDescription {
+  font-size: 42px;
+}
+
 @media (max-width: 408px) {
   .overlayContent {
     width: 70%; 
   }
 
   .overlayTitle {
-    font-size: 22px
+    font-size: 26px;
   }
 
   .overlayDescription {
-    font-size: 18px;
+    font-size: 24px;
   }
 }
 
@@ -53,11 +67,11 @@
   }
 
   .overlayTitle {
-    font-size: 28px
+    font-size: 28px;
   }
 
   .overlayDescription {
-    font-size: 22px;
+    font-size: 26px;
   }
 
   .closeButton {
@@ -73,11 +87,11 @@
   }
 
   .overlayTitle {
-    font-size: 28px
+    font-size: 28px;
   }
 
   .overlayDescription {
-    font-size: 22px;
+    font-size: 26px;
   }
 
   .closeButton {
@@ -93,11 +107,11 @@
   }
 
   .overlayTitle {
-    font-size: 28px
+    font-size: 30px;
   }
 
   .overlayDescription {
-    font-size: 22px;
+    font-size: 28px;
   }
 
   .closeButton {
@@ -109,11 +123,11 @@
 
 @media (min-width: 1025px) and (max-width: 1280px) {
   .overlayTitle {
-    font-size: 28px
+    font-size: 30px;
   }
 
   .overlayDescription {
-    font-size: 22px;
+    font-size: 28px;
   }
 
   .closeButton {
@@ -125,11 +139,11 @@
 
 @media (min-width: 1281px) and (max-width: 1680px) {
   .overlayTitle {
-    font-size: 28px
+    font-size: 32px;
   }
 
   .overlayDescription {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   .closeButton {
@@ -139,23 +153,65 @@
   }
 }
 
-@media (min-width: 1681px) {
+@media (min-width: 1681px) and (max-width: 2200px){
   .overlayContent {
     width: 90%;
     max-width: 700px; 
   }
 
   .overlayTitle {
-    font-size: 30px
+    font-size: 32px;
   }
 
   .overlayDescription {
-    font-size: 26px;
+    font-size: 30px;
   }
 
   .closeButton {
     top: 10px;
     right: 10px;
     font-size: 30px;
+  }
+}
+
+@media (min-width: 2201px) and (max-width: 2600px) {
+  .overlayContent {
+    width: 90%;
+    max-width: 800px; 
+  }
+
+  .overlayTitle {
+    font-size: 34px;
+  }
+
+  .overlayDescription {
+    font-size: 32px;
+  }
+
+  .closeButton {
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 2601px) {
+  .overlayContent {
+    width: 90%;
+    max-width: 900px; 
+  }
+
+  .overlayTitle {
+    font-size: 36px;
+  }
+
+  .overlayDescription {
+    font-size: 34px;
+  }
+
+  .closeButton {
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
   }
 }

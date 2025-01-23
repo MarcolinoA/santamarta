@@ -87,18 +87,20 @@
 	justify-content: center;
 	align-items: center;
 	transform: translateX(-50%); 
+	height: var(--card-name-small-height);
+	font-size: var(--card-name-small-font-size);
 }
 
 .cardNameLarge {
 	width: 300px;
-	height: 30px;
-	font-size: 24px;
+	height: var(--card-name-small-height);
+	font-size: var(--card-name-small-font-size);
 }
 
 .cardNameSmall {
 	width: 200px;
-	height: 30px;
-	font-size: 18px;
+	height: var(--card-name-small-height);
+	font-size: var(--card-name-small-font-size);
 	padding: 8px;
 }
 
@@ -142,7 +144,6 @@
 .cardBack p {
 	margin: 10px;
 	font-size: 16px;
-	color: #333;
 }
 
 .cardLayout {
@@ -221,6 +222,14 @@
 	height: 700px;
 }
 
+.cardNameSquare {
+	width: 350px;
+	font-size: var(--card-name-small-font-size);
+	height: var(--card-name-small-height);
+	padding: 6px;
+	border-radius: 30px;
+}
+
 .customGridClass1 {
 	display: flex;
 	flex-direction: row;
@@ -262,7 +271,7 @@
 		height: auto;
 		aspect-ratio: 5 / 6;
 		min-width: 72px;
-		min-height: 100px;
+		min-height: 130px;
 	}
 
 	.cardName {
@@ -274,17 +283,11 @@
 
 	.cardNameLarge {
 		width: 120px;
-		height: 15px;
-		font-size: 12px;
 	}
 	
 	.cardNameSmall {
-		width: 50px;
-		height: 12px;
-		font-size: 10px;
+		width: 65px;
 		padding: 6px;
-		border-radius: 10px;
-		font-size: 10px;
 	}
 
 	.cardGrid {
@@ -331,11 +334,6 @@
 
 	.cardNameSquare {
 		width: 90px;
-		height: 12px;
-		font-size: 10px;
-		padding: 6px;
-		border-radius: 10px;
-		font-size: 11px;
 	}
 }
 
@@ -375,14 +373,10 @@
 
 	.cardNameLarge {
 		width: 120px;
-		height: 15px;
-		font-size: 12px;
 	}
 	
 	.cardNameSmall {
 		width: 80px;
-		height: 12px;
-		font-size: 10px;
 		padding: 6px;
 	}
 
@@ -396,7 +390,7 @@
 	}
 
 	.cardBack p {
-		font-size: 8px;
+		font-size: 9px;
 		margin: 5px;
 	}
 
@@ -426,9 +420,7 @@
 
 	.cardNameSquare {
 		width: 100px;
-		height: 12px;
 		padding: 8px;
-		font-size: 12px;
 	}
 }
 
@@ -464,15 +456,11 @@
 	}
 
 	.cardNameLarge {
-		width: 150px;
-		height: 18px;
-		font-size: 14px;
+		width: 190px;
 	}
 	
 	.cardNameSmall {
 		width: 120px;
-		height: 20px;
-		font-size: 14px;
 		padding: 6px;
 	}
 
@@ -511,8 +499,6 @@
 
 	.cardNameSquare {
 		width: 150px;
-		height: 18px;
-		font-size: 15px;
 	}
 }
 
@@ -543,15 +529,11 @@
 	}
 
 	.cardNameLarge {
-		width: 200px;
-		height: 20px;
-		font-size: 18px;
+		width: 250px;
 	}
 	
 	.cardNameSmall {
 		width: 140px;
-		height: 20px;
-		font-size: 15px;
 		padding: 8px;
 	}
 
@@ -577,8 +559,6 @@
 
 	.cardNameSquare {
 		width: 200px;
-		height: 20px;
-		font-size: 18px;
 	}
 
 	.customGridClass2 {
@@ -587,12 +567,6 @@
 
 	.customGridClass1 {
 		gap: 15px;
-	}
-
-	.cardNameSquare {
-		width: 150px;
-		height: 18px;
-		font-size: 15px;
 	}
 }
 
@@ -623,15 +597,11 @@
 	}
 
 	.cardNameLarge {
-		width: 250px;
-		height: 25px;
-		font-size: 20px;
+		width: 280px;
 	}
 	
 	.cardNameSmall {
-		width: 180px;
-		height: 25px;
-		font-size: 16px;
+		width: 200px;
 		padding: 8px;
 	}
 
@@ -656,25 +626,21 @@
 	}
 
 	.cardNameSquare {
-		width: 250px;
-		height: 25px;
-		font-size: 20px;
+		width: 225px;
 	}
 
 	.customGridClass1 {
 		gap: 15px;
-	}
-
-	.cardNameSquare {
-		width: 150px;
-		height: 18px;
-		font-size: 15px;
 	}
 }
 
 @media (min-width: 1281px) and (max-width: 1680px) {
 	.cardBack p {
 		font-size: 23px;
+	}
+
+	.cardNameLarge {
+		width: 400px;
 	}
 
 	.squareCard {
@@ -689,8 +655,6 @@
 
 	.cardNameSquare {
 		width: 250px;
-		height: 30px;
-		font-size: 22px;
 	}
 
 	.customGridClass1 {
@@ -725,15 +689,11 @@
 	}
 
 	.cardNameLarge {
-		width: 350px;
-		height: 25px;
-		font-size: 22px;
+		width: 400px;
 	}
 	
 	.cardNameSmall {
-		width: 250px;
-		height: 30px;
-		font-size: 20px;
+		width: 280px;
 		padding: 8px;
 	}
 
@@ -757,8 +717,8 @@
 	}
 
 	.cardNameSquare {
-		width: 250px;
-		font-size: 26px;
+		width: 300px;
+		padding: 20px;
 	}
 
 	.customGridClass2 {
@@ -797,15 +757,11 @@
 	}
 
 	.cardNameLarge {
-		width: 350px;
-		height: 25px;
-		font-size: 22px;
+		width: 400px;
 	}
 	
 	.cardNameSmall {
-		width: 280px;
-		height: 32px;
-		font-size: 22px;
+		width: 300px;
 		padding: 8px;
 	}
 
@@ -815,7 +771,7 @@
 	}
 
 	.cardBack p {
-		font-size: 25px;
+		font-size: 28px;
 	}
 
 	.squareCard {
@@ -830,7 +786,7 @@
 
 	.cardNameSquare {
 		width: 350px;
-		font-size: 30px;
+		padding: 20px;
 	}
 
 	.customGridClass2 {
@@ -869,15 +825,11 @@
 	}
 
 	.cardNameLarge {
-		width: 350px;
-		height: 25px;
-		font-size: 22px;
+		width: 400px;
 	}
 	
 	.cardNameSmall {
-		width: 280px;
-		height: 32px;
-		font-size: 22px;
+		width: 320px;
 		padding: 8px;
 	}
 
@@ -887,7 +839,7 @@
 	}
 
 	.cardBack p {
-		font-size: 25px;
+		font-size: 30px;
 	}
 
 	.squareCard {
@@ -902,7 +854,7 @@
 
 	.cardNameSquare {
 		width: 350px;
-		font-size: 32px;
+		padding: 20px;
 	}
 
 	.customGridClass2 {
@@ -942,14 +894,10 @@
 
 	.cardNameLarge {
 		width: 380px;
-		height: 30px;
-		font-size: 32px;
 	}
 	
 	.cardNameSmall {
-		width: 300px;
-		height: 40px;
-		font-size: 30px;
+		width: 330px;
 		padding: 8px;
 	}
 
@@ -959,7 +907,7 @@
 	}
 
 	.cardBack p {
-		font-size: 25px;
+		font-size: 32px;
 	}
 
 	.squareCard {
@@ -974,7 +922,7 @@
 
 	.cardNameSquare {
 		width: 350px;
-		font-size: 32px;
+		padding: 20px;
 	}
 
 	.customGridClass2 {
@@ -1014,14 +962,10 @@
 
 	.cardNameLarge {
 		width: 420px;
-		height: 40px;
-		font-size: 38px;
 	}
 	
 	.cardNameSmall {
 		width: 360px;
-		height: 55px;
-		font-size: 36px;
 		padding: 8px;
 	}
 
@@ -1031,7 +975,7 @@
 	}
 
 	.cardBack p {
-		font-size: 25px;
+		font-size: 34px;
 	}
 
 	.squareCard {
@@ -1046,7 +990,7 @@
 
 	.cardNameSquare {
 		width: 350px;
-		font-size: 34px;
+		padding: 20px;
 	}
 
 	.customGridClass2 {

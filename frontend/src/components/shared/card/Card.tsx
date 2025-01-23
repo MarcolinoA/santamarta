@@ -2,6 +2,12 @@
 import React, { useRef, useState } from "react";
 import stylesCard from "../../../Styles/Card.module.css";
 import Image, { StaticImageData } from "next/image";
+import { Fjalla_One } from "@next/font/google";
+
+const fjalla = Fjalla_One({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 interface CardProps {
   img: string | StaticImageData;
@@ -73,7 +79,7 @@ const Card: React.FC<CardProps> = ({
     <div
       data-id={`card-container-${dataid}`}
       ref={cardRef}
-      className={cardClasses}
+      className={`${cardClasses} ${fjalla.className}`}
       onClick={handleClick}
     >
       <div className={`${stylesCard.cardInner} ${isCardFlipped && isFlippable ? stylesCard.flipped : ""}`}>

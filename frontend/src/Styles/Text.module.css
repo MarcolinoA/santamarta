@@ -19,6 +19,7 @@
 .titles {
     font-size: 44px;
     text-align: center;
+    margin: 15px;
 }
 
 @media (max-width: 408px){
@@ -34,8 +35,7 @@
     }
 
     .titles {
-        font-size: 22px;
-        margin: 15px;
+        font-size: 30px;
     }
 }
 
@@ -52,8 +52,7 @@
     }
 
     .titles {
-        font-size: 24px;
-        margin: 15px;
+        font-size: 34px;
     }
 }
 
@@ -70,8 +69,7 @@
     }
 
     .titles {
-        font-size: 30px;
-        margin: 15px;
+        font-size: 40px;
     }
 }
 
@@ -88,8 +86,7 @@
     }
 
     .titles {
-        font-size: 32px;
-        margin: 15px;
+        font-size: 44px;
     }
 }
 
@@ -106,8 +103,7 @@
     }
 
     .titles {
-        font-size: 32px;
-        margin: 15px;
+        font-size: 48px;
     }
 }
 
@@ -124,12 +120,28 @@
     }
 
     .titles {
-        font-size: 32px;
-        margin: 15px;
+        font-size: 52px;
     }
 }
 
-@media (min-width: 2581px){
+@media (min-width: 1681px) and (max-width: 2200px){
+    .laScuolaTitle{
+        font-size: 42px;
+        margin: 10px;
+    }
+
+    .laScuolaP {
+        width: 70%;
+        font-size: 26px;
+        margin: 10px;
+    }
+
+    .titles {
+        font-size: 56px;
+    }
+}
+
+@media (min-width: 2201px) and (max-width: 2600px) {
     .laScuolaTitle{
         font-size: 52px;
         margin: 10px;
@@ -142,7 +154,12 @@
     }
 
     .titles {
-        font-size: 46px;
-        margin: 15px;
+        font-size: 62px;
+    }
+}
+
+@media (min-width: 2601px) {
+    .titles {
+        font-size: 68px;
     }
 }

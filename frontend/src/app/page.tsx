@@ -35,7 +35,7 @@ export const metadata = {
 const Home = () => {
 	return (
 		<div>
-			<main className={styles.main}>
+			<main className={`${styles.main}`}>
 				<Navbar />
 				<Suspense fallback={<div>Loading Home...</div>}>
 					<HomePage />

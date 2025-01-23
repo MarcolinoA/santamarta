@@ -61,21 +61,39 @@ body {
 }
 
 :root {
+	/* Navbar */
   --navbar-text-font-size: 32px;
   --navbar-item-width: 150px;
   --navbar-item-padding: 20px;
-  --navbar-dropdown-width: 190px
+  --navbar-dropdown-width: 190px;
+  
+  /* Card */
+  --card-name-small-font-size: 24px;
+  --card-name-small-height: 50px;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 408px){
+	:root {
+		--card-name-small-font-size: 12px;
+		--card-name-small-height: 20px;
+	}
+}
+
+@media (min-width: 409px) and (max-width: 640px) {
   :root {
     --navbar-text-font-size: 22px;
+
+	--card-name-small-font-size: 12px;
+	--card-name-small-height: 20px;
   }
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
 	:root {
 		--navbar-text-font-size: 24px;
+
+		--card-name-small-font-size: 16px;
+		--card-name-small-height: 30px;
 	}
 }
 
@@ -85,6 +103,9 @@ body {
 		--navbar-item-width: 140px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 180px;
+
+		--card-name-small-font-size: 20px;
+		--card-name-small-height: 40px;
 	}
 }
 
@@ -94,6 +115,9 @@ body {
 		--navbar-item-width: 160px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 200px;
+
+		--card-name-small-font-size: 22px;
+		--card-name-small-height: 45px;
 	}
 }
 
@@ -103,6 +127,9 @@ body {
 		--navbar-item-width: 180px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 220px;
+
+		--card-name-small-font-size: 22px;
+		--card-name-small-height: 45px;
 	}
 }
 
@@ -112,6 +139,9 @@ body {
 		--navbar-item-width: 180px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 220px;
+
+		--card-name-small-font-size: 26px;
+		--card-name-small-height: 55px;
 	}
 }
 
@@ -121,6 +151,9 @@ body {
 		--navbar-item-width: 220px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 260px;
+
+		--card-name-small-font-size: 30px;
+		--card-name-small-height: 60px;
 	}
 }
 
@@ -130,6 +163,9 @@ body {
 		--navbar-item-width: 250px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 290px;
+
+		--card-name-small-font-size: 34px;
+		--card-name-small-height: 60px;
 	}
 }
 
@@ -139,5 +175,8 @@ body {
 		--navbar-item-width: 300px;
 		--navbar-item-padding: 20px;
 		--navbar-dropdown-width: 340px;
+
+		--card-name-small-font-size: 38px;
+		--card-name-small-height: 75px;
 	}
 }

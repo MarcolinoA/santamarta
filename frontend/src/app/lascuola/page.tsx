@@ -1,6 +1,12 @@
 import React from "react";
 import LaScuolaPage from "../../components/LaScuola/LaScuolaPage";
 import Navbar from "../../components/shared/Navbar";
+import { Fjalla_One } from "@next/font/google";
+
+const fjalla = Fjalla_One({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 // Esporta il metadata
 export const metadata = {
@@ -29,7 +35,7 @@ export const metadata = {
 const LaScuola = () => {
 	return (
 		<div>
-			<main>
+			<main className={`${fjalla.className}`}>
 				<Navbar />
 				<LaScuolaPage />
 			</main>

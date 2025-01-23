@@ -26,7 +26,7 @@ const Overlay: React.FC<OverlayProps> = ({
   return (
     <div className={stylesOverlay.overlay}>
       <div className={stylesOverlay.overlayContent}>
-        <Image src={logo} alt="Logo" width={150} />
+        <Image className={stylesOverlay.overlayImage} src={logo} alt="Logo" width={150} />
         <button className={stylesOverlay.closeButton} onClick={onClose}>
           ×
         </button>
