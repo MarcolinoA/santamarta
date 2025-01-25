@@ -1,7 +1,7 @@
 .CardContainer {
 	position: relative;
 	overflow: hidden;
-	border-radius: 15px;
+	border-radius: 30px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 	background-color: #fff;
 	opacity: 1;

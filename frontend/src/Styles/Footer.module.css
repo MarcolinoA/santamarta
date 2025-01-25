@@ -128,7 +128,7 @@
   }
 
   .newsletter {
-    width: 300px;
+    width: 250px;
   }
 
   .footer p {
@@ -224,7 +224,8 @@
   }
 
   .footer p,
-  .footerBottom p {
+  .footerBottom p,
+  .footer a {
     font-size: 16px;
   }
 
@@ -241,6 +242,7 @@
   .footer {
     padding: 20px 10px ;
   }
+
   .footer h4 {
     font-size: 20px;
     margin-bottom: 8px;
@@ -250,7 +252,7 @@
   .footerSection a,
   .footerSection p,
   .footerBottom p {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .footerSection div{
@@ -264,7 +266,7 @@
   }
 
   .footer h4 {
-    font-size: 20px;
+    font-size: 28px;
     margin-bottom: 8px;
     margin-top: 15px;
   }
@@ -304,7 +306,7 @@
   }
 
   .footer h4 {
-    font-size: 24px;
+    font-size: 30px;
     margin-bottom: 8px;
     margin-top: 15px;
   }
@@ -320,7 +322,7 @@
   }
 
   .newsletter h4 {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .newsletter input {
@@ -344,7 +346,7 @@
   }
 
   .footer h4 {
-    font-size: 24px;
+    font-size: 32px;
     margin-bottom: 8px;
     margin-top: 15px;
   }
@@ -352,7 +354,7 @@
   .footerSection a,
   .footerSection p,
   .footerBottom p {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .newsletter {
@@ -360,7 +362,7 @@
   }
 
   .newsletter h4 {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .newsletter input {
@@ -378,21 +380,25 @@
   }
 }
 
-@media (min-width: 2601px) {
+@media (min-width: 2601px) and (max-width: 2900px) {
   .footer {
     padding: 20px 10px ;
   }
 
   .footer h4 {
-    font-size: 26px;
+    font-size: 34px;
     margin-bottom: 8px;
     margin-top: 15px;
+  }
+
+  .footerSection {
+    max-width: none;
   }
 
   .footerSection a,
   .footerSection p,
   .footerBottom p {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .newsletter {
@@ -400,7 +406,7 @@
   }
 
   .newsletter h4 {
-    font-size: 30px;
+    font-size: 34px;
   }
 
   .newsletter input {
@@ -414,10 +420,50 @@
   }
 
   .footerSection div{
-    padding: 0 100px;
+    padding: 0 120px;
   }
 }
 
 @media (min-width: 2901px){
+  .footer {
+    padding: 20px 10px ;
+  }
 
+  .footer h4 {
+    font-size: 38px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+  }
+
+  .footerSection {
+    max-width: none;
+  }
+
+  .footerSection a,
+  .footerSection p,
+  .footerBottom p {
+    font-size: 28px;
+  }
+
+  .newsletter {
+    width: 900px;
+  }
+
+  .newsletter h4 {
+    font-size: 38px;
+  }
+
+  .newsletter input {
+    height: 30px;
+    font-size: 24px;
+  }
+
+  .newsletter button {
+    width: 140px;
+    font-size: 24px;
+  }
+
+  .footerSection div{
+    padding: 0 180px;
+  }
 }

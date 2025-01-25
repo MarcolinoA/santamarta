@@ -36,8 +36,8 @@ const Navbar: React.FC = () => {
   const menuItems: MenuItem[] = [
     { name: "Home", route: "/" },
     { name: "La scuola", route: "/lascuola" },
-    { name: "Documents", route: "/documents" },
     { name: "Profilo", route: "#" },
+    { name: "Documents", route: "/documents" },
   ];
 
   const dropdownOptions = [

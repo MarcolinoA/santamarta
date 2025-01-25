@@ -8,6 +8,13 @@ import img1 from "../../../public/festadelluva.jpeg";
 import img2 from "../../../public/logo.png";
 import img3 from "../../../public/fattoriaDidattica.jpeg";
 import Footer from "../shared/Footer";
+import Timeline from "./Timeline";
+import { Wendy_One } from "@next/font/google";
+
+const wendyOne = Wendy_One({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const LaScuolaPage: React.FC = () => {
   const [cardArr, setCardArr] = useState([
@@ -121,7 +128,9 @@ const LaScuolaPage: React.FC = () => {
   return (
     <div>
       <div className={stylesText.laScuolaDesc}>
-        <h1  className={stylesText.laScuolaTitle}>Cos'è Santa Marta</h1>
+        <h1 className={`${stylesText.titles} ${wendyOne.className}`}>
+          Cos'è Santa Marta
+        </h1>
         <p className={stylesText.laScuolaP}>
           Santa Marta è una scuola parificata dell’Infanzia accoglie bambini dai
           3 ai 5 anni e promuove la formazione integrale del bambino/a nella sua
@@ -138,6 +147,16 @@ const LaScuolaPage: React.FC = () => {
         cardItems={cardArr}
         gridClassName={stylesCard.customGridClass2}
       />
+      <div className={stylesText.laScuolaDesc}>
+        <h1 className={`${stylesText.titles} ${wendyOne.className}`}>
+          La Nostra Storia
+        </h1>
+        <p className={stylesText.laScuolaP}>
+          Scopri le tappe fondamentali della nostra storia navigando con le
+          frecce.
+        </p>
+      </div>
+      <Timeline />
 
       <OverlayCardTable
         cardTitle="Lo staff"
