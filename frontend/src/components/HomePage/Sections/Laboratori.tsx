@@ -4,7 +4,7 @@ import stylesCard from "../../../Styles/Card.module.css";
 import stylesText from "../../../Styles/Text.module.css";
 import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
 import Card from "../../shared/card/Card";
-import { Wendy_One } from "@next/font/google";
+import { Wendy_One } from 'next/font/google';
 
 const wendyOne = Wendy_One({
   subsets: ["latin"],

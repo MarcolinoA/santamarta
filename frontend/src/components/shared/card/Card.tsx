@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import stylesCard from "../../../Styles/Card.module.css";
 import Image, { StaticImageData } from "next/image";
-import { Fjalla_One } from "@next/font/google";
+import { Fjalla_One } from "next/font/google";
 
 const fjalla = Fjalla_One({
   subsets: ["latin"],

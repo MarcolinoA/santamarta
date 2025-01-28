@@ -1,5 +1,32 @@
-.container {
-	margin-top: 30px;
+.headerContainer {
+	position: relative;
+	width: 90%;
+	margin: 40px auto; 
+	background-color: #fff;
+	border-radius: 20px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	box-sizing: border-box; 
+}
+
+.headerContainer img {
+    position: static !important;
+    height: auto !important;
+    inset: auto !important;
+    object-fit: contain !important; 
+}
+
+.headerContainer img {
+	max-width: 100%;
+	display: block;
+	margin: 0 auto;
+	border-radius: 20px;
+	object-fit: scale-down;
 }
 
 .title {
@@ -37,6 +64,11 @@ div.headerContainer.formPageLayout {
 }
 
 @media (max-width: 408px) {
+	.headerContainer {
+		width: 90%;
+		height: auto;
+	}
+
 	.title {
 		font-size: 18px;
 	}
@@ -47,6 +79,11 @@ div.headerContainer.formPageLayout {
 }
 
 @media (min-width: 409px) and (max-width: 640px) { /* sm */
+	.headerContainer {
+		width: 90%;
+		height: auto;
+	}
+
 	.title {
 		font-size: 20px;
 	}
@@ -57,27 +94,48 @@ div.headerContainer.formPageLayout {
 }
 
 @media (min-width: 641px) and (max-width: 768px) { /* md */
+	.headerContainer {
+		width: 85%;
+		height: auto;
+	}
+
 	.title {
 		font-size: 22px;
 	}
 }
 
 @media (min-width: 769px) and (max-width: 1024px) { /* lg */
+	.headerContainer {
+		width: 80%;
+		height: auto;
+	}
+
 	.title {
 		font-size: 24px;
 	}
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) { /* xl */
+	.headerContainer {
+		width: 75%;
+		height: auto;
+	}
+
 	.title {
 		font-size: 26px;
 	}
 }
 
-@media (min-width: 1281px) and (max-width: 1480px)  {
+@media (min-width: 1281px) and (max-width: 1680px) {
+	.headerContainer {
+		width: 70%;
+		height: auto;
+		margin: 20px auto;
+	}
+
 	.title {
 		margin: 0;
-		font-size: 24px;
+		font-size: 28px;
 	}
 
 	.registerHeader {
@@ -86,10 +144,84 @@ div.headerContainer.formPageLayout {
 }
 
 
-@media (min-width: 1481px) {
+@media (min-width: 1681px) and (max-width: 2000px) {
+	.headerContainer {
+		width: 70%;
+		height: auto;
+		margin: 20px auto;
+	}
+
 	.title {
 		margin: 0;
-		font-size: 24px;
+		font-size: 30px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2001px) and (max-width: 2300px) {
+	.headerContainer {
+		width: 70%;
+		height: auto;
+		margin: 40px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 34px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2301px) and (max-width: 2600px) {
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		margin: 40px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 38px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2601px) and (max-width: 2900px) {
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		margin: 40px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 40px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2901px){
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		margin: 50px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 46px;
 	}
 
 	.registerHeader {

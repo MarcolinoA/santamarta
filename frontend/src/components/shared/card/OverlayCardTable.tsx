@@ -5,7 +5,7 @@ import stylesText from "../../../Styles/Text.module.css";
 import Card from "./Card";
 import Overlay from "./Overlay";
 import { StaticImageData } from "next/image";
-import { Wendy_One } from '@next/font/google';
+import { Wendy_One } from 'next/font/google';
 
 const wendyOne = Wendy_One({
   subsets: ['latin'], 

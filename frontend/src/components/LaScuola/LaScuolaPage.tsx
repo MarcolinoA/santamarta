@@ -9,7 +9,7 @@ import img2 from "../../../public/logo.png";
 import img3 from "../../../public/fattoriaDidattica.jpeg";
 import Footer from "../shared/Footer";
 import Timeline from "./Timeline";
-import { Wendy_One } from "@next/font/google";
+import { Wendy_One } from 'next/font/google';
 
 const wendyOne = Wendy_One({
   subsets: ["latin"],

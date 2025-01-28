@@ -2,11 +2,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import stylesNavbar from "../../Styles/Navbar.module.css";
+import stylesNavbar from "../../Styles/Navbar/Navbar.module.css";
 import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import { useAuthentication } from "../../hooks/useAuthentications";
-import { Wendy_One } from '@next/font/google';
+import { Wendy_One } from 'next/font/google';
 
 const wendyOne = Wendy_One({
   subsets: ['latin'], 
@@ -41,10 +41,19 @@ const Navbar: React.FC = () => {
   ];
 
   const dropdownOptions = [
-    { label: "Impostazioni", href: "/settings", dataid: "settings" },
-    { label: "Logout", href: "/logout", dataid: "logout" },
+    {
+      label: "Registrati",
+      href: "/account/pages/signup",
+      dataid: "signup-btn",
+    },
+    { label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
+    { label: "Esci", href: "/account/pages/logout", dataid: "logout-btn" },
+    {
+      label: "Elimina",
+      href: "/account/pages/deleteAccount",
+      dataid: "delete-account-btn",
+    },
   ];
-
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };

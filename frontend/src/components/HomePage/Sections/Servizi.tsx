@@ -8,7 +8,7 @@ import sportelloPediatrico from "../../../../public/servizi/SportelloPediatrico.
 import sportelloPsicologico from "../../../../public/servizi/SportelloPsicologico.jpg";
 import doposcuola from "../../../../public/servizi/Doposcuola.jpg";
 import Card from "../../shared/card/Card";
-import { Wendy_One } from "@next/font/google";
+import { Wendy_One } from 'next/font/google';
 
 const wendyOne = Wendy_One({
   subsets: ["latin"],

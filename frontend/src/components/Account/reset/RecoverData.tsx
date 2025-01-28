@@ -5,9 +5,9 @@ import Image from "next/image";
 import logo from "../../../../public/logo.png";
 import InputField from "../../shared/InputFieldProps";
 import FormFooter from "../../shared/FormFooter";
-import HeaderBtn from "../../shared/btns/HeaderBtn";
 import stylesHeader from "../../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../../Styles/Form.module.css";
+import Navbar from "../../shared/Navbar";
 
 interface FormData {
   email: string;
@@ -56,15 +56,12 @@ const RecoverData: React.FC<RecoverDataProps> = ({
 
     try {
       // Invio della richiesta al server
-      const response = await fetch(
-        `/api/otp/forgot-data`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...formData, type }),
-          credentials: "include", // Include cookies se necessario
-        }
-      );
+      const response = await fetch(`/api/otp/forgot-data`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, type }),
+        credentials: "include", // Include cookies se necessario
+      });
 
       // Controllo della risposta
       if (!response.ok) {
@@ -97,44 +94,50 @@ const RecoverData: React.FC<RecoverDataProps> = ({
   };
 
   return (
-    <div className={stylesHeader.headerContainer}>
-      <Image src={logo} alt="Logo" width={150} />
-      <h2 data-id="rd-title" className={stylesHeader.title}>
-        {title}
-      </h2>
-      <p data-id="rd-desc" className={stylesHeader.description}>
-        Inserisci l&#39;email con cui ti sei registrato per ricevere un link per
-        reimpostare {description}
-      </p>
-      <form data-id="rd-form" onSubmit={handleSubmit} className={stylesForm.form}>
-        <div className={stylesForm.formGroup}>
-          <InputField
-            id="email"
-            dataid="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            label="Email"
-            required
+    <>
+      <Navbar />
+      <div className={stylesHeader.headerContainer}>
+        <Image src={logo} alt="Logo" width={150} />
+        <h2 data-id="rd-title" className={stylesHeader.title}>
+          {title}
+        </h2>
+        <p data-id="rd-desc" className={stylesHeader.description}>
+          Inserisci l&#39;email con cui ti sei registrato per ricevere un link
+          per reimpostare {description}
+        </p>
+        <form
+          data-id="rd-form"
+          onSubmit={handleSubmit}
+          className={stylesForm.form}
+        >
+          <div className={stylesForm.formGroup}>
+            <InputField
+              id="email"
+              dataid="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              label="Email"
+              required
+            />
+          </div>
+          <FormFooter
+            message={message}
+            loading={loading}
+            btnDataId="rd-btn"
+            btnLoadingText="Invio..."
+            btnText="Invia"
+            hrefLink="/"
+            linkText="Torna alla home"
+            hrefLink2=""
+            linkText2=""
+            hrefLink3=""
+            linkText3=""
           />
-        </div>
-        <FormFooter
-          message={message}
-          loading={loading}
-          btnDataId="rd-btn"
-          btnLoadingText="Invio..."
-          btnText="Invia"
-          hrefLink="/"
-          linkText="Torna alla home"
-          hrefLink2=""
-          linkText2=""
-          hrefLink3=""
-          linkText3=""
-        />
-      </form>
-      <HeaderBtn isLoggedIn={false} username="" options={options} />
-    </div>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../Styles/Footer.module.css";
-import { Fjalla_One } from "@next/font/google";
+import { Fjalla_One } from "next/font/google";
 
 const fjalla = Fjalla_One({
   subsets: ["latin"],

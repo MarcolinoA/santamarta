@@ -4,6 +4,7 @@ import logo from "../../../public/logo.png";
 import HeaderBtn from "./btns/HeaderBtn";
 import stylesHeader from "../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../Styles/Form.module.css";
+import Navbar from "./Navbar";
 
 const options = [
   { label: "Home", href: "/", dataid: "home-btn" },
@@ -17,18 +18,20 @@ const options = [
 
 function AccessDenied() {
   return (
-    <div
-      className={`${stylesHeader.headerContainer} ${stylesHeader.formPageLayout}`}
-    >
-      <Image src={logo} alt="Logo" width={150} />
-      <h2 data-id="access-denied" className={stylesForm.formTitle}>
-        Accesso Negato
-      </h2>
-      <p data-id="session-expired">
-        Sessione scaduta. Effettua nuovamente il login.
-      </p>
-      <HeaderBtn isLoggedIn={false} username="" options={options} />
-    </div>
+    <>
+      <Navbar />
+      <div
+        className={`${stylesHeader.headerContainer} ${stylesHeader.formPageLayout}`}
+      >
+        <Image src={logo} alt="Logo" width={150} />
+        <h2 data-id="access-denied" className={stylesForm.formTitle}>
+          Accesso Negato
+        </h2>
+        <p data-id="session-expired">
+          Sessione scaduta. Effettua nuovamente il login.
+        </p>
+      </div>
+    </>
   );
 }
 
