@@ -23,11 +23,11 @@ function AccessDenied() {
       <div
         className={`${stylesHeader.headerContainer} ${stylesHeader.formPageLayout}`}
       >
-        <Image src={logo} alt="Logo" width={150} />
-        <h2 data-id="access-denied" className={stylesForm.formTitle}>
+        <Image src={logo} alt="Logo" width={150} className={stylesForm.logo}/>
+        <h2 data-id="access-denied" className={stylesForm.accessDeniedTitle}>
           Accesso Negato
         </h2>
-        <p data-id="session-expired">
+        <p data-id="session-expired" className={stylesForm.accessDeniedDesc}>
           Sessione scaduta. Effettua nuovamente il login.
         </p>
       </div>

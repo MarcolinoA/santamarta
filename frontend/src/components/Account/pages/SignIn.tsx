@@ -94,9 +94,9 @@ const SignIn: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className={`${stylesHeader.headerContainer} ${stylesHeader.login}`}>
+      <div className={`${stylesHeader.headerContainer}`}>
         <div className={stylesForm.loginHeader}>
-          <Image src={logo} alt="Logo" width={150} />
+          <Image src={logo} alt="Logo" width={150} className={stylesForm.logo}/>
           <h2 data-id="title" className={stylesHeader.title}>
             Effettua l&#39;accesso
           </h2>

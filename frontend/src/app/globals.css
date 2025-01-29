@@ -70,12 +70,19 @@ body {
   /* Card */
   --card-name-small-font-size: 24px;
   --card-name-small-height: 50px;
+
+  /* Form */
+  --form-font-size: 20px;
+  --form-width: 450px;
 }
 
 @media (max-width: 408px){
 	:root {
 		--card-name-small-font-size: 12px;
 		--card-name-small-height: 20px;
+
+		--form-font-size: 16px;
+		--form-width: 250px;
 	}
 }
 
@@ -85,6 +92,9 @@ body {
 
 	--card-name-small-font-size: 12px;
 	--card-name-small-height: 20px;
+
+	--form-font-size: 18px;
+	--form-width: 320px;
   }
 }
 
@@ -94,6 +104,9 @@ body {
 
 		--card-name-small-font-size: 16px;
 		--card-name-small-height: 30px;
+
+		--form-font-size: 20px;
+		--form-width: 400px;
 	}
 }
 
@@ -106,6 +119,9 @@ body {
 
 		--card-name-small-font-size: 20px;
 		--card-name-small-height: 40px;
+
+		--form-font-size: 22px;
+		--form-width: 450px;
 	}
 }
 
@@ -118,6 +134,9 @@ body {
 
 		--card-name-small-font-size: 22px;
 		--card-name-small-height: 45px;
+
+		--form-font-size: 22px;
+		--form-width: 500px;
 	}
 }
 
@@ -130,6 +149,9 @@ body {
 
 		--card-name-small-font-size: 22px;
 		--card-name-small-height: 45px;
+
+		--form-font-size: 22px;
+		--form-width: 500px;
 	}
 }
 
@@ -142,6 +164,9 @@ body {
 
 		--card-name-small-font-size: 26px;
 		--card-name-small-height: 55px;
+
+		--form-font-size: 24px;
+		--form-width: 600px;
 	}
 }
 
@@ -154,6 +179,9 @@ body {
 
 		--card-name-small-font-size: 30px;
 		--card-name-small-height: 60px;
+
+		--form-font-size: 26px;
+		--form-width: 700px;
 	}
 }
 
@@ -166,6 +194,9 @@ body {
 
 		--card-name-small-font-size: 34px;
 		--card-name-small-height: 60px;
+
+		--form-font-size: 28px;
+		--form-width: 750px;
 	}
 }
 
@@ -178,5 +209,8 @@ body {
 
 		--card-name-small-font-size: 38px;
 		--card-name-small-height: 75px;
+
+		--form-font-size: 32px;
+		--form-width: 900px;
 	}
 }

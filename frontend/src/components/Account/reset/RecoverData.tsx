@@ -97,18 +97,18 @@ const RecoverData: React.FC<RecoverDataProps> = ({
     <>
       <Navbar />
       <div className={stylesHeader.headerContainer}>
-        <Image src={logo} alt="Logo" width={150} />
-        <h2 data-id="rd-title" className={stylesHeader.title}>
+        <Image src={logo} alt="Logo" width={150} className={stylesForm.logo}/>
+        <h2 data-id="rd-title" className={stylesForm.accessDeniedTitle}>
           {title}
         </h2>
-        <p data-id="rd-desc" className={stylesHeader.description}>
+        <p data-id="rd-desc" className={stylesForm.accessDeniedDesc}>
           Inserisci l&#39;email con cui ti sei registrato per ricevere un link
           per reimpostare {description}
         </p>
         <form
           data-id="rd-form"
           onSubmit={handleSubmit}
-          className={stylesForm.form}
+          className={stylesForm.formLogin}
         >
           <div className={stylesForm.formGroup}>
             <InputField
