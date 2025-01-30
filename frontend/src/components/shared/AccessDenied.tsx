@@ -1,10 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import logo from "../../../public/logo.png";
-import HeaderBtn from "./btns/HeaderBtn";
 import stylesHeader from "../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../Styles/Form.module.css";
 import Navbar from "./Navbar";
+import logo from "../../../public/logo.png";
 
 const options = [
   { label: "Home", href: "/", dataid: "home-btn" },

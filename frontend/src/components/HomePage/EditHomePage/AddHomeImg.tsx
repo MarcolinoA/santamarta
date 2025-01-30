@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { imageServices } from "../../../services/apiImagesServices";
 import InputField from "../../shared/InputFieldProps";
 import FormFooter from "../../shared/FormFooter";
-import HeaderBtn from "../../shared/btns/HeaderBtn";
 import stylesHeader from "../../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../../Styles/Form.module.css";
 
@@ -100,7 +99,6 @@ function AddHomeImg() {
 					linkText3=""
 				/>
 			</form>
-			<HeaderBtn isLoggedIn={false} username="" options={options} />
 		</div>
 	);
 }

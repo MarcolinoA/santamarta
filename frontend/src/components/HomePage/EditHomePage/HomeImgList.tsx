@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { imageServices } from "../../../services/apiImagesServices";
 import Image, { StaticImageData } from "next/image";
-import Card from "../../shared/card";
 import { useRouter } from "next/navigation";
 import DeleteBtn from "../../shared/btns/DeleteBtn";
 import AddBtn from "../../shared/btns/AddBtn";
-import logo from "../../../../public/logo.png";
+import logo from "../../../../public/logo.png"
 import styleHeader from "../../../Styles/HomePage/ImageList.module.css";
 import stylesCard from "../../../Styles/Card.module.css";
+import Card from "../../shared/card/Card";
 
 interface Image {
 	_id: number;

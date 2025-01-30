@@ -4,7 +4,6 @@ import Image, { StaticImageData } from 'next/image';
 import logo from "../../../../public/logo.png"
 import { imageServices } from '../../../services/apiImagesServices';
 import { useRouter } from 'next/navigation';
-import HeaderBtn from '../../shared/btns/HeaderBtn';
 import DeleteImgList from './DeleteImgList';
 import stylesHeader from "../../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../../Styles/Form.module.css"
@@ -70,7 +69,6 @@ function DeleteHomeImg() {
 			<h2 data-id="delete-img-title" className={stylesForm.title}>Elimina un&apos;immagine dal database</h2>
 			</div>
 			<DeleteImgList images={imagesArr} onDelete={handleSubmit} loading={loading} error={error} />
-			<HeaderBtn isLoggedIn={false} username="" options={options} />
 			</div>
 	);
 }
