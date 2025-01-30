@@ -72,7 +72,7 @@ const LaScuolaPage: React.FC = () => {
     {
       index: 1,
       title: "Sezione Arancione",
-      desc: "Valentina D'Angelo",
+      desc: "Valentina D&apos;Angelo",
       img: "",
       alt: "Sezione Arancione",
       dataid: "arancione",
@@ -96,7 +96,7 @@ const LaScuolaPage: React.FC = () => {
     {
       index: 4,
       title: "Sezione Rossa",
-      desc: "Daniela D'andrea",
+      desc: "Daniela D&apos;andrea",
       img: "",
       alt: "Sezione Rossa",
       dataid: "rossa",
@@ -129,10 +129,10 @@ const LaScuolaPage: React.FC = () => {
     <div>
       <div className={stylesText.laScuolaDesc}>
         <h1 className={`${stylesText.titles} ${wendyOne.className}`}>
-          Cos'è Santa Marta
+          Cos&apos;è Santa Marta
         </h1>
         <p className={stylesText.laScuolaP}>
-          Santa Marta è una scuola parificata dell’Infanzia accoglie bambini dai
+          Santa Marta &egrave; una scuola parificata dell&rsquo;Infanzia accoglie bambini dai
           3 ai 5 anni e promuove la formazione integrale del bambino/a nella sua
           unicità. Per questo, si pone come da indicazioni ministeriale le
           seguenti finalità: sviluppo dell’identità, sviluppo dell’autonomia,
@@ -143,7 +143,7 @@ const LaScuolaPage: React.FC = () => {
       <Carousel images={images} />
 
       <OverlayCardTable
-        cardTitle="La scuola è attrezzata di: "
+        cardTitle="La scuola &egrave; attrezzata di: "
         cardItems={cardArr}
         gridClassName={stylesCard.customGridClass2}
       />
