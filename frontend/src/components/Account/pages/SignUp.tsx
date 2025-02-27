@@ -1,11 +1,14 @@
 "use client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
-import Header from "../../shared/Header";
+import InputField from "../../shared/InputFieldProps";
+import { validateForm } from "../../../utils/validation";
+import FormFooter from "../../shared/FormFooter";
+import HeaderBtn from "../../shared/btns/HeaderBtn";
+import logo from "../../../../public/logo.png";
+import Image from "next/image";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 interface FormData {
 	name: string;
@@ -15,11 +18,14 @@ interface FormData {
 	email: string;
 }
 
+interface FormErrors {
+	[key: string]: string;
+}
+
 const SignUp: React.FC = () => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Accedi", href: "/account/pages/signin" },
-		{ label: "Esci", href: "/account/pages/logout" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{ label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
 	];
 
 	const [formData, setFormData] = useState<FormData>({
@@ -31,7 +37,6 @@ const SignUp: React.FC = () => {
 	});
 	const [confirmPassword, setConfirmPassword] = useState<string>("");
 	const [confirmEmail, setConfirmEmail] = useState<string>("");
-	const [error, setError] = useState<string | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -64,34 +69,35 @@ const SignUp: React.FC = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
-		setError(null);
+		setMessage(null);
 
-		if (formData.password !== confirmPassword) {
-			setError("Le password non corrispondono");
-			setLoading(false);
-			return;
-		}
-
-		if (formData.email !== confirmEmail) {
-			setError("Le email non corrispondono");
+		// Validazione dei dati del modulo
+		const validationErrors = validateForm(
+			formData,
+			confirmPassword,
+			confirmEmail,
+			true
+		);
+		if (Object.keys(validationErrors).length > 0) {
 			setLoading(false);
 			return;
 		}
 
 		try {
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/users/register`,
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify(formData),
-					credentials: "include", // Importante per inviare e ricevere cookies
-				}
-			);
+			const response = await fetch(`/api/users/register`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(formData),
+				credentials: "include", // Importante per inviare e ricevere cookie
+			});
 
+			// Gestione della risposta
 			if (!response.ok) {
+				console.error("Status Code:", response.status);
 				const responseText = await response.text();
 				console.error("Risposta del server:", responseText);
+
+				// Gestione degli errori del server
 				try {
 					const errorData = JSON.parse(responseText);
 					throw new Error(
@@ -104,151 +110,120 @@ const SignUp: React.FC = () => {
 				}
 			}
 
+			// Elaborazione della risposta positiva
 			const data = await response.json();
 			setMessage("Verifica la tua email per completare la registrazione.");
 
+			// Navigazione a pagina di verifica
 			router.push(`/account/other/accountVerification`);
 		} catch (error: any) {
-			setError(error.message);
-			console.error("Errore nella creazione dell'utente", error);
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	return (
-		<div className={stylePage.homePageContainer}>
-			<form onSubmit={handleSubmit} className={style.form}>
-				<div className={style.formGroup}>
-					<label htmlFor="name" className={style.formLabel}>
-						Name
-					</label>
-					<input
-						type="text"
+		<div className={stylesHeader.headerContainer}>
+			<div className={stylesHeader.registerHeader}>
+				<Image className={stylesForm.logo} src={logo} alt="Logo" width={150} />
+				<h2 data-id="title" className={stylesHeader.title}>
+					Compila i campi per registrarti
+				</h2>
+			</div>
+			<form onSubmit={handleSubmit} className={stylesForm.form}>
+				<div className={stylesForm.formGroup}>
+					<InputField
 						id="name"
+						dataid="name"
 						name="name"
+						type="text"
 						value={formData.name}
 						onChange={handleChange}
+						label="Name"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="surname" className={style.formLabel}>
-						Surname
-					</label>
-					<input
-						type="text"
+					<InputField
 						id="surname"
+						dataid="surname"
 						name="surname"
+						type="text"
 						value={formData.surname}
 						onChange={handleChange}
+						label="Surname"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="username" className={style.formLabel}>
-						Username
-					</label>
-					<input
-						type="text"
+					<InputField
 						id="username"
+						dataid="username"
 						name="username"
+						type="text"
 						value={formData.username}
 						onChange={handleChange}
+						label="Username"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="password" className={style.formLabel}>
-						Password
-					</label>
-					<div className={style.passwordInputWrapper}>
-						<input
-							type={showPassword ? "text" : "password"}
-							id="password"
-							name="password"
-							value={formData.password}
-							onChange={handleChange}
-							required
-							className={`${style.formInput} ${style.passwordInput}`}
-							autoComplete="new-password"
-						/>
-						<button
-							type="button"
-							onClick={togglePasswordVisibility}
-							className={style.passwordToggle}
-						>
-							{showPassword ? <FaEyeSlash /> : <FaEye />}
-						</button>
-					</div>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="confirmPassword" className={style.formLabel}>
-						Confirm Password
-					</label>
-					<div className={style.passwordInputWrapper}>
-						<input
-							type={showConfirmPassword ? "text" : "password"}
-							id="confirmPassword"
-							name="confirmPassword"
-							value={confirmPassword}
-							onChange={handleConfirmPasswordChange}
-							required
-							className={`${style.formInput} ${style.passwordInput}`}
-							autoComplete="new-password"
-						/>
-						<button
-							type="button"
-							onClick={toggleConfirmPasswordVisibility}
-							className={style.passwordToggle}
-						>
-							{showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-						</button>
-					</div>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="email" className={style.formLabel}>
-						Email
-					</label>
-					<input
-						type="email"
+					<InputField
+						id="password"
+						dataid="password"
+						name="password"
+						type="password"
+						value={formData.password}
+						onChange={handleChange}
+						label="Password"
+						required
+						showPasswordToggle
+						showPassword={showPassword}
+						togglePasswordVisibility={togglePasswordVisibility}
+					/>
+					<InputField
+						id="confirmPassword"
+						dataid="confirmPassword"
+						name="confirmPassword"
+						type="password"
+						value={confirmPassword}
+						onChange={handleConfirmPasswordChange}
+						label="Confirm Password"
+						required
+						showPasswordToggle
+						showPassword={showConfirmPassword}
+						togglePasswordVisibility={toggleConfirmPasswordVisibility}
+					/>
+					<InputField
 						id="email"
+						dataid="email"
 						name="email"
+						type="email"
 						value={formData.email}
 						onChange={handleChange}
+						label="Email"
 						required
-						className={style.formInput}
 					/>
-				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="confirmEmail" className={style.formLabel}>
-						Confirm Email
-					</label>
-					<input
-						type="email"
+					<InputField
 						id="confirmEmail"
+						dataid="confirmEmail"
 						name="confirmEmail"
+						type="email"
 						value={confirmEmail}
 						onChange={handleConfirmEmailChange}
+						label="Confirm Email"
 						required
-						className={style.formInput}
 					/>
 				</div>
-				{message && <p>{message}</p>}
-				{error && <p className={style.errorMessage}>{error}</p>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Submitting..." : "Registrati"}
-				</button>
-				<div>
-					<Link href="/account/pages/signin" className={style.errorMessage}>
-						Hai già un account? Accedi!
-					</Link>
-				</div>
+				<FormFooter
+					message={message}
+					loading={loading}
+					btnDataId="submit-btn"
+					btnLoadingText="Registrazione in corso..."
+					btnText="Registrati"
+					hrefLink="/account/pages/signin"
+					linkText="Hai già un account? Accedi!"
+					hrefLink2=""
+					linkText2=""
+					hrefLink3=""
+					linkText3=""
+				/>
 			</form>
-			<Header isLoggedIn={false} username="" options={options} />
+			<HeaderBtn isLoggedIn={false} username="" options={options} />
 		</div>
 	);
 };

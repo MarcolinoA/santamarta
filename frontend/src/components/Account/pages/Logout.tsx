@@ -1,78 +1,78 @@
 "use client";
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthentication } from "../../../hooks/useAuthentications";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
-import Image from "next/image";
-import logo from "../../../../public/logo.png";
-import Header from "../../shared/Header";
+import FormPageLayout from "../../shared/FormPageLayout";
+import AccessDenied from "../../shared/AccessDenied";
 
 const LogoutC: React.FC = () => {
-	const options = [
-		{ label: "Home", href: "/",  dataid: "home-btn"},
-		{ label: "Accedi", href: "/account/pages/signin",  dataid: "signin-btn" },
-		{ label: "Registrati", href: "/account/pages/signup",  dataid: "signup-btn" },
-	];
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState<boolean>(false); // Aggiunto stato per rilevare se siamo lato client
+  const router = useRouter();
+  const { isAuthenticated, username, logout } = useAuthentication();
 
-	const [error, setError] = useState<string | null>(null);
-	const [loading, setLoading] = useState<boolean>(false);
-	const router = useRouter();
-	const { isAuthenticated, username, logout } = useAuthentication();
+  useEffect(() => {
+    // Imposta isClient su true una volta che siamo nel client
+    setIsClient(true);
+  }, []);
 
-	const handleLogout = async (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		setLoading(true);
-		setError(null);
+  const handleLogout = async () => {
+    setLoading(true);
+    setError(null);
 
-		try {
-			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/users/logout`,
-				{
-					method: "POST",
-					credentials: "include",
-				}
-			);
+    try {
+      const response = await fetch(
+        `/api/users/logout`,
+        {
+          method: "POST",
+          credentials: "include", // Assicurati che i cookie siano inviati
+        }
+      );
 
-			if (response.ok) {
-				logout();
-				router.push("/");
-			} else {
-				console.error("Logout failed");
-				setError("Logout failed. Please try again.");
-			}
-		} catch (error: any) {
-			setError(error.message);
-		} finally {
-			setLoading(false);
-		}
-	};
+      if (response.ok) {
+        logout(); // Chiama la funzione di logout
+        router.push("/"); // Reindirizza alla homepage
+      } else {
+        const errorData = await response.json();
+        console.error("Logout failed:", errorData.message || "Unknown error");
+        setError(errorData.message || "Logout failed. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Logout error:", error); // Logga l'errore
+      setError(error.message || "An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-	if (typeof window === "undefined") {
-		return null; // Return null during server-side rendering
-	}
+  // Se non è client-side, non renderizzare nulla
+  if (!isClient) {
+    return null;
+  }
 
-	if (!isAuthenticated) {
-		return null; // or a loading spinner
-	}
+  // Se non autenticato, mostra AccessDenied
+  if (!isAuthenticated) {
+    return <AccessDenied />;
+  }
 
-	return (
-		<div className={stylePage.homePageContainer}>
-			<Image src={logo} alt="Logo" width={150} />
-			<form onSubmit={handleLogout} className={style.form}>
-				<h2 className={style.formTitle}>Logout</h2>
-				{error && <div className={style.errorMessage}>{error}</div>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Logging out..." : "Logout"}
-				</button>
-			</form>
-			<Header
-				isLoggedIn={isAuthenticated}
-				username={username || ""}
-				options={options}
-			/>
-		</div>
-	);
+  // Se autenticato, mostra il form di logout
+  return (
+    <FormPageLayout
+      title="Logout"
+      error={error}
+      loading={loading}
+      onSubmit={handleLogout}
+      buttonText="Logout"
+      loadingText="Logging out..."
+      isAuthenticated={isAuthenticated}
+      username={username || ""}
+      options={[{ label: "Home", href: "/", dataid: "home-btn" }]}
+      buttonDataId="logout-btn"
+      formDataId="logoutForm"
+      errorDataId="logout-err-msg"
+    />
+  );
 };
 
 export default LogoutC;

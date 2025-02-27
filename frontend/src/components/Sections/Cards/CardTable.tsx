@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../../../Styles/Card.module.css";
+import stylesCard from "../../../Styles/Card.module.css";
 import Card from "./Card";
 import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
 
@@ -15,30 +15,40 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 			title: "Fattoria didattica",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione della Fattoria Didattica.",
+			alt: "Fattoria Didattica Image",
+			dataid: "fattoria-didattica",
 		},
 		{
 			index: 2,
 			title: "Laboratorio di psicomotricità",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Psicomotricità.",
+			alt: "Laboratorio di Psicomotricità Image",
+			dataid: "laboratorio-psicomotricita",
 		},
 		{
 			index: 3,
 			title: "Laboratorio di inglese",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Inglese.",
+			alt: "Laboratorio di Inglese Image",
+			dataid: "laboratorio-inglese",
 		},
 		{
 			index: 4,
 			title: "Laboratorio di religione",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio di Religione.",
+			alt: "Laboratorio di Religione Image",
+			dataid: "laboratorio-religione",
 		},
 		{
 			index: 5,
 			title: "Laboratorio musicale",
 			img: fattoriaDidattica,
 			desc: "Questa è la descrizione del Laboratorio Musicale.",
+			alt: "Laboratorio Musicale Image",
+			dataid: "laboratorio-musicale",
 		},
 	]);
 
@@ -85,12 +95,16 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 	};
 
 	return (
-		<div className={styles.cardTable}>
-			<h2 className={styles.cardTitle}>{cardTitle}</h2>
-			<div className={styles.cardSection}>
-				<div className={styles.cardLarge}>
+		<div className={stylesCard.cardTable}>
+			<h2 className={stylesCard.cardTitle}>{cardTitle}</h2>
+			<div className={stylesCard.cardSection}>
+				<div className={stylesCard.cardLarge}>
 					{cardArr.find((card) => card.index === activeCardIndex) && (
 						<Card
+							dataid={
+								cardArr.find((card) => card.index === activeCardIndex)
+									?.dataid || " "
+							}
 							key={
 								cardArr.find((card) => card.index === activeCardIndex)?.index
 							}
@@ -99,10 +113,6 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 								cardArr.find((card) => card.index === activeCardIndex)?.title ||
 								""
 							}
-							cardNameWidth="200px"
-							cardNameHeight="30px"
-							width="500px"
-							height="620px"
 							img={
 								cardArr.find((card) => card.index === activeCardIndex)?.img ||
 								fattoriaDidattica
@@ -118,34 +128,33 @@ const CardTable: React.FC<cardTableProps> = ({ cardTitle }) => {
 							className={
 								cardArr.find((card) => card.index === activeCardIndex)
 									?.index === activeCardIndex
-									? styles.activeCard
+									? stylesCard.activeCard
 									: ""
 							}
 							isFlipped={flippedCards.includes(activeCardIndex)} // Passa lo stato della rotazione
 							onFlip={() => handleFlipCard(activeCardIndex)} // Funzione per gestire la rotazione
+							isLarge={true}
 						/>
 					)}
 				</div>
-				<div className={styles.cardGrid}>
+				<div className={stylesCard.cardGrid}>
 					{cardArr
 						.filter((card) => card.index !== activeCardIndex)
 						.map((card) => (
 							<Card
+								dataid={card.dataid}
 								key={card.index}
 								onClick={() => handleCardClick(card.index)}
 								cardName={card.title}
-								cardNameWidth="200px"
-								cardNameHeight="30px"
-								width="250px"
-								height="300px"
 								img={card.img}
 								alt={card.title}
 								desc={card.desc}
 								className={
-									card.index === activeCardIndex ? styles.activeCard : ""
+									card.index === activeCardIndex ? stylesCard.activeCard : ""
 								}
-								isFlipped={flippedCards.includes(card.index)} // Passa lo stato della rotazione
-								onFlip={() => handleFlipCard(card.index)} // Funzione per gestire la rotazione
+								isLarge={card.index === activeCardIndex} 
+								isFlipped={flippedCards.includes(card.index)}
+								onFlip={() => handleFlipCard(card.index)}
 							/>
 						))}
 				</div>

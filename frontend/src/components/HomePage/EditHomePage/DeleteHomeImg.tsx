@@ -1,12 +1,17 @@
 "use client"
-import React, { FormEvent, useEffect, useState } from 'react'
-import Header from '../../shared/Header';
+import React, { useEffect, useState } from 'react'
 import Image, { StaticImageData } from 'next/image';
 import logo from "../../../../public/logo.png"
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
 import { imageServices } from '../../../services/apiImagesServices';
-import ImageList from './ImageList';
 import { useRouter } from 'next/navigation';
+import HeaderBtn from '../../shared/btns/HeaderBtn';
+import DeleteImgList from './DeleteImgList';
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css"
+
+interface ExtendedImage extends Image {
+	active: boolean;
+}
 
 interface Image {
 	_id: string;
@@ -17,28 +22,28 @@ interface Image {
 }
 
 function DeleteHomeImg() {
-	const [imagesArr, setImagesArr] = useState<Image[]>([]);
+	const [imagesArr, setImagesArr] = useState<ExtendedImage[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
 
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Modifica l'immagine", href: "/home/homePageEdit" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{ label: "Modifica l'immagine", href: "/home/homePageEdit", dataid: "img-home-edit-btn" },
 	];
 
 	useEffect(() => {
 		const fetchImages = async () => {
 			try {
-				setLoading(true);
-				const data = await imageServices.getAllImages();
-				setImagesArr(data.data.map((image: any) => ({ ...image, _id: image._id.toString() })));
+					setLoading(true);
+					const data = await imageServices.getAllImages();
+					setImagesArr(data.data.map((image: any) => ({ ...image, _id: image._id.toString(), active: image.active || false })));
 			} catch (error) {
-				console.error("Error fetching images:", error);
+					console.error("Error fetching images:", error);
 			} finally {
-				setLoading(false);
+					setLoading(false);
 			}
-		};
+	};
 
 		fetchImages();
 	}, []);
@@ -59,13 +64,15 @@ function DeleteHomeImg() {
 	};
 
 	return (
-		<div className={stylePage.homePageContainer}>
+		<div data-id="delete-img-container" className={`${stylesHeader.headerContainer} ${stylesHeader.deleteHomeImg}`}>
+		<div className={stylesForm.loginHeader}>
 			<Image src={logo} alt="Logo" width={150} />
-			<h2 className={stylePage.title}>Elimina un'immagine al database</h2>
-			<ImageList images={imagesArr} onDelete={handleSubmit} loading={loading} error={error} />
-			<Header isLoggedIn={false} username="" options={options} />
-		</div>
+			<h2 data-id="delete-img-title" className={stylesForm.title}>Elimina un&apos;immagine dal database</h2>
+			</div>
+			<DeleteImgList images={imagesArr} onDelete={handleSubmit} loading={loading} error={error} />
+			<HeaderBtn isLoggedIn={false} username="" options={options} />
+			</div>
 	);
 }
 
-export default DeleteHomeImg
+export default DeleteHomeImg;

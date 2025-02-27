@@ -1,8 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import styles from "../../../Styles/Card.module.css";
 import Card from "./Card";
-import fattoriaDidattica from "../../../../public/fattoriaDidattica.jpeg";
+import stylesCard from "../../../Styles/Card.module.css";
+import centroEstivo from "../../../../public/servizi/CentroEstivo.png";
+import sportelloLogopedico from "../../../../public/servizi/SportelloLogopedico.jpg";
+import sportelloPediatrico from "../../../../public/servizi/SportelloPediatrico.jpg";
+import sportelloPsicologico from "../../../../public/servizi/SportelloPsicologico.jpg";
+import doposcuola from "../../../../public/servizi/Doposcuola.jpg";
 
 interface cardTableProps {
 	cardTitle: string;
@@ -13,32 +17,52 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 		{
 			index: 1,
 			title: "Centro Estivo",
-			img: fattoriaDidattica,
-			desc: "Questa è la descrizione della Fattoria Didattica.",
+			img: centroEstivo,
+			desc: [
+				"Il Centro Estivo “Ci vuole un sorriso” offre due periodi di attività:",
+				"<strong>Giugno</strong>: Laboratori creativi, tra cui cucina (imparare a fare la pizza), musica, inglese, piscina, giochi d'acqua, orto e fattoria didattica, attività motorie e uscite guidate.",
+				"<strong>Luglio</strong>: Servizio di accompagnamento al mare per bambini dell’Infanzia e Primaria, in convenzione con lo stabilimento “Bagno Marina” di Foceverde (LT)."
+			],
+			dataid: "data-1",
 		},
 		{
 			index: 2,
 			title: "Doposcuola",
-			img: fattoriaDidattica,
-			desc: "Questa è la descrizione del Laboratorio di Psicomotricità.",
+			img: doposcuola,
+			desc: [
+				"Il servizio <strong>Doposcuola</strong> è attivo dal lunedì al venerdì. I bambini, una volta giunti nell’Istituto, usufruiscono di un pranzo, tempo di gioco libero nel giardino attrezzato (dedicato ai bambini della primaria), seguito dal supporto per lo svolgimento dei compiti sotto la supervisione di personale qualificato.",
+				"Sono disponibili i seguenti servizi aggiuntivi:<br /><strong>• Pre e Post Scuola</strong><br /><strong>• Navetta</strong>: Per il plesso “Paganico” è disponibile il servizio navetta all'ingresso e all'uscita della scuola; per il plesso “Collepalazzo” è prevista, all'uscita, la presenza di una responsabile per l’accompagnamento presso la nostra sede, con il servizio fornito dalla ditta Velibus."
+		],
+			dataid: "data-1",
 		},
 		{
 			index: 3,
 			title: "Sportello Logopedico",
-			img: fattoriaDidattica,
-			desc: "Questa è la descrizione del Laboratorio di Inglese.",
+			img: sportelloLogopedico,
+			desc: [
+				"In allestimento",
+			],
+			dataid: "data-1",
 		},
 		{
 			index: 4,
 			title: "Sportello Pediatrico",
-			img: fattoriaDidattica,
-			desc: "Questa è la descrizione del Laboratorio di Religione.",
+			img: sportelloPediatrico,
+			desc: [
+				"Il nostro Istituto si avvale della collaborazione della <strong>Dott.ssa Stefania Cingolani</strong>, Pediatra, che fornisce assistenza in caso di necessità sanitarie. La dottoressa è disponibile su appuntamento, in giorni stabiliti ogni mese, per intervenire nelle situazioni che richiedono un consulto medico. Oltre a fornire indicazioni specifiche per la gestione di eventuali problematiche di salute, offre supporto e consigli sia alle educatrici sia ai genitori, garantendo un percorso educativo sicuro e orientato al benessere dei bambini."
+			],
+			dataid: "data-1",
 		},
 		{
 			index: 5,
 			title: "Sportello Psicologico",
-			img: fattoriaDidattica,
-			desc: "Questa è la descrizione del Laboratorio Musicale.",
+			img: sportelloPsicologico,
+			desc: [
+				"Nella nostra scuola è attivo uno sportello di consulenza educativa con il <strong>Dott. Giorgio Caponera</strong>, psicologo che da qualche anno accompagna il collegio docenti come consulente esterno.",
+				"Questo servizio è dedicato alle famiglie che desiderano confrontarsi su temi legati alla crescita dei propri figli e alla relazione educativa tra adulti e bambini. Lo sportello offre supporto, sostegno e uno spazio di ascolto per affrontare insieme le sfide educative.",
+				"I colloqui sono svolti con la massima discrezione e nel pieno rispetto della normativa sulla privacy."
+			],
+			dataid: "data-1",
 		},
 	]);
 
@@ -85,35 +109,37 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 	};
 
 	return (
-		<div className={styles.cardTable}>
-			<h2 className={styles.cardTitle}>{cardTitle}</h2>
-			<div className={styles.cardSection}>
-				<div className={styles.cardGrid}>
+		<div className={stylesCard.cardTable}>
+			<h2 className={stylesCard.cardTitle}>{cardTitle}</h2>
+			<div className={stylesCard.cardSection}>
+				<div className={stylesCard.cardGrid}>
 					{cardArr
 						.filter((card) => card.index !== activeCardIndex)
 						.map((card) => (
 							<Card
+								dataid={card.dataid}
 								key={card.index}
 								onClick={() => handleCardClick(card.index)}
 								cardName={card.title}
-								cardNameWidth="200px"
-								cardNameHeight="30px"
-								width="250px"
-								height="300px"
 								img={card.img}
 								alt={card.title}
-								desc={card.desc}
+								desc={card.desc} 
 								className={
-									card.index === activeCardIndex ? styles.activeCard : ""
+									card.index === activeCardIndex ? stylesCard.activeCard : ""
 								}
-								isFlipped={flippedCards.includes(card.index)} // Passa lo stato della rotazione
-								onFlip={() => handleFlipCard(card.index)} // Funzione per gestire la rotazione
+								isLarge={card.index === activeCardIndex}
+								isFlipped={flippedCards.includes(card.index)}
+								onFlip={() => handleFlipCard(card.index)}
 							/>
 						))}
 				</div>
-				<div className={styles.cardLarge}>
+				<div className={stylesCard.cardLarge}>
 					{cardArr.find((card) => card.index === activeCardIndex) && (
 						<Card
+							dataid={
+								cardArr.find((card) => card.index === activeCardIndex)
+									?.dataid || " "
+							}
 							key={
 								cardArr.find((card) => card.index === activeCardIndex)?.index
 							}
@@ -122,13 +148,9 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 								cardArr.find((card) => card.index === activeCardIndex)?.title ||
 								""
 							}
-							cardNameWidth="200px"
-							cardNameHeight="30px"
-							width="500px"
-							height="620px"
 							img={
 								cardArr.find((card) => card.index === activeCardIndex)?.img ||
-								fattoriaDidattica
+								""
 							}
 							alt={
 								cardArr.find((card) => card.index === activeCardIndex)?.title ||
@@ -141,11 +163,12 @@ const CardTableTwo: React.FC<cardTableProps> = ({ cardTitle }) => {
 							className={
 								cardArr.find((card) => card.index === activeCardIndex)
 									?.index === activeCardIndex
-									? styles.activeCard
+									? stylesCard.activeCard
 									: ""
 							}
 							isFlipped={flippedCards.includes(activeCardIndex)} // Passa lo stato della rotazione
 							onFlip={() => handleFlipCard(activeCardIndex)} // Funzione per gestire la rotazione
+							isLarge={true}
 						/>
 					)}
 				</div>

@@ -1,15 +1,15 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import logo from "../../../../public/logo.png";
 import Image from "next/image";
-import Header from "../../shared/Header";
 import Cookies from "js-cookie";
 import { useAuthentication } from "../../../hooks/useAuthentications";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import InputField from "../../shared/InputFieldProps";
+import FormFooter from "../../shared/FormFooter";
+import HeaderBtn from "../../shared/btns/HeaderBtn";
+import logo from "../../../../public/logo.png";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 interface FormData {
 	username: string;
@@ -18,21 +18,16 @@ interface FormData {
 
 const SignIn: React.FC = () => {
 	const options = [
-		{ label: "Home", href: "/" },
-		{ label: "Registrati", href: "/account/pages/signup" },
-		{ label: "Esci", href: "/account/pages/logout" },
+		{ label: "Home", href: "/", dataid: "home-btn" },
+		{ label: "Registrati", href: "/account/pages/signup", dataid: "signup-btn" },
 	];
 
 	const { login } = useAuthentication();
-
-	const [formData, setFormData] = useState<FormData>({
-		username: "",
-		password: "",
-	});
-	const [error, setError] = useState<string | null>(null);
+	const [formData, setFormData] = useState<FormData>({ username: "", password: "" });
 	const [loading, setLoading] = useState<boolean>(false);
-	const router = useRouter();
+	const [message, setMessage] = useState<string | null>(null);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -46,128 +41,95 @@ const SignIn: React.FC = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setLoading(true);
-		setError(null);
+		setMessage(null);
 
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/users/login`,
+				`/api/users/login`,
 				{
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(formData),
-					credentials: "include",
+					credentials: "include", // Includi i cookie nella richiesta
 				}
 			);
-
+	
+			// Gestione della risposta
 			if (!response.ok) {
-				if (response.status === 429) {
-					throw new Error("Troppi tentativi di accesso. Riprova più tardi.");
-				}
-
-				let errorMessage;
-				try {
-					const errorData = await response.json();
-					errorMessage = errorData.message;
-				} catch {
-					errorMessage = await response.text();
-				}
-				throw new Error(errorMessage || "Errore durante il login");
+				const errorMessage = response.status === 429
+					? "Troppi tentativi di accesso. Riprova più tardi."
+					: await response.text();
+				throw new Error(errorMessage);
 			}
 
 			const data = await response.json();
-			// Ritardo per dare tempo ai cookie di essere impostati
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+			await new Promise((resolve) => setTimeout(resolve, 1000)); // Ritardo per l'esperienza utente
 
-			// verifica dei cookies
-			const allCookies = Cookies.get();
-
-			const authToken =
-				allCookies.authToken || localStorage.getItem("authToken");
+			const authToken = Cookies.get("authToken") || localStorage.getItem("authToken");
 			if (!authToken) {
-				throw new Error(
-					"Il cookie di autenticazione non è stato impostato correttamente"
-				);
+				throw new Error("Il cookie di autenticazione non è stato impostato correttamente");
 			}
 
 			if (data.username) {
 				login(authToken, data.username);
 				router.push("/");
 			} else {
-				throw new Error("Token not received from server");
+				throw new Error("Token non ricevuto dal server");
 			}
 		} catch (error: any) {
-			setError(error.message);
+			setMessage(error.message);
 		} finally {
 			setLoading(false);
 		}
 	};
 
 	return (
-		<div className={stylePage.homePageContainer}>
-			<Image src={logo} alt="Logo" width={150} />
-			<h2 className={stylePage.title}>Effettua l'accesso</h2>
-			<form onSubmit={handleSubmit} className={style.form}>
-				<div className={style.formGroup}>
-					<label htmlFor="username" className={style.formLabel}>
-						Username
-					</label>
-					<input
-						type="text"
+		<div className={`${stylesHeader.headerContainer} ${stylesHeader.login}`}>
+			<div className={stylesForm.loginHeader}>
+				<Image src={logo} alt="Logo" width={150} />
+				<h2 data-id="title" className={stylesHeader.title}>Effettua l&#39;accesso</h2>
+			</div>
+			<form onSubmit={handleSubmit} className={stylesForm.formLogin} data-id="signInForm">
+				<div className={stylesForm.formGroup}>
+					<InputField
 						id="username"
+						dataid="username"
 						name="username"
+						type="text"
 						value={formData.username}
 						onChange={handleChange}
+						label="Username"
 						required
-						className={style.formInput}
+					/>
+					<InputField
+						id="password"
+						dataid="password"
+						name="password"
+						type="password"
+						value={formData.password}
+						onChange={handleChange}
+						label="Password"
+						required
+						showPasswordToggle
+						showPassword={showPassword}
+						togglePasswordVisibility={togglePasswordVisibility}
 					/>
 				</div>
-				<div className={style.formGroup}>
-					<label htmlFor="password" className={style.formLabel}>
-						Password
-					</label>
-					<div className={style.passwordInputWrapper}>
-						<input
-							type={showPassword ? "text" : "password"}
-							id="password"
-							name="password"
-							value={formData.password}
-							onChange={handleChange}
-							required
-							className={`${style.formInput} ${style.passwordInput}`}
-							autoComplete="new-password"
-						/>
-						<button
-							type="button"
-							onClick={togglePasswordVisibility}
-							className={style.passwordToggle}
-						>
-							{showPassword ? <FaEyeSlash /> : <FaEye />}
-						</button>
-					</div>
-				</div>
-				{error && <div className={style.errorMessage}>{error}</div>}
-				<button type="submit" className={style.formButton} disabled={loading}>
-					{loading ? "Submitting..." : "Accedi"}
-				</button>
-				<div className={style.errorLinks}>
-					<Link
-						href="/account/password/recoverPassword"
-						className={style.errorMessage}
-					>
-						Hai dimenticato la password? Recuperala!
-					</Link>
-					<Link
-						href="/account/username/recoverUsername"
-						className={style.errorMessage}
-					>
-						Hai dimenticato lo username? Recuperalo!
-					</Link>
-					<Link href="/account/pages/signup" className={style.errorMessage}>
-						Non hai un account? Registrati!
-					</Link>
-				</div>
+				<FormFooter
+					message={message}
+					loading={loading}
+					btnDataId="submit-btn"
+					btnLoadingText="Accesso in corso..."
+					btnText="Accedi"
+					hrefLink="/"
+					linkText="Torna alla Home"
+					hrefLink2="/account/password/recoverPassword"
+					linkText2="Hai dimenticato la password? Recuperala!"
+					hrefLink3="/account/username/recoverUsername"
+					linkText3="Hai dimenticato lo username? Recuperalo!"
+				/>
 			</form>
-			<Header isLoggedIn={false} username="" options={options} />
+			<HeaderBtn isLoggedIn={false} username="" options={options} />
 		</div>
 	);
 };

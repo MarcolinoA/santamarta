@@ -4,29 +4,85 @@
 	border-radius: 15px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 	background-color: #fff;
-	opacity: 1; /* Assicurati che le card siano visibili subito */
-	transform: none; /* Assicurati che le card siano nella posizione originale */
-	transition: none; /* Rimuove tutte le transizioni */
-	perspective: 1000px; /* Mantieni la prospettiva per l'effetto 3D */
-	cursor: pointer; /* Aggiungi il cursore a mano per indicare che è cliccabile */
+	opacity: 1;
+	transform: none; 
+	transition: none;
+	perspective: 1000px;
+	cursor: pointer; 
 }
 
 .CardContainer.visible {
 	opacity: 1;
-	transform: none; /* Assicurati che le card siano nella posizione originale */
+	transform: none; 
 }
 
-/* Contenitore interno per gestire la rotazione 3D */
 .cardInner {
 	width: 100%;
 	height: 100%;
 	position: relative;
-	transition: transform 0.8s; /* Mantieni la transizione per la rotazione della card */
-	transform-style: preserve-3d; /* Mantiene il 3D durante la trasformazione */
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
 }
 
 .flipped .cardInner {
-	transform: rotateY(180deg); /* Ruota la card di 180 gradi */
+	transform: rotateY(180deg); 
+}
+
+.flipped .cardFront {
+	transform: rotateY(180deg);
+}
+
+.flipped .cardName {
+	display: none;
+}
+
+/* Card sizes */
+.largeCard {
+	width: 500px;
+	height: 620px;
+	min-height: 300px;
+}
+
+.smallCard {
+	width: 250px;
+	height: 300px;
+	min-height: 300px;
+	flex: 1 1 auto;
+	box-sizing: border-box;
+	aspect-ratio: 5 / 6;
+	overflow: visible; 
+	border-radius: 15px;
+	overflow: hidden; 
+	border-radius: 15px !important;
+}
+
+.cardName {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	color: #000;
+	z-index: 10;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 8px;
+	border-radius: 30px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translateX(-50%); 
+}
+
+.cardNameLarge {
+	width: 300px;
+	height: 30px;
+	font-size: 24px;
+}
+
+.cardNameSmall {
+	width: 200px;
+	height: 30px;
+	font-size: 18px;
+	padding: 8px;
 }
 
 .cardFront,
@@ -36,16 +92,29 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	backface-visibility: hidden; /* Nasconde il retro quando non visibile */
-}
-
-.cardFront {
-	background-color: #fff; /* Sfondo del fronte della card */
+	backface-visibility: hidden;
+	overflow: hidden;
+	border-radius: inherit;
 }
 
 .cardBack {
-	background-color: #f8f8f8; /* Sfondo del retro della card */
-	transform: rotateY(180deg); /* Ruota il retro della card per allinearsi */
+	transform: rotateY(180deg);
+}
+
+.cardFront {
+	background-color: #fff; 
+}
+
+.cardBack {
+	display: flex;
+	flex-direction: column;
+	background-color: #f8f8f8;
+	transform: rotateY(180deg);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -54,28 +123,9 @@
 }
 
 .cardBack p {
-	margin: 0;
+	margin: 10px;
 	font-size: 16px;
-	text-align: center;
 	color: #333;
-}
-
-.cardName {
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	color: #000;
-	z-index: 10;
-	font-size: 1.2rem;
-	background: rgba(255, 255, 255, 0.8);
-	padding: 8px;
-	border-radius: 30px;
-	width: 100px;
-	height: 17px;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .cardLayout {
@@ -84,13 +134,13 @@
 	gap: 20px;
 }
 
+/* CARD TABLE*/
 .cardTable {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 20px;
-	margin: 30px;
+	margin: 15px;
 }
 
 .cardTitle {
@@ -101,7 +151,7 @@
 
 .cardSection {
 	display: flex;
-	flex-direction: row-reverse; /* Position the large card to the right */
+	flex-direction: row-reverse;
 	justify-content: center;
 	align-items: center;
 	gap: 20px;
@@ -109,12 +159,10 @@
 
 .cardGrid {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr); /* Two columns */
-	grid-template-rows: repeat(2, 1fr); /* Two rows */
-	gap: 20px; /* Space between cards in the grid */
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr); 
+	gap: 20px;
 }
-
-/* Edit Home Page Cards*/
 
 .editHomePageWrapper {
   padding: 20px;
@@ -137,7 +185,7 @@
 }
 
 .imagesCardSection > * {
-  flex: 0 0 calc(25% - 22.5px); /* 4 cards per row, accounting for gap */
+  flex: 0 0 calc(25% - 22.5px);
   max-width: calc(25% - 22.5px);
   margin-bottom: 30px;
 }
@@ -148,4 +196,348 @@
 
 .cardWrapper:hover {
   transform: translateY(-5px);
+}
+
+@media (max-width: 408px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.cardTitle {
+		font-size: 20px;
+		margin: 10px 0;
+	}
+
+	.largeCard {
+		width: 100%;
+		max-width: 150px;
+		height: 300px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 150px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 72px;
+		min-height: 100px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 120px;
+		height: 15px;
+		font-size: 12px;
+	}
+	
+	.cardNameSmall {
+		width: 50px;
+		height: 12px;
+		font-size: 10px;
+		padding: 6px;
+		border-radius: 10px;
+		font-size: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack {
+		padding: 10px;
+	}
+
+	.cardBack p {
+		font-size: 9px;
+		margin: 0;
+	}
+
+	.cardSection {
+		gap: 10px;
+	}
+}
+
+@media (min-width: 409px) and (max-width: 640px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.cardTitle {
+		font-size: 20px;
+		margin: 10px 0;
+	}
+
+	.largeCard {
+		width: 100%;
+		max-width: 150px;
+		height: 300px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 100%;
+		max-width: 150px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-height: 100px;
+		min-width: 100px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 120px;
+		height: 15px;
+		font-size: 12px;
+	}
+	
+	.cardNameSmall {
+		width: 80px;
+		height: 12px;
+		font-size: 10px;
+		padding: 6px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack {
+		padding: 10px;
+	}
+
+	.cardBack p {
+		font-size: 8px;
+		margin: 5px;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.cardTitle {
+		font-size: 22px;
+		margin: 15px 0;
+	}
+
+	.largeCard {
+		width: 240px;
+		height: 400px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 170px;
+		height: 200px;
+		aspect-ratio: 5 / 6;
+		min-height: 200px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 150px;
+		height: 18px;
+		font-size: 14px;
+	}
+	
+	.cardNameSmall {
+		width: 100px;
+		height: 16px;
+		font-size: 12px;
+		padding: 6px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack {
+		padding: 10px;
+	}
+
+	.cardBack p {
+		font-size: 13px;
+		margin: 5px;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 300px;
+		height: 440px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 200px;
+		height: 220px;
+		aspect-ratio: 5 / 6;
+		min-height: 220px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 200px;
+		height: 20px;
+		font-size: 18px;
+	}
+	
+	.cardNameSmall {
+		width: 140px;
+		height: 20px;
+		font-size: 15px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 15px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 350px;
+		height: 560px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 250px;
+		height: 280px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 250px;
+		height: 25px;
+		font-size: 20px;
+	}
+	
+	.cardNameSmall {
+		width: 180px;
+		height: 25px;
+		font-size: 16px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 18px;
+	}
+}
+
+@media (min-width: 1281px) and (max-width: 1680px) {
+	.cardBack p {
+		font-size: 23px;
+	}
+}
+
+@media (min-width: 1681px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 450px;
+		height: 770px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 350px;
+		height: 380px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 350px;
+		height: 25px;
+		font-size: 22px;
+	}
+	
+	.cardNameSmall {
+		width: 250px;
+		height: 30px;
+		font-size: 20px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 25px;
+	}
 }

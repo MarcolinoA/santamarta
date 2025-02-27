@@ -2,11 +2,19 @@ HEADER:
 	Aggiungere la possibilità di chiudere il dropdown con ESC
 	Mostrare determinati campi in base allo stato dell'utente
 
-LOGOUT:
-	Non si vede un cazzo
+LOADING:
+	aggiungere l'icona di caricamento
 
-Footer
+TEST:
+	Image List 
+	Edit Image 
+	Delete Image
+	Footer
 
-Da implementare il captcha
+API:
+	Potrei creare una pagina come apiImageService anche per users?
+	Da implementare il captcha
 
-ricambiare tutta quella storia dell head error punycode ecc.
+Footer:
+	Completarlo
+

@@ -1,5 +1,5 @@
 import React from "react";
-import ForgotData from "../../../../components/Account/reset/ForgotData";
+import RecoverData from "../../../../components/Account/reset/RecoverData";
 
 // Esporta il metadata
 export const metadata = {
@@ -29,7 +29,7 @@ const ForgotUsername = () => {
 	return (
 		<div>
 			<main>
-				<ForgotData
+				<RecoverData
 					alertMessage="il tuo username."
 					pushLink="resetUsername"
 					title="Hai dimenticato il tuo username?"

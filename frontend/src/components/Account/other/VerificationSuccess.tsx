@@ -1,27 +1,30 @@
 "use client";
-import logo from "../../../../public/logo.png";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
+import React from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import FormPageLayout from "../../shared/FormPageLayout"; // Usa il componente condiviso
 
 const VerificationSuccess: React.FC = () => {
 	const router = useRouter();
 
+	const handleRedirect = () => {
+		router.push("/account/pages/signin");
+	};
+
 	return (
-		<div className={stylePage.homePageContainer}>
-			<form className={style.form} onSubmit={(e) => e.preventDefault()}>
-				<Image src={logo} alt="Logo" width={150} />
-				<h2 className={style.formTitle}>Verifica completata</h2>
-				<button
-					type="button"
-					className={style.formButton}
-					onClick={() => router.push("/account/pages/signin")}
-				>
-					Accedi all'account
-				</button>
-			</form>
-		</div>
+		<FormPageLayout
+			title="Verifica completata"
+			error={null}
+			loading={false} 
+			onSubmit={handleRedirect}
+			buttonText="Accedi all'account"
+			loadingText="" 
+			isAuthenticated={false} 
+			username="" 
+			options={[]}
+			buttonDataId="verify-success-btn"
+			formDataId="verify-success-form"
+			errorDataId="verify-success-err"
+		/>
 	);
 };
 

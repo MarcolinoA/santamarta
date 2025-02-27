@@ -1,77 +1,112 @@
-"use client";
-import Image from "next/image";
-import logo from "../../../public/logo.png";
-import styles from "../../Styles/Navbar.module.css";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useAuthentication } from "../../hooks/useAuthentications";
+"use client"
+import React, { useState, useEffect, useRef } from "react";
+import stylesNavbar from "../../Styles/Navbar.module.css";
+import { FiMenu } from "react-icons/fi";
+
+interface MenuItem {
+	name: string;
+	icon: string;
+}
+
+const MobileMenu: React.FC<{
+	menuItems: MenuItem[];
+	activeIndex: number;
+	setActiveIndex: (index: number) => void;
+	isOpen: boolean;
+	toggleMenu: () => void;
+}> = ({ menuItems, activeIndex, setActiveIndex, isOpen, toggleMenu }) => (
+	<div
+		className={`${stylesNavbar.mobileMenu} ${isOpen ? stylesNavbar.open : stylesNavbar.close}`}
+	>
+		{menuItems.map((item, index) => (
+			<div
+				key={index}
+				className={`${stylesNavbar.navbarItem} ${activeIndex === index ? stylesNavbar.active : ""}`}
+				onClick={() => {
+					setActiveIndex(index);
+					toggleMenu();
+				}}
+			>
+				<span className={stylesNavbar.navbarIcon}>{item.icon}</span>
+				<span className={stylesNavbar.navbarText}>{item.name}</span>
+			</div>
+		))}
+	</div>
+);
 
 const Navbar: React.FC = () => {
-	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-	const { isAuthenticated, checkAuth } = useAuthentication();
+	const [activeIndex, setActiveIndex] = useState<number>(0);
+	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+	const menuRef = useRef<HTMLDivElement>(null); // Reference to the navbar container
 
-	const handleIconClick = () => {
-		setIsDropdownVisible((prev) => !prev);
+	const menuItems: MenuItem[] = [
+		{ name: "Dashboard", icon: "🚀" },
+		{ name: "Documents", icon: "📄" },
+		{ name: "Components", icon: "🧩" },
+		{ name: "Calendar", icon: "📅" },
+		{ name: "Charts", icon: "📊" },
+		{ name: "Address Book", icon: "📖" },
+	];
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+
+    if (!isMenuOpen) {
+        document.querySelector(`.${stylesNavbar.hamburger}`)?.classList.add(stylesNavbar.openIcon);
+        document.querySelector(`.${stylesNavbar.hamburger}`)?.classList.remove(stylesNavbar.closeIcon);
+    } else {
+        document.querySelector(`.${stylesNavbar.hamburger}`)?.classList.remove(stylesNavbar.openIcon);
+        document.querySelector(`.${stylesNavbar.hamburger}`)?.classList.add(stylesNavbar.closeIcon);
+    }
+};
+
+	// Funzione per chiudere il menu quando si clicca fuori
+	const handleClickOutside = (event: MouseEvent) => {
+		if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+			setIsMenuOpen(false);
+		}
 	};
 
 	useEffect(() => {
-		checkAuth();
+		// Aggiunge event listener al mount
+		document.addEventListener("mousedown", handleClickOutside);
+
+		// Rimuove event listener al dismount
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
 	}, []);
 
 	return (
-		<div className={styles.navbar}>
-			<div className={styles.logoContainer}>
-				<Image src={logo} alt="Logo" width={150} />
+		<div className={stylesNavbar.navbar} ref={menuRef}>
+			<div className={stylesNavbar.hamburger} onClick={toggleMenu}>
+				<FiMenu size={30} color="#000" />
 			</div>
-			<div className={styles.linksContainer} data-id="nav-links-container">
-				<ul className={styles.horizontalMenu} data-id="nav-links-container">
-					{/*<li><a className={styles.link}>Laboratori</a></li>
-          <li><a className={styles.link}>Servizi</a></li>*/}
-					<li>
-						<a className={styles.link}>La scuola</a>
-					</li>
-					<li>
-						<a className={styles.link}>Orari</a>
-					</li>
-					<li>
-						<a className={styles.link}>Area riservata</a>
-					</li>
-					<li>
-						<a className={styles.link}>Contatti</a>
-					</li>
-					{isAuthenticated && (
-						<>
-							<li>
-								<a className={styles.link}>Roma</a>
-							</li>
-						</>
-					)}
-					<li className={styles.link} onClick={handleIconClick}>
-						Modulistica
-						{isDropdownVisible && (
-							<div className={styles.dropdownMenu}>
-								<div className={styles.dropdownArrow}></div>
-								<div className={styles.dropdownContent}>
-									<button>
-										<Link className={styles.links} href="/">
-											Assenze
-										</Link>
-									</button>
-									<button>
-										<Link className={styles.links} href="/">
-											Iscrizione
-										</Link>
-									</button>
-									<button>
-										<Link className={styles.links} href="/">
-											Doposcuola
-										</Link>
-									</button>
-								</div>
-							</div>
-						)}
-					</li>
-				</ul>
+
+			<MobileMenu
+				menuItems={menuItems}
+				activeIndex={activeIndex}
+				setActiveIndex={setActiveIndex}
+				isOpen={isMenuOpen}
+				toggleMenu={toggleMenu}
+			/>
+
+			<div className={stylesNavbar.navbarMenu}>
+				{menuItems.map((item, index) => (
+					<div
+						key={index}
+						className={`${stylesNavbar.navbarItem} ${activeIndex === index ? stylesNavbar.active : ""}`}
+						onClick={() => setActiveIndex(index)}
+					>
+						<div className={stylesNavbar.spanContainer}>
+							<span className={stylesNavbar.navbarText}>{item.name}</span>
+						</div>
+					</div>
+				))}
+				<div
+					className={stylesNavbar.navbarActiveIndicator}
+					style={{ transform: `translateX(${activeIndex * 100}%)` }}
+				/>
 			</div>
 		</div>
 	);

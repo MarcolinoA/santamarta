@@ -1,32 +1,36 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import logo from "../../../../public/logo.png";
-import stylePage from "../../../Styles/HomePage/HomePage.module.css";
-import style from "../../../Styles/Login.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import stylesHeader from "../../../Styles/HomePage/Header.module.css";
+import stylesForm from "../../../Styles/Form.module.css";
 
 const AccountVerification: React.FC = () => {
 	const [message, setMessage] = useState<string>("");
 	const [email, setEmail] = useState<string | null>(null);
-	const router = useRouter();
 
 	useEffect(() => {
 		const fetchEmail = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_URL}/users/get-email`,
+					`/api/users/get-email`,
 					{
-						credentials: "include",
+						method: "GET", // Specifica il metodo GET
+						credentials: "include", // Includi i cookie
+						headers: {
+							"Content-Type": "application/json", // Aggiungi Content-Type per chiarezza
+						},
 					}
 				);
+	
 				if (response.ok) {
 					const data = await response.json();
 					setEmail(data.email);
 				} else {
+					const errorData = await response.json();
 					setMessage(
-						"Errore: email non trovata. Per favore, registrati di nuovo."
+						errorData.message || "Errore: email non trovata. Per favore, registrati di nuovo."
 					);
 				}
 			} catch (error) {
@@ -34,33 +38,37 @@ const AccountVerification: React.FC = () => {
 				setMessage("Si è verificato un errore. Per favore, riprova più tardi.");
 			}
 		};
-
+	
 		fetchEmail();
 	}, []);
 
 	const handleResendVerification = async () => {
 		if (!email) {
-			setMessage("Errore: email non trovata. Per favore, registrati di nuovo.");
+			setMessage("Errore: email non trovata. Registrati di nuovo.");
 			return;
 		}
 		try {
 			const response = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/users/resend-verification`,
+				`/api/users/resend-verification`,
 				{
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({ email }),
-					credentials: "include",
+					credentials: "include", // Assicurati che sia qui
 				}
 			);
+	
 			if (response.ok) {
 				setMessage(
 					"Email di verifica reinviata con successo. Controlla la tua casella di posta."
 				);
 			} else {
-				setMessage("Si è verificato un errore. Per favore, riprova più tardi.");
+				const errorData = await response.json();
+				setMessage(
+					errorData.message || "Si è verificato un errore. Per favore, riprova più tardi."
+				);
 			}
 		} catch (error) {
 			console.error("Errore durante il reinvio dell'email di verifica:", error);
@@ -69,33 +77,35 @@ const AccountVerification: React.FC = () => {
 	};
 
 	return (
-		<div className={stylePage.homePageContainer}>
-			<form className={style.form}>
+		<div className={`${stylesHeader.headerContainer} ${stylesHeader.FormPageLayout}`}>
+			<form className={stylesForm.form} data-id="av-form">
 				<Image src={logo} alt="Logo" width={150} />
-				<h2 className={style.formTitle}>
+				<h2 className={stylesForm.formTitle} data-id="av-title">
 					Controlla il tuo indirizzo di posta elettronica
 				</h2>
-				<p className={style.desc}>
-					Abbiamo inviato un'email di conferma all'account che hai usato per
-					iscriverti, segui le istruzioni indicate nell'email! <br /> Se non
-					vedi l'email controlla nello spam!
+				<p className={stylesForm.desc} data-id="av-desc">
+					Abbiamo inviato un&#39;email di conferma all&#39;account che hai usato per
+					iscriverti, segui le istruzioni indicate nell&#39;email! <br /> Se non
+					vedi l&#39;email controlla nello spam!
 				</p>
 				<div
-					className={style.errorMessage}
+					data-id="av-resend"
+					className={stylesForm.errorMessage}
 					onClick={handleResendVerification}
 					style={{ cursor: "pointer" }}
 				>
-					Non hai ricevuto l'email? Richiedine una nuova premendo QUI e
+					Non hai ricevuto l&#39;email? Richiedine una nuova premendo QUI e
 					controlla la tua casella di posta!
 				</div>
 				<Link
-					className={style.errorMessage}
+					data-id="av-link"
+					className={stylesForm.errorMessage}
 					style={{ cursor: "pointer" }}
 					href="/"
 				>
 					Torna alla Home!
 				</Link>
-				{message && <p className={style.message}>{message}</p>}
+				{message && <p data-id="av-msg" className={stylesForm.message}>{message}</p>}
 			</form>
 		</div>
 	);
