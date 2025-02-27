@@ -126,7 +126,7 @@ div.headerContainer.formPageLayout {
 	}
 }
 
-@media (min-width: 1281px) and (max-width: 1480px)  {
+@media (min-width: 1281px) and (max-width: 1680px) {
 	.headerContainer {
 		width: 70%;
 		height: auto;
@@ -135,7 +135,7 @@ div.headerContainer.formPageLayout {
 
 	.title {
 		margin: 0;
-		font-size: 24px;
+		font-size: 28px;
 	}
 
 	.registerHeader {
@@ -144,7 +144,7 @@ div.headerContainer.formPageLayout {
 }
 
 
-@media (min-width: 1481px) {
+@media (min-width: 1681px) and (max-width: 2000px) {
 	.headerContainer {
 		width: 70%;
 		height: auto;
@@ -153,7 +153,75 @@ div.headerContainer.formPageLayout {
 
 	.title {
 		margin: 0;
-		font-size: 24px;
+		font-size: 30px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2001px) and (max-width: 2300px) {
+	.headerContainer {
+		width: 70%;
+		height: auto;
+		margin: 40px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 34px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2301px) and (max-width: 2600px) {
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		margin: 40px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 38px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2601px) and (max-width: 2900px) {
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		margin: 40px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 40px;
+	}
+
+	.registerHeader {
+		padding: 15px;
+	}
+}
+
+@media (min-width: 2901px){
+	.headerContainer {
+		width: 80%;
+		height: auto;
+		margin: 50px auto;
+	}
+
+	.title {
+		margin: 0;
+		font-size: 46px;
 	}
 
 	.registerHeader {

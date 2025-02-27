@@ -1,0 +1,375 @@
+/* Container della Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #70e0ff;
+  padding: 10px;
+  color: #000;
+  font-family: Arial, sans-serif;
+  position: relative;
+  height: 70px;
+  z-index: 10000;
+}
+
+.navbar {
+  backface-visibility: hidden;
+  transform: translateZ(0); /* Renderizza la navbar sopra */
+}
+
+.hamburger {
+  font-size: 30px;
+  cursor: pointer;
+  display: none;
+  padding: 8px;
+  color: #000;
+}
+
+.navbarMenu {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.navbarItem {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: var(--navbar-text-font-size);
+  width: var(--navbar-item-width);
+  padding: var(--navbar-item-padding);
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+}
+
+.spanContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.navbarIcon {
+  padding: 5px;
+}
+
+.navbarText {
+  font-weight: 500;
+  font-size: var(--text-font-size);
+}
+
+/* TENDINA */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  background-color: #fff;
+  border-radius: 8px;
+  z-index: 10;
+  padding: 10px 0;
+  width: var(--navbar-dropdown-width);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.dropdownMenu.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Menu scende */
+}
+
+.dropdownMenu.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px); /* Menu risale */
+}
+
+.dropdownArrow {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  z-index: 9;
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdownButton {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdownLinks {
+  text-decoration: none;
+  color: #000;
+  font-size: var(--navbar-text-font-size);
+}
+
+/* MENU MOBILE */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  background-color: #70e0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.mobileMenu.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileMenu.close {
+  display: none; 
+  pointer-events: none; 
+  opacity: 0; 
+  transform: translateY(-20px); 
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+
+.hidden {
+  display: none;
+}
+
+/* DROPDOWN SUB MENU*/
+.dropdownSubMenu {
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(-20px);
+  height: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    height 0.5s ease;
+}
+
+.dropdownSubMenu.open {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+}
+
+.dropdownSubMenu.close {
+  opacity: 0;
+  transform: translateY(-20px);
+  height: 0;
+}
+
+.dropdownSubMenu .dropdownButton {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .hamburger {
+    display: block; 
+  }
+
+  .navbarMenu {
+    display: none; 
+  }
+
+  .navbarItem {
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #1e88a5;
+    width: 100%;
+  }
+
+  .navbarIcon {
+    display: none;
+  }
+
+  .dropdownMenu {
+    display: none;
+  }
+
+  .dropdownLinks {
+    font-size: var(--text-font-size);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .navbar {
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .hamburger {
+    display: block; 
+  }
+
+  .navbarMenu {
+    display: none;
+  }
+
+  .navbarItem {
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #1e88a5;
+    width: 100%;
+  }
+  .navbarIcon {
+    display: none;
+  }
+
+  .navbarText {
+    width: 150px;
+  }
+
+  .dropdownMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar {
+    padding: 10px 0;
+  }
+
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
+  }
+
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-5%) translateY(0);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .navbar {
+    padding: 10px 0;
+  }
+
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
+  }
+
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1480px) {
+  .navbar {
+    padding: 10px 0;
+  }
+
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
+  }
+
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
+  }
+}
+
+@media (min-width: 1481px) and (max-width: 2600px) {
+  .navbar {
+    padding: 20px 0;
+  }
+
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
+  }
+
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
+  }
+}
+
+@media (min-width: 2600px) and (max-width: 3000px) {
+  .navbar {
+    padding: 20px 0;
+  }
+
+  .dropdownMenu {
+    top: 108%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0); 
+  }
+
+  .dropdownMenu.visible {
+    opacity: 1;
+    transform: translateX(-0%) translateY(0);
+  }
+}

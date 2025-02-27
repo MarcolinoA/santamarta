@@ -1,331 +1,479 @@
 .form {
-	width: 400px;
-	margin-top: 30px;
-	display: flex;
-	flex-direction: column;
-	height: 700px;
-	margin: 0;
-	justify-content: center;
-	align-items: center;
-	margin: -20px;
-}
-
-.loginHeader {
-	margin: 15px;
-}
-
-.formGroup {
-	margin-bottom: 10px;
-	width: 300px;
-}
-
-.formLabel {
-	display: block;
-	font-size: 16px;
-	font-weight: 600;
-	margin-bottom: 5px;
-	color: #333;
-}
-
-.formInput {
-	width: 100%;
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	box-sizing: border-box;
-	transition: border-color 0.3s ease;
-}
-
-.formInput:focus {
-	border-color: #0070f3;
-	outline: none;
-}
-
-.errorMessage {
-	color: #ff4d4f;
-	margin: 5px 0 5px 0;
-	font-size: 16px;
-	text-decoration: underline;
-}
-
-.message {
-	color: #333;
-	margin: 10px 0 10px 0;
-	font-size: 16px;
-}
-
-.errorLinks {
-	display: flex;
-	flex-direction: column;
-}
-
-.formFooterContainer {
-	width: 300px;
-	margin: 10px 0;
-}
-
-.formButton {
-	width: 100%;
-	padding: 10px;
-	font-size: 16px;
-	color: #fff;
-	background-color: #0070f3;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-.formButton:disabled {
-	background-color: #b3b3b3;
-	cursor: not-allowed;
-}
-
-.formButton:not(:disabled):hover {
-	background-color: #005bb5;
-}
-
-.passwordInputWrapper {
-	position: relative;
-	display: flex;
-	align-items: center;
-}
-
-.passwordToggle {
-	position: absolute;
-	right: 10px;
-	background: none;
-	border: none;
-	cursor: pointer;
-	font-size: 1.2em;
-	color: #000;
-	padding: 0;
-	margin-top: 6px;
-}
-
-.passwordToggle:focus {
-	outline: none;
-}
-
-.messagesContainer {
-	margin-top: 15px;
+  width: 400px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  margin: -20px;
 }
 
 .formLogin {
-	width: 400px;
-	margin-top: 30px;
-	display: contents;
-	flex-direction: column;
-	height: 700px;
-	margin: 0;
-	justify-content: center;
-	align-items: center;
-	margin: -20px;
+  width: 400px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  margin: -20px;
+}
+
+.loginHeader {
+  margin: 15px;
+}
+
+.formGroup {
+  margin-bottom: 10px;
+  width: var(--form-width);
+}
+
+.formLabel {
+  display: block;
+  font-size: var(--form-font-size);
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.formInput {
+  width: 100%;
+  padding: 10px;
+  font-size: var(--form-font-size);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.formInput:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+.errorMessage {
+  color: #ff4d4f;
+  margin: 5px 0 5px 0;
+  font-size: var(--form-font-size);
+  text-decoration: underline;
+}
+
+.message {
+  color: #333;
+  margin: 10px 0 10px 0;
+  font-size: var(--form-font-size);
+}
+
+.errorLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.formFooterContainer {
+  width: var(--form-width);
+  margin: 10px 0;
+}
+
+.formButton {
+  width: 100%;
+  padding: 10px;
+  font-size: var(--form-font-size);
+  color: #fff;
+  background-color: #0070f3;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formButton:disabled {
+  background-color: #b3b3b3;
+  cursor: not-allowed;
+}
+
+.formButton:not(:disabled):hover {
+  background-color: #005bb5;
+}
+
+.passwordInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #000;
+  padding: 0;
+  margin-top: 6px;
+}
+
+.passwordToggle:focus {
+  outline: none;
+}
+
+.messagesContainer {
+  margin-top: 15px;
+}
+
+.accessDeniedTitle {
+  font-size: 40px;
+}
+
+.accessDeniedDesc {
+  width: var(--form-width);
+  font-size: 30px;
 }
 
 @media (max-width: 408px) {
-	.logo {
-		width: 130px;
-	}
+  .form {
+    margin: -40px;
+  }
 
-	.formTitle {
-		font-size: 18px;
-	}
+  .logo {
+    width: 130px;
+  }
 
-	.form {
-		display: flex;
-		flex-direction: column;
-		height: 700px;
-		margin: 0;
-		justify-content: center;
-		align-items: center;
-		margin: -40px;
-	}
+  .formGroup {
+    margin-bottom: 2px;
+    width: 250px;
+  }
 
-	.formLabel {
-		font-size: 14px;
-	}
+  .passwordToggle {
+    font-size: 20px;
+  }
 
-	.formLogin {
-		height: 700px;
-		margin: 0;
-		margin: -20px;
-	}
+  .accessDeniedTitle {
+    font-size: 30px;
+  }
 
-	.formGroup {
-		margin-bottom: 2px;
-		width: 250px;
-	}
+  .accessDeniedDesc {
+    font-size: 22px;
+  }
 
-	.formFooterContainer {
-		width: 250px;
-	}
+  .formLogin {
+    height: 450px;
+    margin: -40px;
+  }
 }
 
 @media (min-width: 409px) and (max-width: 640px) {
-	/* sm */
-	.logo {
-		width: 130px;
-	}
+  /* sm */
+  .form {
+    margin: -40px;
+  }
 
-	.form {
-		display: flex;
-		flex-direction: column;
-		height: 700px;
-		margin: 0;
-		justify-content: center;
-		align-items: center;
-		margin: -20px;
-	}
+  .logo {
+    width: 180px;
+  }
 
-	.formLogin {
-		height: 700px;
-		margin: 0;
-		margin: -20px;
-	}
+  .formGroup {
+    margin-bottom: 0;
+  }
 
-	.formGroup {
-		margin-bottom: 0;
-		width: 300px;
-	}
+  .passwordToggle {
+    font-size: 20px;
+  }
 
-	.formFooterContainer {
-		width: 300px;
-	}
+  .accessDeniedTitle {
+    font-size: 32px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 24px;
+  }
+
+  .formLogin {
+    height: 480px;
+    margin: -40px;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 768px) {
-	/* md */
-	.logo {
-		width: 130px;
-	}
+  /* md */
+  .form {
+    height: 800px;
+    margin: -40px;
+  }
 
-	.form {
-		height: 700px;
-	}
+  .logo {
+    width: 200px;
+  }
 
-	.formLogin {
-		height: 700px;
-	}
+  .formGroup {
+    margin-bottom: 10px;
+  }
 
-	.formGroup {
-		margin-bottom: 10px;
-		width: 350px;
-	}
+  .passwordToggle {
+    font-size: 20px;
+  }
 
-	.formFooterContainer {
-		width: 350px;
-	}
+  .accessDeniedTitle {
+    font-size: 34px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 26px;
+  }
+
+  .formLogin {
+    height: 550px;
+    margin: -40px;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-	.logo {
-		width: 130px;
-	}
+  .form {
+    height: 900px;
+  }
 
-	.form {
-		height: 700px;
-	}
+  .logo {
+    width: 200px;
+  }
 
-	.formLogin {
-		height: 700px;
-	}
+  .formGroup {
+    margin-bottom: 10px;
+  }
 
-	.formGroup {
-		margin-bottom: 10px;
-		width: 400px;
-	}
+  .passwordToggle {
+    font-size: 25px;
+  }
 
-	.formFooterContainer {
-		width: 400px;
-	}
+  .accessDeniedTitle {
+    font-size: 34px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 26px;
+  }
+
+  .formLogin {
+    height: 600px;
+    margin: -40px;
+  }
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-	.logo {
-		width: 130px;
-	}
+  .form {
+    height: 850px;
+  }
 
-	.form {
-		height: 700px;
-	}
+  .logo {
+    width: 200px;
+  }
 
-	.formLogin {
-		height: 700px;
-	}
+  .formGroup {
+    margin-bottom: 10px;
+  }
 
-	.formGroup {
-		margin-bottom: 5px;
-		width: 450px;
-	}
+  .passwordToggle {
+    font-size: 25px;
+  }
 
-	.formFooterContainer {
-		width: 450px;
-	}
+  .accessDeniedTitle {
+    font-size: 36px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 28px;
+  }
+
+  .formLogin {
+    height: 600px;
+    margin: -40px;
+  }
 }
 
-@media (min-width: 1281px) and (max-width: 1780px) {
-	.logo {
-		width: 150px;
-	}
+@media (min-width: 1281px) and (max-width: 1680px) {
+  .form {
+    height: 850px;
+  }
 
-	.form {
-		height: 700px;
-	}
+  .logo {
+    width: 200px;
+  }
 
-	.formLogin {
-		height: 700px;
-	}
+  .formGroup {
+    margin-bottom: 10px;
+  }
 
-	.formGroup {
-		margin-bottom: 0px;
-		width: 450px;
-    padding: 2px 0;
-	}
+  .passwordToggle {
+    font-size: 25px;
+  }
 
-	.formFooterContainer {
-		width: 450px;
-	}
+  .accessDeniedTitle {
+    font-size: 38px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 30px;
+  }
+
+  .formLogin {
+    height: 600px;
+    margin: -40px;
+  }
 }
 
-@media (min-width: 1781px) {
-	.logo {
-		width: 170px;
-	}
+@media (min-width: 1681px) and (max-width: 2000px) {
+  .form {
+    height: 850px;
+  }
 
-	.form {
-		height: 700px;
-	}
+  .logo {
+    width: 220px;
+  }
 
-	.formLabel {
-		font-size: 20px;
-	}	
+  .formGroup {
+    margin-bottom: 10px;
+  }
 
-	.formInput {
-		font-size: 18px;
-	}
+  .passwordToggle {
+    font-size: 25px;
+  }
 
-	.formButton {
-		font-size: 20px;
-	}
+  .accessDeniedTitle {
+    font-size: 38px;
+  }
 
-	.errorMessage {
-		font-size: 20px;
-	}
+  .accessDeniedDesc {
+    font-size: 30px;
+  }
 
-	.formLogin {
-		height: 700px;
-	}
-
-	.formGroup {
-		margin-bottom: 0px;
-		width: 450px;
-    	padding: 2px 0;
-	}
-
-	.formFooterContainer {
-		width: 450px;
-	}
+  .formLogin {
+    height: 600px;
+    margin: -40px;
+  }
 }
 
+@media (min-width: 2001px) and (max-width: 2300px) {
+  .form {
+    height: 950px;
+  }
+
+  .logo {
+    width: 250px;
+  }
+
+  .formGroup {
+    margin-bottom: 10px;
+  }
+
+  .passwordToggle {
+    font-size: 25px;
+  }
+
+  .accessDeniedTitle {
+    font-size: 40px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 32px;
+  }
+
+  .formLogin {
+    height: 600px;
+    margin: -40px;
+  }
+}
+
+@media (min-width: 2301px) and (max-width: 2600px) {
+  .form {
+    height: 1000px;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+  }
+
+  .passwordToggle {
+    font-size: 30px;
+  }
+
+  .accessDeniedTitle {
+    font-size: 40px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 32px;
+  }
+
+  .formLogin {
+    height: 600px;
+    margin: -40px;
+  }
+}
+
+@media (min-width: 2601px) and (max-width: 2900px) {
+  .form {
+    height: 1100px;
+  }
+
+  .logo {
+    width: 300px;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+  }
+
+  .passwordToggle {
+    font-size: 35px;
+  }
+
+  .accessDeniedTitle {
+    font-size: 42px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 34px;
+  }
+
+  .formLogin {
+    height: 650px;
+    margin: -40px;
+  }
+}
+
+@media (min-width: 2901px) {
+  .form {
+    height: 1100px;
+  }
+
+  .logo {
+    width: 350px;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+  }
+
+  .passwordToggle {
+    font-size: 40px;
+  }
+
+  .accessDeniedTitle {
+    font-size: 44px;
+  }
+
+  .accessDeniedDesc {
+    font-size: 36px;
+  }
+
+  .formLogin {
+    height: 700px;
+    margin: -40px;
+  }
+}

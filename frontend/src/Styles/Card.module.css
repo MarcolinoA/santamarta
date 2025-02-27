@@ -1,7 +1,7 @@
 .CardContainer {
 	position: relative;
 	overflow: hidden;
-	border-radius: 15px;
+	border-radius: 30px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 	background-color: #fff;
 	opacity: 1;
@@ -72,16 +72,35 @@
 	transform: translateX(-50%); 
 }
 
+.cardNameBack {
+	position: absolute;
+	bottom: 12px;
+	left: 50%;
+	color: #000;
+	z-index: 10;
+	background: rgba(255, 255, 255, 0.8);
+	border: #000000 solid 1px;
+	padding: 8px;
+	border-radius: 30px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translateX(-50%); 
+	height: var(--card-name-small-height);
+	font-size: var(--card-name-small-font-size);
+}
+
 .cardNameLarge {
 	width: 300px;
-	height: 30px;
-	font-size: 24px;
+	height: var(--card-name-small-height);
+	font-size: var(--card-name-small-font-size);
 }
 
 .cardNameSmall {
 	width: 200px;
-	height: 30px;
-	font-size: 18px;
+	height: var(--card-name-small-height);
+	font-size: var(--card-name-small-font-size);
 	padding: 8px;
 }
 
@@ -125,7 +144,6 @@
 .cardBack p {
 	margin: 10px;
 	font-size: 16px;
-	color: #333;
 }
 
 .cardLayout {
@@ -198,6 +216,35 @@
   transform: translateY(-5px);
 }
 
+/* SQUARE CARD*/
+.squareCard {
+	width: 700px;
+	height: 700px;
+}
+
+.cardNameSquare {
+	width: 350px;
+	font-size: var(--card-name-small-font-size);
+	height: var(--card-name-small-height);
+	padding: 6px;
+	border-radius: 30px;
+}
+
+.customGridClass1 {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 40px;
+}
+
+.customGridClass2 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(2, 1fr); 
+	gap: 20px;
+}
+
 @media (max-width: 408px) {
 	.cardTable {
 		padding: 0px;
@@ -224,7 +271,7 @@
 		height: auto;
 		aspect-ratio: 5 / 6;
 		min-width: 72px;
-		min-height: 100px;
+		min-height: 130px;
 	}
 
 	.cardName {
@@ -236,17 +283,11 @@
 
 	.cardNameLarge {
 		width: 120px;
-		height: 15px;
-		font-size: 12px;
 	}
 	
 	.cardNameSmall {
-		width: 50px;
-		height: 12px;
-		font-size: 10px;
+		width: 65px;
 		padding: 6px;
-		border-radius: 10px;
-		font-size: 8px;
 	}
 
 	.cardGrid {
@@ -265,6 +306,34 @@
 
 	.cardSection {
 		gap: 10px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 120px;
+		min-height: 120px;
+	}
+
+	.customGridClass2 {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 1fr); 
+		gap: 10px;
+	}
+	
+	.customGridClass1 {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		grid-template-rows: repeat(3, 1fr); 
+		gap: 5px;
+	}
+
+	.cardNameSquare {
+		width: 90px;
 	}
 }
 
@@ -304,14 +373,10 @@
 
 	.cardNameLarge {
 		width: 120px;
-		height: 15px;
-		font-size: 12px;
 	}
 	
 	.cardNameSmall {
 		width: 80px;
-		height: 12px;
-		font-size: 10px;
 		padding: 6px;
 	}
 
@@ -325,8 +390,37 @@
 	}
 
 	.cardBack p {
-		font-size: 8px;
+		font-size: 9px;
 		margin: 5px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 135px;
+		min-height: 135px;
+	}
+
+	.customGridClass2 {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 1fr); 
+		gap: 10px;
+	}
+
+	.customGridClass1 {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		grid-template-rows: repeat(3, 1fr); 
+		gap: 10px;
+	}
+
+	.cardNameSquare {
+		width: 100px;
+		padding: 8px;
 	}
 }
 
@@ -362,15 +456,11 @@
 	}
 
 	.cardNameLarge {
-		width: 150px;
-		height: 18px;
-		font-size: 14px;
+		width: 190px;
 	}
 	
 	.cardNameSmall {
-		width: 100px;
-		height: 16px;
-		font-size: 12px;
+		width: 120px;
 		padding: 6px;
 	}
 
@@ -386,6 +476,29 @@
 	.cardBack p {
 		font-size: 13px;
 		margin: 5px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 200px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 200px;
+		min-height: 200px;
+	}
+
+	.customGridClass2 {
+		gap: 10px;
+	}
+
+	.customGridClass1 {
+		gap: 15px;
+	}
+
+	.cardNameSquare {
+		width: 150px;
 	}
 }
 
@@ -416,15 +529,11 @@
 	}
 
 	.cardNameLarge {
-		width: 200px;
-		height: 20px;
-		font-size: 18px;
+		width: 250px;
 	}
 	
 	.cardNameSmall {
 		width: 140px;
-		height: 20px;
-		font-size: 15px;
 		padding: 8px;
 	}
 
@@ -435,6 +544,29 @@
 
 	.cardBack p {
 		font-size: 15px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 240px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 240px;
+		min-height: 240px;
+	}
+
+	.cardNameSquare {
+		width: 200px;
+	}
+
+	.customGridClass2 {
+		gap: 10px;
+	}
+
+	.customGridClass1 {
+		gap: 15px;
 	}
 }
 
@@ -465,15 +597,11 @@
 	}
 
 	.cardNameLarge {
-		width: 250px;
-		height: 25px;
-		font-size: 20px;
+		width: 280px;
 	}
 	
 	.cardNameSmall {
-		width: 180px;
-		height: 25px;
-		font-size: 16px;
+		width: 200px;
 		padding: 8px;
 	}
 
@@ -485,15 +613,56 @@
 	.cardBack p {
 		font-size: 18px;
 	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 250px;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 250px;
+		min-height: 250px;
+	}
+
+	.cardNameSquare {
+		width: 225px;
+	}
+
+	.customGridClass1 {
+		gap: 15px;
+	}
 }
 
 @media (min-width: 1281px) and (max-width: 1680px) {
 	.cardBack p {
 		font-size: 23px;
 	}
+
+	.cardNameLarge {
+		width: 400px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 300px;
+		min-height: 300px;
+	}
+
+	.cardNameSquare {
+		width: 250px;
+	}
+
+	.customGridClass1 {
+		gap: 15px;
+	}
 }
 
-@media (min-width: 1681px) {
+@media (min-width: 1681px) and (max-width: 2000px) {
 	.cardTable {
 		padding: 0px;
 		margin: 20px;
@@ -520,15 +689,11 @@
 	}
 
 	.cardNameLarge {
-		width: 350px;
-		height: 25px;
-		font-size: 22px;
+		width: 400px;
 	}
 	
 	.cardNameSmall {
-		width: 250px;
-		height: 30px;
-		font-size: 20px;
+		width: 280px;
 		padding: 8px;
 	}
 
@@ -540,4 +705,300 @@
 	.cardBack p {
 		font-size: 25px;
 	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 370px;
+		min-height: 370px;
+	}
+
+	.cardNameSquare {
+		width: 300px;
+		padding: 20px;
+	}
+
+	.customGridClass2 {
+		gap: 25px;
+	}
+
+	.customGridClass1 {
+		gap: 15px;
+	}
 }
+
+@media (min-width: 2001px) and (max-width: 2300px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 480px;
+		height: 870px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 380px;
+		height: 430px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 400px;
+	}
+	
+	.cardNameSmall {
+		width: 300px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 28px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 400px;
+		min-height: 400px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		padding: 20px;
+	}
+
+	.customGridClass2 {
+		gap: 25px;
+	}
+
+	.customGridClass1 {
+		gap: 35px;
+	}
+}
+
+@media (min-width: 2301px) and (max-width: 2600px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 530px;
+		height: 870px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 400px;
+		height: 430px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 400px;
+	}
+	
+	.cardNameSmall {
+		width: 320px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 30px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 430px;
+		min-height: 430px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		padding: 20px;
+	}
+
+	.customGridClass2 {
+		gap: 30px;
+	}
+
+	.customGridClass1 {
+		gap: 35px;
+	}
+}
+
+@media (min-width: 2601px) and (max-width: 2900px) {
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 530px;
+		height: 910px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 430px;
+		height: 450px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 380px;
+	}
+	
+	.cardNameSmall {
+		width: 330px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 32px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 460px;
+		min-height: 460px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		padding: 20px;
+	}
+
+	.customGridClass2 {
+		gap: 35px;
+	}
+
+	.customGridClass1 {
+		gap: 20px;
+	}
+}
+
+@media (min-width: 2901px){
+	.cardTable {
+		padding: 0px;
+		margin: 20px;
+	}
+
+	.largeCard {
+		width: 560px;
+		height: 990px;
+		aspect-ratio: 5 / 6;
+	}
+
+	.smallCard {
+		width: 460px;
+		height: 490px;
+		aspect-ratio: 5 / 6;
+		min-height: 280px;
+	}
+
+	.cardName {
+		position: absolute;
+		bottom: 10px;
+		left: 50%; 
+		transform: translateX(-50%); 
+	}
+
+	.cardNameLarge {
+		width: 420px;
+	}
+	
+	.cardNameSmall {
+		width: 360px;
+		padding: 8px;
+	}
+
+	.cardGrid {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.cardBack p {
+		font-size: 34px;
+	}
+
+	.squareCard {
+		flex: 1 1 auto;
+		box-sizing: border-box;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 6;
+		min-width: 600px;
+		min-height: 600px;
+	}
+
+	.cardNameSquare {
+		width: 350px;
+		padding: 20px;
+	}
+
+	.customGridClass2 {
+		gap: 40px;
+	}
+
+	.customGridClass1 {
+		gap: 20px;
+	}
+}
+

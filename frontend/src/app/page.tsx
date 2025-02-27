@@ -1,10 +1,12 @@
 import React, { Suspense } from "react";
 import HomePage from "../components/HomePage/HomePage";
-import CardTable from "../components/Sections/Cards/CardTable";
-import CardTableTwo from "../components/Sections/Cards/CardTableTwo";
 import Footer from "../components/shared/Footer";
 import styles from "../Styles/HomePage/Header.module.css";
-import Navbar from "../components/HomePage/Navbar";
+import Laboratori from "../components/HomePage/Sections/Laboratori";
+import Informazioni from "../components/HomePage/Sections/Informazioni";
+import Servizi from "../components/HomePage/Sections/Servizi";
+import OffertaFormativa from "../components/HomePage/Sections/OffertaFormativa";
+import Navbar from "../components/shared/Navbar";
 
 // Esporta i metadata
 export const metadata = {
@@ -33,14 +35,16 @@ export const metadata = {
 const Home = () => {
 	return (
 		<div>
-			<main className={styles.main}>
+			<main className={`${styles.main}`}>
 				<Navbar />
 				<Suspense fallback={<div>Loading Home...</div>}>
 					<HomePage />
 				</Suspense>
 			</main>
-			<CardTable cardTitle="Laboratori" />
-			<CardTableTwo cardTitle="Servizi" />
+			<Laboratori cardTitle="Laboratori" />
+			<Informazioni cardTitle="Informazioni" />
+			<Servizi cardTitle="Servizi" />
+			<OffertaFormativa cardTitle="OffertaFormativa" />
 			<footer>
 				<Footer />
 			</footer>

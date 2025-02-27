@@ -1,9 +1,15 @@
 import React from "react";
 import styles from "../../Styles/Footer.module.css";
+import { Fjalla_One } from "next/font/google";
+
+const fjalla = Fjalla_One({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 const Footer: React.FC = () => {
 	return (
-		<footer className={styles.footer}>
+		<footer className={`${styles.footer} ${fjalla.className}`}>
 			<div className={styles.footerSection}>
 				<div className={styles.contact}>
 					<h4>Contact</h4>

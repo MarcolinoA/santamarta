@@ -1,0 +1,300 @@
+.timelineContainer {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.timelineContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.timelineEvent {
+  border-radius: 30px;
+  padding: 30px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 1000px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.eventContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.arrowButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.arrowButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.arrowButton svg {
+  width: 60px;
+  height: 60px;
+}
+
+@media (max-width: 408px) {
+  .timelineContainer {
+    padding: 0px;
+  }
+
+  .timelineContent {
+    gap: 5px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 200px;
+    height: 500px;
+  }
+
+  .arrowButton {
+    padding: 5px;
+  }
+
+  .arrowButton svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (min-width: 409px) and (max-width: 640px) {
+  .timelineContainer {
+    padding: 0px;
+  }
+
+  .timelineContent {
+    gap: 5px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 320px;
+    height: 400px;
+  }
+
+  .arrowButton {
+    padding: 5px;
+  }
+
+  .arrowButton svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .timelineContainer {
+    padding: 0px;
+  }
+
+  .timelineContent {
+    gap: 5px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 400px;
+    height: 500px;
+  }
+
+  .arrowButton {
+    padding: 10px;
+  }
+
+  .arrowButton svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .timelineContainer {
+    padding: 5px;
+  }
+
+  .timelineContent {
+    gap: 10px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 450px;
+    height: 500px;
+  }
+
+  .arrowButton {
+    padding: 10px;
+  }
+
+  .arrowButton svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .timelineContainer {
+    padding: 5px;
+  }
+
+  .timelineContent {
+    gap: 10px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 500px;
+    height: 500px;
+  }
+
+  .arrowButton {
+    padding: 10px;
+  }
+
+  .arrowButton svg {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (min-width: 1281px) and (max-width: 1680px) {
+  .timelineContainer {
+    padding: 10px;
+  }
+
+  .timelineContent {
+    gap: 10px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 550px;
+    height: 600px;
+  }
+
+  .arrowButton {
+    padding: 10px;
+  }
+
+  .arrowButton svg {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (min-width: 1681px) and (max-width: 2200px) {
+  .timelineContainer {
+    padding: 15px;
+  }
+
+  .timelineContent {
+    gap: 15px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 600px;
+    height: 650px;
+  }
+
+  .arrowButton {
+    padding: 15px;
+  }
+
+  .arrowButton svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 2201px) and (max-width: 2600px) {
+  .timelineContainer {
+    padding: 20px;
+  }
+
+  .timelineContent {
+    gap: 20px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 700px;
+    height: 750px;
+  }
+
+  .arrowButton {
+    padding: 20px;
+  }
+
+  .arrowButton svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 2601px) and (max-width: 2900px) {
+  .timelineContainer {
+    padding: 20px;
+  }
+
+  .timelineContent {
+    gap: 30px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 800px;
+    height: 850px;
+  }
+
+  .arrowButton {
+    padding: 20px;
+  }
+
+  .arrowButton svg {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 2901px) {
+  .timelineContainer {
+    padding: 20px;
+  }
+
+  .timelineContent {
+    gap: 30px;
+  }
+
+  .timelineEvent {
+    padding: 0px;
+    width: 900px;
+    height: 950px;
+  }
+
+  .arrowButton {
+    padding: 20px;
+  }
+}
