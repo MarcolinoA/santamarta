@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import FormPageLayout from "../../shared/FormPageLayout"; // Usa il componente condiviso
+import FormPageLayout from "../../shared/FormPageLayout";
 
 const VerificationSuccess: React.FC = () => {
 	const router = useRouter();

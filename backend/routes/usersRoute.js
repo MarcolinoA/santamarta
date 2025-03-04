@@ -50,9 +50,35 @@ router.post("/register", async (req, res) => {
 
 		const addresses = await resolveMx(domain);
 		if (addresses.length === 0) {
-			return res
-				.status(400)
-				.send(`Il dominio dell'email (${domain}) non ha record MX validi.`);
+			try {
+				const addresses = await resolveMx(domain);
+				if (addresses.length === 0) {
+					return res
+						.status(400)
+						.send(`Il dominio dell'email (${domain}) non è configurato per ricevere email.`);
+				}
+			} catch (dnsError) {
+				console.error(`Errore DNS per il dominio ${domain}:`, dnsError);
+			
+				// Suggerimenti per errori comuni di dominio
+				const commonMistakes = {
+					"g.com": "gmail.com",
+					"yaho.com": "yahoo.com",
+					"hotnail.com": "hotmail.com",
+					"outlok.com": "outlook.com",
+					"live.cm": "live.com"
+				};
+			
+				if (commonMistakes[domain]) {
+					return res
+						.status(400)
+						.send(`Il dominio dell'email (${domain}) non esiste. Forse intendevi "${commonMistakes[domain]}"?`);
+				}
+			
+				return res
+					.status(400)
+					.send(`Il dominio dell'email (${domain}) non è valido o non raggiungibile.`);
+			}			
 		}
 
 		// 2. Validazione Name
@@ -176,8 +202,7 @@ router.post("/register", async (req, res) => {
 		res
 			.status(500)
 			.send({
-				message: "Errore durante la registrazione",
-				error: error.message,
+				message: "Errore durante la registrazione, verifica che i campi siano validi",
 			});
 	}
 });
@@ -335,12 +360,12 @@ router.post("/login", loginLimiter, async (req, res) => {
 				priority: user.priority,
 			});
 		} else {
-			res.status(401).json({ message: "Credenziali non valide" });
+			res.status(401).send({ message: "Credenziali non valide" });
 		}
 	} catch (error) {
 		res
 			.status(500)
-			.json({
+			.send({
 				message: "An error occurred during login",
 				error: error.message,
 			});

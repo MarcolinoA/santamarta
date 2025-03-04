@@ -26,9 +26,6 @@ function AccessDenied() {
         <h2 data-id="access-denied" className={stylesForm.accessDeniedTitle}>
           Accesso Negato
         </h2>
-        <p data-id="session-expired" className={stylesForm.accessDeniedDesc}>
-          Sessione scaduta. Effettua nuovamente il login.
-        </p>
       </div>
     </>
   );

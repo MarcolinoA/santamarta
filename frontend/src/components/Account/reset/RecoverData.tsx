@@ -110,7 +110,7 @@ const RecoverData: React.FC<RecoverDataProps> = ({
           onSubmit={handleSubmit}
           className={stylesForm.formLogin}
         >
-          <div className={stylesForm.formGroup}>
+          <div className={stylesForm.formContainer}>
             <InputField
               id="email"
               dataid="email"

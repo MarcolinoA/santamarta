@@ -4,6 +4,12 @@ import logo from "../../../public/logo.png";
 import stylesHeader from "../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../Styles/Form.module.css";
 import Navbar from "./Navbar";
+import { Fjalla_One } from "next/font/google";
+
+const fjalla = Fjalla_One({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 interface FormPageLayoutProps {
   title: string;
@@ -27,9 +33,6 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({
   onSubmit,
   buttonText,
   loadingText,
-  isAuthenticated,
-  username,
-  options,
   buttonDataId,
   formDataId,
   errorDataId,
@@ -38,8 +41,16 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({
     <>
       <Navbar />
       <div
-        className={`${stylesHeader.headerContainer} ${stylesHeader.formPageLayout}`}
+        className={`${stylesHeader.headerContainer} ${stylesHeader.formPageLayout} ${fjalla.className}`}
       >
+        <form
+          data-id={formDataId}
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+          className={stylesForm.form}
+        >
         <Image src={logo} alt="Logo" width={150} />
         <h2 data-id="page-title" className={stylesForm.formTitle}>
           {title}
@@ -49,18 +60,10 @@ const FormPageLayout: React.FC<FormPageLayoutProps> = ({
             {error}
           </div>
         )}
-        <form
-          data-id={formDataId}
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit();
-          }}
-          className={stylesForm.form}
-        >
           <button
             data-id={buttonDataId}
             type="submit"
-            className={stylesForm.formButton}
+            className={`${stylesForm.formButton} ${fjalla.className}`}
             disabled={loading}
           >
             {loading ? loadingText : buttonText}

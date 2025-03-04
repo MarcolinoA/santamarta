@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import InputField from "../../shared/InputFieldProps";
 import { validateForm } from "../../../utils/validation";
 import FormFooter from "../../shared/FormFooter";
@@ -9,6 +9,8 @@ import Image from "next/image";
 import stylesHeader from "../../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../../Styles/Form.module.css";
 import Navbar from "../../shared/Navbar";
+import AccessDenied from "../../shared/AccessDenied";
+import { useAuthentication } from "../../../hooks/useAuthentications";
 
 interface FormData {
   name: string;
@@ -18,16 +20,8 @@ interface FormData {
   email: string;
 }
 
-interface FormErrors {
-  [key: string]: string;
-}
-
 const SignUp: React.FC = () => {
-  const options = [
-    { label: "Home", href: "/", dataid: "home-btn" },
-    { label: "Accedi", href: "/account/pages/signin", dataid: "signin-btn" },
-  ];
-
+  const { isAuthenticated } = useAuthentication();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     surname: "",
@@ -40,10 +34,23 @@ const SignUp: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const timeout = setTimeout(() => {
+        router.push("/");
+      }, 3000);
+  
+      return () => clearTimeout(timeout); 
+    }
+  }, [isAuthenticated, router]);
+  
+  if (isAuthenticated) {
+    return <AccessDenied />;
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,14 +78,10 @@ const SignUp: React.FC = () => {
     setLoading(true);
     setMessage(null);
 
-    // Validazione dei dati del modulo
-    const validationErrors = validateForm(
-      formData,
-      confirmPassword,
-      confirmEmail,
-      true
-    );
+    const validationErrors = validateForm(formData, confirmPassword, confirmEmail, true);
     if (Object.keys(validationErrors).length > 0) {
+      const firstError = Object.values(validationErrors)[0];
+      setMessage(firstError);
       setLoading(false);
       return;
     }
@@ -88,35 +91,19 @@ const SignUp: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-        credentials: "include", // Importante per inviare e ricevere cookie
+        credentials: "include",
       });
 
-      // Gestione della risposta
       if (!response.ok) {
-        console.error("Status Code:", response.status);
         const responseText = await response.text();
-        console.error("Risposta del server:", responseText);
-
-        // Gestione degli errori del server
-        try {
-          const errorData = JSON.parse(responseText);
-          throw new Error(
-            errorData.message || "Errore nella creazione dell'utente"
-          );
-        } catch (jsonError) {
-          throw new Error(
-            "Errore nella creazione dell'utente: " + responseText
-          );
-        }
+        setMessage(responseText);
+        throw new Error(responseText);
       }
 
-      // Elaborazione della risposta positiva
-      const data = await response.json();
       setMessage("Verifica la tua email per completare la registrazione.");
-
-      // Navigazione a pagina di verifica
       router.push(`/account/other/accountVerification`);
-    } catch (error: any) {
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -127,18 +114,13 @@ const SignUp: React.FC = () => {
       <Navbar />
       <div className={stylesHeader.headerContainer}>
         <div className={stylesHeader.registerHeader}>
-          <Image
-            className={stylesForm.logo}
-            src={logo}
-            alt="Logo"
-            width={150}
-          />
+          <Image className={stylesForm.logo} src={logo} alt="Logo" width={150} />
           <h2 data-id="title" className={stylesHeader.title}>
             Compila i campi per registrarti
           </h2>
         </div>
         <form onSubmit={handleSubmit} className={stylesForm.form}>
-          <div className={stylesForm.formGroup}>
+          <div className={stylesForm.formContainer}>
             <InputField
               id="name"
               dataid="name"
@@ -224,10 +206,6 @@ const SignUp: React.FC = () => {
             btnText="Registrati"
             hrefLink="/account/pages/signin"
             linkText="Hai già un account? Accedi!"
-            hrefLink2=""
-            linkText2=""
-            hrefLink3=""
-            linkText3=""
           />
         </form>
       </div>

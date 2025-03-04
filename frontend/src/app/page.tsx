@@ -7,6 +7,12 @@ import Informazioni from "../components/HomePage/Sections/Informazioni";
 import Servizi from "../components/HomePage/Sections/Servizi";
 import OffertaFormativa from "../components/HomePage/Sections/OffertaFormativa";
 import Navbar from "../components/shared/Navbar";
+import { Fjalla_One } from "next/font/google";
+
+const fjalla = Fjalla_One({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 // Esporta i metadata
 export const metadata = {

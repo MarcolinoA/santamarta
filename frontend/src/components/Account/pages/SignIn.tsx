@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Cookies from "js-cookie";
@@ -10,6 +10,7 @@ import logo from "../../../../public/logo.png";
 import stylesHeader from "../../../Styles/HomePage/Header.module.css";
 import stylesForm from "../../../Styles/Form.module.css";
 import Navbar from "../../shared/Navbar";
+import AccessDenied from "../../shared/AccessDenied";
 
 interface FormData {
   username: string;
@@ -17,16 +18,7 @@ interface FormData {
 }
 
 const SignIn: React.FC = () => {
-  const options = [
-    { label: "Home", href: "/", dataid: "home-btn" },
-    {
-      label: "Registrati",
-      href: "/account/pages/signup",
-      dataid: "signup-btn",
-    },
-  ];
-
-  const { login } = useAuthentication();
+  const { login, isAuthenticated } = useAuthentication();
   const [formData, setFormData] = useState<FormData>({
     username: "",
     password: "",
@@ -35,6 +27,20 @@ const SignIn: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const timeout = setTimeout(() => {
+        router.push("/");
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isAuthenticated, router]);
+
+  if (isAuthenticated) {
+    return <AccessDenied />;
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,10 +61,9 @@ const SignIn: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-        credentials: "include", // Includi i cookie nella richiesta
+        credentials: "include",
       });
 
-      // Gestione della risposta
       if (!response.ok) {
         const errorMessage =
           response.status === 429
@@ -68,7 +73,7 @@ const SignIn: React.FC = () => {
       }
 
       const data = await response.json();
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Ritardo per l'esperienza utente
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const authToken =
         Cookies.get("authToken") || localStorage.getItem("authToken");
@@ -96,7 +101,7 @@ const SignIn: React.FC = () => {
       <Navbar />
       <div className={`${stylesHeader.headerContainer}`}>
         <div className={stylesForm.loginHeader}>
-          <Image src={logo} alt="Logo" width={150} className={stylesForm.logo}/>
+          <Image src={logo} alt="Logo" width={150} className={stylesForm.logo} />
           <h2 data-id="title" className={stylesHeader.title}>
             Effettua l&#39;accesso
           </h2>
@@ -106,7 +111,7 @@ const SignIn: React.FC = () => {
           className={stylesForm.formLogin}
           data-id="signInForm"
         >
-          <div className={stylesForm.formGroup}>
+          <div className={stylesForm.formContainer}>
             <InputField
               id="username"
               dataid="username"

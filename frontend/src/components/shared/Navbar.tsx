@@ -194,7 +194,7 @@ const Navbar: React.FC = () => {
             <div className={stylesNavbar.dropdownArrow}></div>
             {dropdownOptions.map((option, index) => (
               <div key={index} className={stylesNavbar.drop}>
-                <button className={stylesNavbar.dropdownButton}>
+                <button className={`${stylesNavbar.dropdownButton} ${wendyOne.className}`}>
                   <Link
                     className={stylesNavbar.dropdownLinks}
                     href={option.href}

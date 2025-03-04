@@ -63,7 +63,7 @@ function AddHomeImg() {
 				</h2>
 			</div>
 			<form onSubmit={handleSubmit} className={stylesForm.formLogin}>
-				<div className={stylesForm.formGroup}>
+				<div className={stylesForm.formContainer}>
 					<InputField
 						id="title"
 						dataid="title-input"

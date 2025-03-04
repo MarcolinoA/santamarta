@@ -4,17 +4,17 @@ import Link from "next/link";
 import style from "../../Styles/Form.module.css";
 
 interface FormFooterProps {
-	message: string | null;
-	loading: boolean;
-	btnDataId: string;
-	btnLoadingText: string;
-	btnText: string;
-	hrefLink: string;
-	linkText: string;
-	hrefLink2: string;
-	linkText2: string;
-	hrefLink3: string;
-	linkText3: string;
+  message: string | null;
+  loading: boolean;
+  btnDataId: string;
+  btnLoadingText: string;
+  btnText: string;
+  hrefLink: string;
+  linkText: string;
+  hrefLink2?: string;
+  linkText2?: string;
+  hrefLink3?: string;
+  linkText3?: string;
 }
 
 const FormFooter: React.FC<FormFooterProps> = ({
@@ -32,12 +32,6 @@ const FormFooter: React.FC<FormFooterProps> = ({
 }) => {
 	return (
 		<div className={style.formFooterContainer}>
-			{message && (
-				<p className={style.errorMessage} data-id="error-message">
-					<span>{message}</span>
-				</p>
-			)}
-
 			<button
 				data-id={btnDataId}
 				type="submit"
@@ -46,35 +40,47 @@ const FormFooter: React.FC<FormFooterProps> = ({
 			>
 				{loading ? btnLoadingText : btnText}
 			</button>
+			{message && (
+				<p className={style.error} data-id="error-message">
+					<span>{message}</span>
+				</p>
+			)}
 			<div className={style.messagesContainer}>
-				<div>
-					<Link
-						data-id="textLink"
-						href={hrefLink}
-						className={style.errorMessage}
-					>
-						{linkText}
-					</Link>
-				</div>
-				<div>
-					<Link
-						data-id="textLink2"
-						href={hrefLink2}
-						className={style.errorMessage}
-					>
-						{linkText2}
-					</Link>
-				</div>
-				<div>
-					<Link
-						data-id="textLink3"
-						href={hrefLink3}
-						className={style.errorMessage}
-					>
-						{linkText3}
-					</Link>
-				</div>
-			</div>
+  {hrefLink && linkText && (
+    <div>
+      <Link
+        data-id="textLink"
+        href={hrefLink}
+        className={style.errorMessage}
+      >
+        {linkText}
+      </Link>
+    </div>
+  )}
+  {hrefLink2 && linkText2 && (
+    <div>
+      <Link
+        data-id="textLink2"
+        href={hrefLink2}
+        className={style.errorMessage}
+      >
+        {linkText2}
+      </Link>
+    </div>
+  )}
+  {hrefLink3 && linkText3 && (
+    <div>
+      <Link
+        data-id="textLink3"
+        href={hrefLink3}
+        className={style.errorMessage}
+      >
+        {linkText3}
+      </Link>
+    </div>
+  )}
+</div>
+
 		</div>
 	);
 };
